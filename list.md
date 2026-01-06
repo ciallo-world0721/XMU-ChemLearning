@@ -26,11 +26,13 @@ XMU-ChemLearning/
     │  ├─习题和答案
     │  ├─往年试卷
     │  └─考试用材料
+    ├─合成化学I
+    │  ├─作业
+    │  └─课件
     ├─大物实验报告
     │  ├─attachments
     │  ├─docx
     │  └─markdown
     └─自然科学中的数学III
         └─试卷
-
 ```
