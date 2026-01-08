@@ -1,0 +1,670 @@
+\documentclass[a4paper,6pt]{article} % 移除了twocolumn, 将字体减小到6pt
+
+%------------------------------------------------
+% 宏包设置 (Packages)
+%------------------------------------------------
+\usepackage{xeCJK}                    % XeLaTeX 中文支持
+\usepackage{amsmath, amssymb}         % AMS 数学公式
+\usepackage[
+    a4paper,
+    top=0.5cm,      % 边距进一步压缩
+    bottom=0.5cm,
+    left=0.5cm,
+    right=0.5cm
+]{geometry}                           % 极限压缩的页面边距
+\usepackage{multicol}                 % 用于实现多栏布局
+\usepackage{titlesec}                 % 章节标题样式微调
+\usepackage{setspace}                 % 用于调整行距
+\usepackage{enumitem}                 % 列表环境微调
+
+%------------------------------------------------
+% 字体设置 (Fonts)
+%------------------------------------------------
+% *** 重要：请根据您的操作系统选择或修改字体 ***
+% Windows: "SimSun" (宋体), "SimHei" (黑体)
+\setCJKmainfont[BoldFont = SimHei, ItalicFont = KaiTi]{SimSun}
+% macOS: "PingFang SC"
+% \setCJKmainfont{PingFang SC}
+% Linux: "Noto Serif CJK SC"
+% \setCJKmainfont{Noto Serif CJK SC}
+
+%------------------------------------------------
+% 格式定义 (Format Definitions) - 极限精调
+%------------------------------------------------
+% 全局字体大小与行距 (使用6pt字体)
+\renewcommand{\normalsize}{\fontsize{7.2pt}{7.2pt}\selectfont}
+\linespread{0.78} % 极限压缩行距
+
+% 极度紧凑的章节标题格式
+\titlespacing*{\section}{0pt}{1.2ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{0.8ex}{0.2ex}
+\titleformat*{\section}{\large\bfseries\centering}
+\titleformat*{\subsection}{\normalsize\bfseries}
+
+% 极度紧凑的列表环境格式
+\setlist[itemize]{
+    nosep, 
+    leftmargin=*, 
+    label=\textbullet, 
+    topsep=0.1ex, 
+    partopsep=0pt, 
+    itemsep=0.1ex, 
+    parsep=0pt
+}
+
+% 段落格式：无缩进，段间距微调
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.2ex}
+
+% 设置栏间距 (三栏时需更窄)
+\setlength{\columnsep}{8pt}
+
+% 避免 LaTeX 拉伸垂直间距以填满页面
+\raggedbottom
+
+%------------------------------------------------
+% 文档开始
+%------------------------------------------------
+\begin{document}
+\pagestyle{empty} % 不显示页码
+
+\begin{multicols}{3}
+
+\section*{第一部分：相平衡与相图}
+\subsection*{一、 核心概念与判据}
+\textbf{相 (P)}
+\begin{itemize}
+    \item \textbf{定义：}系统中物理性质和化学性质完全均匀的部分。
+    \item \textbf{相的判断：}
+    \begin{itemize}
+        \item \textbf{气体：}任意气体（或混合气体）总是一个相。
+        \item \textbf{液体：}完全互溶的液体是一个相；不互溶的液体有几个不互溶层就有几个相（如油和水是两个相）。
+        \item \textbf{固体：}每种晶型的固体都是一个独立的相（如白磷和黑磷是两个固相）。固溶体或合金是一个相。
+    \end{itemize}
+\end{itemize}
+
+\textbf{组分 (C)}
+\begin{itemize}
+    \item \textbf{定义：}足以表示系统中所有各相组成所需的最少独立物种数。
+    \item \textbf{计算公式：}$C = S - R - R'$
+    \item \textbf{S：}系统中总的物种数目。
+    \item \textbf{R：}系统中的独立化学平衡关系式数目。
+    \item \textbf{R'：}除化学平衡外的其它独立浓度限制条件（如因来源相同导致的浓度比例固定、电中性原理等）。若题目中出现“任意量混合”，则通常不存在R'。
+\end{itemize}
+
+\textbf{自由度 (F)}
+\begin{itemize}
+    \item \textbf{定义：}在不改变系统相数的条件下，可以独立改变的强度变量（如温度T、压力p、浓度x）的数目。
+    \item \textbf{F=0：}系统状态固定（例如，三相点）。
+    \item \textbf{F=1：}一个变量可变（例如，两相平衡时，压力和温度只有一个能独立变化）。
+    \item \textbf{F=2：}两个变量可独立改变（例如，单相区，压力和温度都可独立改变）。
+\end{itemize}
+
+\textbf{化学势 ($\mu$)}
+\begin{itemize}
+    \item \textbf{偏微分定义：} $\mu_B = \left(\frac{\partial G}{\partial n_B}\right)_{T,p,n_C (C\neq B)}$
+    \item \textbf{本质：}偏摩尔吉布斯自由能，是物质发生相变或化学变化的推动力。
+    \item \textbf{相平衡判据：}在等温等压下，一个多相体系达到平衡的标志是：任一物质在所有相中的化学势均相等。
+    \item \textbf{公式表达：} $\mu_i(\alpha) = \mu_i(\beta) = \mu_i(\gamma) \dots$ (物质 i 在 $\alpha, \beta, \gamma$ 各相中的化学势相等)
+    \item \textbf{自发过程方向：}物质总是自发地从化学势高的相转移到化学势低的相。
+\end{itemize}
+
+\subsection*{二、 核心定律与方程}
+\textbf{吉布斯相律}
+\begin{itemize}
+    \item \textbf{公式：}$F = C - P + 2$
+    \item \textbf{适用条件：}只受温度、压力影响的平衡系统。
+    \item \textbf{说明：}+2 代表温度(T)和压力(p)两个强度变量。如果题目固定了某个变量（如恒压、恒温），则实际的自由度需要在此基础上减去1。例如，在标准压力下，相律变为 $F' = C - P + 1$。
+\end{itemize}
+
+\textbf{克拉佩龙方程}
+\begin{itemize}
+    \item \textbf{等价形式：} $\frac{dp}{dT} = \frac{\Delta_{\text{trs}}S}{\Delta_{\text{trs}}V}$ (其中$\Delta S = \Delta H/T$)
+    \item \textbf{固-液平衡近似式：} $p \approx p^* + \frac{\Delta_{\text{fus}}H}{T^* \cdot \Delta_{\text{fus}}V} \cdot (T - T^*)$
+    \item \textbf{适用条件：} 用于估算当温度T与熔点T*相差不大时，压力p随温度的线性变化。
+    \item \textbf{形式：}$\frac{dp}{dT} = \frac{\Delta_{\text{trs}}H}{T \cdot \Delta_{\text{trs}}V}$
+    \item \textbf{描述：}精确描述两相平衡线上，压力随温度的变化率，即相界线的斜率。
+    \item \textbf{应用：}根据相界线斜率($dp/dT$)的正负，和相变焓($\Delta H$)的正负，可以判断相变体积变化($\Delta V$)的正负，从而比较两相的摩尔体积或密度大小。
+    \item \textbf{应用示例：}在碳相图中，石墨-金刚石平衡线的斜率为正。已知石墨转变为金刚石是放热过程 ($\Delta H < 0$)，由于T恒为正，要使 $dp/dT$ 为正，则相变体积变化 $\Delta V$ 必须为负，即 V(金刚石) < V(石墨)。
+\end{itemize}
+
+\textbf{克劳修斯-克拉佩龙方程}
+\begin{itemize}
+    \item \textbf{适用条件：}固-气平衡和液-气平衡。
+    \item \textbf{核心假设：}1) 气相为理想气体；2) 凝聚相（固/液）的体积远小于气相体积，可忽略。
+    \item \textbf{微分形式：}$\frac{d(\ln p)}{dT} = \frac{\Delta_{\text{vap}}H}{R \cdot T^2}$
+    \item \textbf{用途：}如果已知蒸气压p随温度T的函数关系，对其求导即可求出任意温度下的摩尔蒸发焓 $\Delta_{\text{vap}}H$。
+    \item \textbf{不定积分形式:} $\ln p = - \frac{\Delta_{\text{vap}}H}{RT} + C$
+    \item \textbf{定积分形式：}$\ln\left(\frac{p_2}{p_1}\right) = - \frac{\Delta H}{R} \left(\frac{1}{T_2} - \frac{1}{T_1}\right)$ 或 $\ln\left(\frac{p_2}{p_1}\right) = \frac{\Delta H}{R} \left(\frac{1}{T_1} - \frac{1}{T_2}\right)$
+    \item \textbf{用途：}已知某温度$T_1$下的蒸气压$p_1$和相变焓$\Delta H$（可以是蒸发焓或升华焓），可计算另一温度$T_2$下的蒸气压$p_2$；或已知两个温度下的蒸气压，求相变焓。
+\end{itemize}
+
+\textbf{三相点焓关系}
+\begin{itemize}
+    \item \textbf{关系：}升华过程可看作熔化和汽化的叠加。
+    \item \textbf{公式：}$\Delta_{\text{sub}}H = \Delta_{\text{fus}}H + \Delta_{\text{vap}}H$
+    \item $\Delta_{\text{sub}}H$: 摩尔升华焓
+    \item $\Delta_{\text{fus}}H$: 摩尔熔化焓
+    \item $\Delta_{\text{vap}}H$: 摩尔蒸发焓
+\end{itemize}
+
+\textbf{特鲁顿规则}
+\begin{itemize}
+    \item \textbf{公式：}$\Delta_{\text{vap}}H_m / T_b \approx 88 \text{ J}\cdot\text{mol}^{-1}\cdot\text{K}^{-1}$
+    \item \textbf{用途：}用于估算非极性、不缔合的液体在正常沸点($T_b$)下的摩尔蒸发焓。
+\end{itemize}
+
+\textbf{外压对蒸气压的影响 (Poynting公式)}
+\begin{itemize}
+    \item \textbf{描述：}向液体上施加惰性气体压力($\Delta P$)时，液体自身的饱和蒸气压($p^*$)会略微升高至($p$)。
+    \item \textbf{公式：}$\ln(p / p^*) = V_m(l) \cdot \Delta P / (RT)$
+    \item \textbf{$p^*$：}纯液体自身的饱和蒸气压。
+    \item \textbf{$p$：}有惰性气体存在时的饱和蒸气压。
+    \item \textbf{$V_m(l)$：}液体的摩尔体积，可通过 $V_m(l) = M / \rho$ 计算。
+    \item \textbf{$\Delta P$：}施加的惰性气体压力，$\Delta P = P_{\text{总}} - p^*$。
+\end{itemize}
+
+\subsection*{三、 相图解读}
+\textbf{单组分相图}
+\begin{itemize}
+\item 区域、线、三相点、临界点：（内容同原版）
+\item 常见物质相图特征：（内容同原版）
+\end{itemize}
+\textbf{二组分气-液相图}
+\begin{itemize}
+\item 相律应用、p-x-y图、非理想溶液与恒沸物、精馏行为：（内容同原版）
+\end{itemize}
+\textbf{二组分固-液相图}
+\begin{itemize}
+\item 步冷曲线解读、绘制相图、低共熔点、相合熔化化合物、确定化学式、杠杆规则：（内容同原版）
+\end{itemize}
+
+\section*{第二部分：溶液化学}
+\subsection*{一、 基本概念与定律}
+\textbf{偏摩尔量}
+\begin{itemize}
+    \item \textbf{偏微分定义：}$Y_B = \left(\frac{\partial Y}{\partial n_B}\right)_{T,p,n_C (C\neq B)}$
+    \item \textbf{定义：}在定温定压下，向大量体系中加入1mol某物质所引起的广度性质（如V, H, G）的变化值。偏摩尔量是强度性质。
+    \item \textbf{计算方法:}
+    \begin{itemize}
+        \item \textbf{图解法 (截距法):} 作体系总摩尔量 $Y_m$ (如 $V_m$) 对组分摩尔分数 $x_B$ 的曲线。在曲线上任取一点作切线，切线在 $x_B=0$ 和 $x_B=1$ 处的截距即为该组成下两组分的偏摩尔量 $Y_A$ 和 $Y_B$。
+        \item \textbf{解析法:} 若已知 $Y_m = f(x_B)$，则 $Y_B = Y_m + x_A \cdot (dY_m/dx_B)$ 且 $Y_A = Y_m - x_B \cdot (dY_m/dx_B)$。
+    \end{itemize}
+\end{itemize}
+
+\textbf{化学势与活度}
+\begin{itemize}
+    \item \textbf{化学势表达式 (汇总)：}
+    \begin{itemize}
+        \item \textbf{理想气体：}$\mu_i(g) = \mu_i^\theta(g) + RT \ln(p_i/p^\theta)$
+        \item \textbf{真实气体：}$\mu_i(g) = \mu_i^\theta(g) + RT \ln(f_i/p^\theta)$，逸度$f_i = \phi_i \cdot p_i$ ($\phi_i$为逸度系数)。
+        \item \textbf{理想溶液：}$\mu_i(l) = \mu_i^*(l) + RT \ln(x_i)$ ($\mu_i^*$是纯组分i的化学势)。
+        \item \textbf{真实溶液：}$\mu_i(l) = \mu_i^*(l) + RT \ln(a_i)$ ($a_i$是组分i的活度)。
+    \end{itemize}
+    \item \textbf{活度 (a) 与活度系数 ($\gamma$)：}
+    \begin{itemize}
+        \item \textbf{定义：}活度是摩尔分数的修正，$a_i = \gamma_i \cdot x_i$。活度系数 $\gamma_i$ 衡量真实溶液与理想溶液的偏差。理想溶液中 $\gamma_i = 1$。
+    \end{itemize}
+    \item \textbf{活度计算 (基于气液平衡)：}
+    \begin{itemize}
+        \item \textbf{基于拉乌尔定律 (作溶剂)：}$a_A = p_A / p_A^*$，$\gamma_A = a_A / x_A$
+        \item \textbf{基于亨利定律 (作溶质)：}$a_B = p_B / K_B$，$\gamma_B = a_B / x_B$
+    \end{itemize}
+    \item \textbf{解题关键：}同一物质可按溶剂或溶质处理，需看清题目要求基于哪个定律计算，因参考标准($p_A^*$ 和 $K_B$)不同，结果也不同。
+\end{itemize}
+
+\textbf{拉乌尔定律}
+\begin{itemize}
+    \item \textbf{内容：}理想溶液中，或实际稀溶液中的溶剂，其蒸气分压等于纯溶剂的饱和蒸气压乘以其在溶液中的摩尔分数。
+    \item \textbf{公式：}$p_A = p_A^* \cdot x_A$
+\end{itemize}
+
+\textbf{亨利定律}
+\begin{itemize}
+    \item \textbf{内容：}在稀溶液中，溶质的蒸气分压与其在溶液中的浓度成正比。
+    \item \textbf{公式 (用摩尔分数表示)：}$p_B = K_B \cdot x_B$ ($K_B$为亨利常数)。
+\end{itemize}
+
+\textbf{吉布斯-杜亥姆方程}
+\begin{itemize}
+    \item \textbf{本质:} 体系中各组分化学势的变化不是相互独立的，而是彼此关联。
+    \item \textbf{基本形式 (定温定压下):} $\sum n_i d\mu_i = 0$ 或 $\sum x_i d\mu_i = 0$
+    \item \textbf{应用推论:} 可证明活度、活度系数、饱和蒸汽压等均满足吉布斯-杜亥姆关系。
+    \item \textbf{由一个组分的活度系数计算另一个:} 在二元溶液中，$d(\ln \gamma_A) = -(x_B / x_A) d(\ln \gamma_B)$。
+\end{itemize}
+
+\textbf{不互溶体系的蒸汽蒸馏}
+\begin{itemize}
+    \item \textbf{原理：}两种互不相溶的液体（或一固一液），其混合物的总蒸气压等于该温度下两种纯组分饱和蒸气压之和。
+    \item \textbf{沸腾条件:} $P_{\text{总}} = p_A^* + p_B^*$。当 $P_{\text{总}}$ 等于外界大气压时，混合物开始沸腾。
+    \item \textbf{馏出物组成:} 气相中两组分的物质的量之比等于其饱和蒸气压之比。$n_A / n_B = p_A^* / p_B^*$。
+\end{itemize}
+
+\subsection*{二、 溶液的热力学函数与模型}
+\textbf{混合性质 (热力学函数)}
+\begin{itemize}
+    \item \textbf{混合吉布斯自由能 ($\Delta_{\text{mix}}G$):}
+    \begin{itemize}
+        \item \textbf{理想溶液:} $\Delta_{\text{mix}}G(\text{ideal}) = nRT \sum x_i \ln x_i$
+        \item \textbf{真实溶液:} $\Delta_{\text{mix}}G(\text{real}) = nRT \sum x_i \ln a_i$
+        \item \textbf{自发性判断:} 若 $\Delta_{\text{mix}}G < 0$，则混合过程是自发的。
+    \end{itemize}
+    \item \textbf{混合焓 ($\Delta_{\text{mix}}H$):} $\Delta_{\text{mix}}H = H(\text{溶液}) - \sum H_i^*(\text{纯})$
+    \item \textbf{混合熵 ($\Delta_{\text{mix}}S$):} $\Delta_{\text{mix}}S = S(\text{溶液}) - \sum S_i^*(\text{纯})$
+    \item \textbf{偏摩尔混合性质:}
+    \begin{itemize}
+        \item \textbf{偏摩尔混合熵:} $\Delta_{\text{mix}}S_J(\text{ideal}) = -R \cdot \ln(x_J)$
+        \item \textbf{偏摩尔混合焓:} $\Delta_{\text{mix}}H_J(\text{ideal}) = 0$
+    \end{itemize}
+\end{itemize}
+
+\textbf{超额函数与正规溶液}
+\begin{itemize}
+    \item \textbf{超额函数 (描述真实溶液偏差):}
+    \begin{itemize}
+        \item $G^E = \Delta_{\text{mix}}G(\text{real}) - \Delta_{\text{mix}}G(\text{ideal}) = RT \sum n_i \ln \gamma_i$
+        \item $H^E = \Delta_{\text{mix}}H(\text{real}) = -T^2 [\partial(G^E/T)/\partial T]_p$
+    \end{itemize}
+    \item \textbf{正规溶液模型:}
+    \begin{itemize}
+        \item \textbf{马居尔公式:} $\ln(\gamma_A) = \xi \cdot x_B^2$ ; $\ln(\gamma_B) = \xi \cdot x_A^2$
+        \item $\xi$ 是反映分子间相互作用力的参数。$\xi > 0$ 对应正偏离，$\xi < 0$ 对应负偏离。
+        \item \textbf{蒸气压:} $p_A = p_A^* \cdot x_A \cdot \exp(\xi \cdot x_B^2)$
+    \end{itemize}
+\end{itemize}
+
+\textbf{固态溶质的溶解度}
+\begin{itemize}
+    \item \textbf{平衡核心:} 饱和溶液中，溶质的活度等于纯固态溶质的活度 (通常假定为1)。
+    \item \textbf{溶解度定律:} $a_{\text{溶质}}(\text{饱和}) = \gamma_{\text{溶质}} \cdot x_{\text{溶质}}(\text{饱和}) = 1$
+    \item $x_{\text{溶质}}(\text{饱和})$ 就是该溶质以摩尔分数表示的溶解度。
+    \item \textbf{考虑温度影响的精确式：} $\ln a_A = -(\Delta_{\text{fus}}H/R) \cdot (1/T - 1/T^*)$
+    \item \textbf{适用条件：} 用于计算纯固体A在溶剂中的溶解度随温度的变化，$a_A$为溶剂活度。
+\end{itemize}
+
+\subsection*{三、 稀溶液依数性}
+\begin{itemize}
+    \item \textbf{沸点升高:} $\Delta T_b = i \cdot K_b \cdot b_B$ ($K_b$为沸点升高常数, $b_B$为质量摩尔浓度)
+    \item \textbf{凝固点降低:} $\Delta T_f = i \cdot K_f \cdot b_B$ ($K_f$为凝固点降低常数)
+    \item \textbf{渗透压:} $\Pi = i \cdot [B] RT$ (范特霍夫公式, $[B]$为物质的量浓度)
+    \item \textbf{热力学推导形式:}
+    \begin{itemize}
+        \item \textbf{沸点升高:} $\Delta T_b \approx (RT_b^{*2}/\Delta_{\text{vap}}H) x_B$
+        \item \textbf{凝固点降低:} $\Delta T_f \approx (RT_f^{*2}/\Delta_{\text{fus}}H) x_B$
+    \end{itemize}
+    \item \textbf{说明：}i为范特霍夫因子。
+\end{itemize}
+
+\subsection*{四、 电解质溶液的活度与D-H理论}
+\textbf{平均离子活度与活度系数}
+\begin{itemize}
+    \item \textbf{定义：}对于电解质 $M_{\nu_+}X_{\nu_-}$，其实验可测的是平均性质。其平均离子活度 $a_{\pm}$ 和平均离子活度系数 $\gamma_{\pm}$ 定义为：
+    \begin{itemize}
+        \item $a_\pm = (a_+^{\nu_+} \cdot a_-^{\nu_-})^{1/\nu}$ (其中 $\nu = \nu_+ + \nu_-$)
+        \item $\gamma_\pm = (\gamma_+^{\nu_+} \cdot \gamma_-^{\nu_-})^{1/\nu}$
+    \end{itemize}
+    \item \textbf{关系：}$a_\pm = \gamma_\pm \cdot b_\pm / b^\theta$ ($b_\pm$ 为平均质量摩尔浓度, $b^\theta = 1 \text{ mol/kg}$)
+\end{itemize}
+
+\textbf{离子强度 (I)：}衡量溶液中总离子浓度。
+\begin{itemize}
+    \item \textbf{通用公式：}$I = \frac{1}{2} \sum(b_i \cdot z_i^2)$ ($b_i$是质量摩尔浓度, $z_i$是电荷数)。
+    \item \textbf{计算捷径 (设电解质浓度为b)：}
+    \begin{itemize}
+        \item \textbf{1-1型 (如KCl):} $I = b$
+        \item \textbf{1-2或2-1型 (如CaCl$_2$):} $I = 3b$
+        \item \textbf{2-2型 (如MgSO$_4$):} $I = 4b$
+        \item \textbf{1-3或3-1型 (如LaCl$_3$):} $I = 6b$
+    \end{itemize}
+\end{itemize}
+
+\textbf{德拜-休克尔理论}
+\begin{itemize}
+    \item \textbf{极限定律：} 用于计算极稀溶液的平均活度系数 $\gamma_\pm$。
+    \item \textbf{适用条件：}离子强度 $I < 0.01$。
+    \item \textbf{核心公式：}$\lg(\gamma_\pm) = -A \cdot |z_+ \cdot z_-| \cdot I^{1/2}$
+    \item 对于25℃的水溶液，常数 $A \approx 0.509$。
+    \item \textbf{扩展德拜-休克尔定律：} $\lg(\gamma_\pm) = -A|z_+z_-|\sqrt{I} / (1 + Bå\sqrt{I})$ ($å$为离子有效直径)
+    \item \textbf{戴维斯方程 (更普适的经验扩展)：} $\lg\gamma_\pm = -A|z_+z_-|\cdot[\sqrt{I} / (1+\sqrt{I})] + C\cdot I$
+    \item \textbf{物理图像:} 德拜-休克尔理论的核心是“离子氛”模型。溶液中，每个中心离子都被一层带相反电荷的离子云（离子氛）所包围，这种静电屏蔽作用使得离子的有效作用减弱，其表观浓度（活度）降低，因此活度系数小于1。
+\end{itemize}
+
+\section*{第三部分：化学动力学}
+\subsection*{一、 核心概念与速率方程}
+
+\textbf{速率方程}
+\begin{itemize}
+    \item \textbf{形式：}$r = k [A]^m [B]^n \dots$
+    \item \textbf{k：}速率常数。其值与浓度无关，但受温度、催化剂影响。单位随反应总级数变化。
+    \item \textbf{m, n：}分别为物质A和B的反应级数，由实验测定，通常不等于化学计量系数 a, b。
+\end{itemize}
+
+\textbf{积分动力学方程}
+\begin{itemize}
+    \item \textbf{零级反应}
+    \begin{itemize}
+        \item \textbf{积分形式:} $[A]_0 - [A] = kt$
+        \item \textbf{半衰期:} $t_{1/2} = [A]_0 / (2k)$
+        \item \textbf{线性关系:} $[A]$ 对 t 作图为直线。
+    \end{itemize}
+    \item \textbf{一级反应}
+    \begin{itemize}
+        \item \textbf{积分形式:} $\ln([A]_0 / [A]) = kt$ 或 $[A] = [A]_0e^{-kt}$
+        \item \textbf{半衰期:} $t_{1/2} = \ln(2) / k$ (是常数)
+        \item \textbf{线性关系:} $\ln[A]$ 对 t 作图为直线。
+    \end{itemize}
+    \item \textbf{二级反应}
+    \begin{itemize}
+        \item \textbf{类型一 (2A $\to$ P 或 A+B$\to$P 且 $[A]_0=[B]_0$):}
+        \begin{itemize}
+            \item \textbf{积分形式:} $1/[A] - 1/[A]_0 = kt$
+            \item \textbf{半衰期:} $t_{1/2} = 1 / (k[A]_0)$
+            \item \textbf{线性关系:} $1/[A]$ 对 t 作图为直线。
+        \end{itemize}
+        \item \textbf{类型二 (A+B$\to$P 且 $[A]_0\neq[B]_0$):}
+        \begin{itemize}
+            \item \textbf{积分形式:} $\frac{1}{[B]_0-[A]_0} \ln\left( \frac{[B][A]_0}{[A][B]_0} \right) = kt$
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\textbf{准一级反应}
+\begin{itemize}
+    \item \textbf{条件：}当一个二级或更高级反应中，某个反应物浓度远大于其他反应物时，其浓度可视为不变。
+    \item \textbf{简化：}速率方程 $r = k[A][B]$，若 $[B]$ 恒定，可简化为 $r = k'[A]$，其中 $k' = k[B]$。
+\end{itemize}
+
+\subsection*{二、 温度对速率的影响与反应热}
+\textbf{阿伦尼乌斯方程}
+\begin{itemize}
+    \item \textbf{指数形式:} $k = A \cdot \exp(-E_a / RT)$
+    \item \textbf{$E_a$:} 实验活化能，反应越过能垒所需的最低能量。
+    \item \textbf{A:} 指前因子，与碰撞频率和取向有关。
+    \item \textbf{对数形式 (用于作图):} $\ln(k) = \ln(A) - E_a / (RT)$
+    \item $\ln(k)$ 对 $1/T$ 作图，斜率 = $-E_a/R$，截距 = $\ln(A)$。
+    \item \textbf{两点计算式:} $\ln(k_2/k_1) = (E_a/R) \cdot (1/T_1 - 1/T_2)$
+    \item \textbf{活化能的严格定义:} $E_a = RT^2 \cdot (d(\ln k) / dT)$
+    \item \textbf{推论:} 如果速率常数 k 的表达式为 $k = C \cdot T^n \cdot \exp(-E_0 / RT)$，则活化能 $E_a = E_0 + nRT$。
+\end{itemize}
+
+\textbf{热力学与活化能的关联}
+\begin{itemize}
+    \item \textbf{反应热与活化能:} $\Delta_r H = E_{a,\text{正}} - E_{a,\text{逆}}$
+    \item \textbf{气相反应热与反应内能:} $\Delta_r H = \Delta_r U + \Delta\nu(g)RT$
+    \item $\Delta\nu(g)$ 是气态产物与反应物化学计量系数之差。
+\end{itemize}
+
+\subsection*{三、 反应机理与核心理论}
+\textbf{可逆反应与化学平衡}
+\begin{itemize}
+    \item \textbf{平衡常数与速率常数 (基元反应):} $K_c = k_{\text{正}} / k_{\text{逆}}$
+    \item \textbf{可逆反应的微分速率方程:}
+    \begin{itemize}
+        \item 净速率 = 正向速率 - 逆向速率。
+        \item 例如，对于A $\rightleftharpoons$ B一级对一级可逆反应: $d[A]/dt = -k_f[A] + k_r[B]$
+    \end{itemize}
+    \item \textbf{可逆反应积分形式 (A $\rightleftharpoons$ B):} $[A] - [A]_{\text{eq}} = ([A]_0 - [A]_{\text{eq}}) \exp[-(k_f + k_r)t]$
+    \item \textbf{弛豫时间:} $\tau = 1/(k_f + k_r)$。用于研究快反应，通过温度跃迁等方法使平衡受扰动，测量其回到新平衡的时间。
+\end{itemize}
+
+\textbf{复杂反应近似处理方法}
+\begin{itemize}
+    \item \textbf{稳态近似法:}
+    \begin{itemize}
+        \item \textbf{核心思想:} 对于一个高活性、低浓度的中间体(I)，其净生成速率为零。$d[I]/dt \approx 0$。
+        \item \textbf{适用条件:} 中间体非常活泼，一旦生成就迅速反应掉。
+    \end{itemize}
+    \item \textbf{准平衡假设法:}
+    \begin{itemize}
+        \item \textbf{核心思想:} 在连续反应中，如果某一步快速可逆反应的速率远大于后续慢步骤，则该快反应近似达到平衡。
+        \item \textbf{适用条件:} $k_{\text{快,正}}$ 和 $k_{\text{快,逆}} \gg k_{\text{慢}}$。
+    \end{itemize}
+\end{itemize}
+
+\textbf{平行反应}
+\begin{itemize}
+    \item \textbf{总速率:} 反应物消耗速率是各平行反应速率之和。例如 $d[A]/dt = - (k_1 + k_2)[A]$。
+    \item \textbf{产物比例:} 任意时刻，产物浓度之比等于其速率常数之比。$[B] / [C] = k_1 / k_2$。
+\end{itemize}
+
+\textbf{链反应}
+\begin{itemize}
+    \item \textbf{关键阶段:} 链引发、链传递、链终止。
+    \item \textbf{分析方法:} 对所有自由基中间体（链载体）应用稳态近似法处理。
+    \item \textbf{链长($\nu$):} $\nu = (\text{链传递总速率}) / (\text{链引发速率})$
+    \item \textbf{自由基直链反应实例 (HBr合成):} $d[\text{HBr}]/dt = (k_a[\text{H}_2][\text{Br}_2]^{1/2}) / (1 + k_b[\text{HBr}]/[\text{Br}_2])$
+\end{itemize}
+
+\textbf{简单碰撞理论 (SCT)}
+\begin{itemize}
+    \item \textbf{核心思想:} 反应速率 = (总碰撞频率) $\times$ (能量足够分数) $\times$ (取向合适分数)。
+    \item \textbf{理论速率常数:} $k_2 = 10^3 N_A P \sigma \sqrt{8k_B T/\pi\mu} \exp(-E_c/RT)$
+    \item P: 取向因子，$\sigma$: 碰撞截面, $\mu$: 约化质量, $E_c$: 阈能。
+    \item \textbf{活化能与阈能关系:} $E_a = E_c + \frac{1}{2}RT$
+\end{itemize}
+
+\textbf{过渡态理论 (TST)}
+\begin{itemize}
+    \item \textbf{理论核心：} 反应物首先形成一个高能量、不稳定的“活化络合物”（或称过渡态），然后分解为产物。反应速率由反应物系越过这个能垒的频率决定。反应物 $\rightleftharpoons$ 活化络合物 $\to$ 产物
+    \item \textbf{Eyring方程 (气相形式):} $k = \kappa \frac{k_B T}{h} \frac{RT}{p^\circ} K^\ddagger$
+    \item $\kappa$: 透射系数 (通常为1)，$K^\ddagger$: 过渡态与反应物之间的标准平衡常数。
+    \item \textbf{艾林方程 (热力学参数形式):} $k = \kappa \cdot \frac{k_B T}{h} \cdot \exp(\Delta_r S^\ddagger / R) \cdot \exp(-\Delta_r H^\ddagger / RT)$
+    \item $\Delta_r H^\ddagger$: 活化焓；$\Delta_r S^\ddagger$: 活化熵。
+    \item \textbf{实验活化能$E_a$与活化焓$\Delta_r H^\ddagger$的关系:}
+    \begin{itemize}
+        \item \textbf{溶液相反应:} $E_a = \Delta_r H^\ddagger + RT$
+        \item \textbf{气相单分子反应:} $E_a = \Delta_r H^\ddagger + RT$
+        \item \textbf{气相双分子反应:} $E_a = \Delta_r H^\ddagger + 2RT$
+    \end{itemize}
+    \item \textbf{活化熵$\Delta_r S^\ddagger$的物理意义:} 反映从反应物到过渡态的“有序度”变化。
+    \begin{itemize}
+        \item $\Delta_r S^\ddagger < 0$ (熵减): 过渡态比反应物更“有序”，结构更紧凑。例如两个分子结合成一个过渡态。这会导致指前因子A减小。
+        \item $\Delta_r S^\ddagger > 0$ (熵增): 过渡态比反应物更“无序”，结构更松散。例如一个大分子断裂成两个碎片的过渡态。这会导致指前因子A增大。
+    \end{itemize}
+    \item \textbf{活化熵的溶剂效应：}
+    \begin{itemize}
+        \item \textbf{非极性反应物生成极性过渡态：} 在极性溶剂中，溶剂分子会对极性过渡态产生强烈的溶剂化（电致伸缩），使其周围的溶剂分子排列得更“有序”，导致$\Delta_r S^\ddagger$显著为负，反应速率降低。
+        \item \textbf{极性反应物生成非极性/弱极性过渡态：} 在极性溶剂中，反应物被强烈溶剂化，而过渡态的溶剂化较弱。从反应物到过渡态是“去溶剂化”的过程，溶剂分子变得更自由，导致$\Delta_r S^\ddagger$为正，反应速率加快。
+    \end{itemize}
+    \item \textbf{艾林图:} $\ln(k/T)$ 对 $1/T$ 作图为直线，斜率 = $-\Delta_r H^\ddagger/R$，截距可求 $\Delta_r S^\ddagger$。
+    \item \textbf{哈蒙德假说:} 过渡态的结构与和它能量更接近的物种（反应物或产物）相似。对于放热反应，过渡态更像反应物；对于吸热反应，过渡态更像产物。
+\end{itemize}
+
+\textbf{活化能的详细构成 (文字化图解):}
+\begin{itemize}
+    \item 过渡态理论从统计热力学角度，将宏观的活化焓$\Delta H^\ddagger$分解为微观能量项的总和。其核心思想是，从反应物基态到活化络合物的能量升高，由以下几部分构成：
+    \item \textbf{量子能垒 ($\Delta E_0^\ddagger$):} 这是在绝对零度(0K)时，反应物与活化络合物的能量差，它已经考虑了零点振动能(ZPE)的贡献。
+    \[ \Delta E_0^\ddagger = V_B + \left( \sum \frac{1}{2}h\nu_i^\ddagger - \sum \frac{1}{2}h\nu_i \right) \]
+    $V_B$是经典势能垒（不考虑ZPE），$\sum \frac{1}{2}h\nu_i$是反应物总零点能，$\sum \frac{1}{2}h\nu_i^\ddagger$是活化络合物总零点能。
+    \item \textbf{热容贡献 ($\int \Delta C_v^\ddagger dT$):} 当温度从0K升高到T时，反应物和活化络合物都会吸收热量，这部分能量差由它们的热容差$\Delta C_v^\ddagger = C_v^\ddagger - C_v$在0-T区间的积分贡献。
+    \item \textbf{pV功贡献 ($\Delta(pV)^\ddagger$):} 形成活化络合物所伴随的体积功变化。对于理想气体，$\Delta(pV)^\ddagger = \Delta n^\ddagger RT$，其中$\Delta n^\ddagger$是（活化络合物摩尔数 - 反应物摩尔数）。
+    \item \textbf{能量关系总结:}
+    \begin{itemize}
+        \item \textbf{活化内能 ($\Delta E^\ddagger$):} $\Delta E^\ddagger = \Delta E_0^\ddagger + \int(C_v^\ddagger - C_v)dT$
+        \item \textbf{活化焓 ($\Delta H^\ddagger$):} $\Delta H^\ddagger = \Delta E^\ddagger + \Delta(pV)^\ddagger$
+    \end{itemize}
+\end{itemize}
+
+\textbf{溶液中反应的特殊性}
+\begin{itemize}
+    \item \textbf{笼蔽效应：} 溶剂分子形成“笼子”，影响反应物碰撞。
+    \item \textbf{扩散控制反应 (快反应)：} $k_D \approx 8RT / (3\eta)$ ($\eta$为溶剂黏度)。用于估算反应速率的上限。
+\end{itemize}
+
+\textbf{动力学盐效应 (离子反应):}
+\begin{itemize}
+    \item \textbf{公式：} $\lg(k/k_0) = 2A z_A z_B \sqrt{I}$
+    \item \textbf{物理意义：} 描述溶液离子强度对离子间反应速率的影响。若反应物离子$z_A$和$z_B$同号，增加I会增强离子氛的屏蔽，降低排斥力，使k增大；反之异号则k减小。
+\end{itemize}
+
+\textbf{动力学同位素效应 (KIE)}
+\begin{itemize}
+    \item \textbf{公式：} $k_H / k_D \approx \exp[(\Delta\text{ZPE}_D^\ddagger - \Delta\text{ZPE}_H^\ddagger)/(RT)]$
+    \item \textbf{物理意义：} 由于氘(D)比氢(H)重，含D的化学键振动频率更低，零点能(ZPE)也更低。断裂C-D键比断裂C-H键需要更多能量，因此反应更慢。KIE是判断反应机理中是否涉及特定键（通常是C-H）断裂的有力证据。
+    \item \textbf{一级KIE vs 二级KIE：}
+    \begin{itemize}
+        \item \textbf{一级KIE：} 反应的决速步骤中直接涉及H/D键的断裂或形成。通常$k_H/k_D$值较大（2-8）。
+        \item \textbf{二级KIE：} 反应中H/D键并未断裂，但其所在原子的杂化方式或周围环境发生改变。通常$k_H/k_D$值接近1（如0.7-1.5）。
+    \end{itemize}
+\end{itemize}
+
+\textbf{Marcus电子转移理论}
+\begin{itemize}
+    \item \textbf{公式：} $k_{\text{ET}} = A \exp[-(\lambda + \Delta G^\circ)^2 / (4\lambda RT)]$
+    \item \textbf{物理意义：} 描述溶液中电子转移速率。$\lambda$是重组能（包含溶剂和反应物分子结构重新排布的能量）。此理论解释了在强放热区的“反转区”现象，即当反应吉布斯自由能变$-\Delta G^\circ$过大时，反应速率反而会下降。
+\end{itemize}
+
+\textbf{催化反应}
+\begin{itemize}
+    \item \textbf{酶催化 - 米氏方程:} $v = (v_{\text{max}} \cdot [S]) / (K_M + [S])$
+    \item $K_M = (k_{-1}+ k_2) / k_1$
+    \item \textbf{林贝韦-伯克方程 (双倒数):} $1/v = (K_M / v_{\text{max}}) \cdot (1/[S]) + 1/v_{\text{max}}$
+    \item \textbf{多相催化 - L-H机理 (单分子表面反应)：}
+    \begin{itemize}
+        \item \textbf{速率方程:} $r = (k_2 \cdot K_1 \cdot p_A) / (1 + K_1 \cdot p_A)$
+        \item \textbf{高压极限 ($p_A$很大):} 反应速率与压力无关（零级），$r \approx k_2$。
+        \item \textbf{低压极限 ($p_A$很小):} 反应速率与压力成正比（一级），$r \approx (k_2 \cdot K_1) \cdot p_A$。
+    \end{itemize}
+    \item \textbf{L-H机理 (双分子表面反应)：} $r = (k K_A K_B p_A p_B) / (1 + K_A p_A + K_B p_B)^2$
+    \item \textbf{Eley-Rideal机理 (气相与吸附分子反应)：} $r = (k K_A p_A p_B) / (1 + K_A p_A)$
+\end{itemize}
+
+\section*{第四部分：电化学}
+\subsection*{一、 电化学热力学}
+\textbf{核心热力学关系 ($\Delta G$ 与 E)}
+\begin{itemize}
+    \item \textbf{可逆电池:} $\Delta_r G = -nFE$；标准状态下 $\Delta_r G^\theta = -nFE^\theta$。
+    \item \textbf{自发性判断:} 反应自发 $\Leftrightarrow \Delta_r G < 0 \Leftrightarrow E > 0$。
+    \item \textbf{化学平衡:} $\Delta_r G = 0 \Leftrightarrow E = 0$。
+    \item \textbf{电化学功 (最大非体积功):} $W'_{\text{max}} = -\Delta_r G = nFE$。
+    \item \textbf{说明：}电池对外做的最大电功等于体系吉布斯自由能的减少值。
+\end{itemize}
+
+\textbf{能斯特方程}
+\begin{itemize}
+    \item \textbf{电池电动势:} $E = E^\theta - (RT/nF) \cdot \ln(Q)$ (Q为反应商)。
+    \item \textbf{298.15 K 时:} $E = E^\theta - (0.0592\text{V} / n) \cdot \lg(Q)$。
+    \item \textbf{电极电势 (还原反应):} $\phi = \phi^\theta - (RT/zF) \cdot \ln( a(\text{Red}) / a(\text{Ox}) )$。
+\end{itemize}
+
+\textbf{电动势与热力学函数}
+\begin{itemize}
+    \item \textbf{反应熵变 ($\Delta_r S$):} $\Delta_r S = nF \cdot (\partial E/\partial T)_p$
+    \item \textbf{反应焓变 ($\Delta_r H$):} $\Delta_r H = -nFE + T\Delta_r S = nF[T(\partial E/\partial T)_p - E]$
+    \item \textbf{可逆放电热效应 ($Q_R$):} $Q_R = T\Delta_r S$。
+    \item \textbf{能量关系:} $\Delta_r H = -\Delta_r G + T\Delta_r S = W'_{\text{max}} + Q_R$。
+    \item 若 $(\partial E/\partial T)_p > 0$，$Q_R > 0$，电池可逆放电时从环境吸热。
+    \item 若 $(\partial E/\partial T)_p < 0$，$Q_R < 0$，电池可逆放电时向环境放热。
+\end{itemize}
+
+\textbf{平衡常数与溶解度的计算}
+\begin{itemize}
+    \item \textbf{化学反应平衡常数 ($K^\theta$):} $\ln(K^\theta) = nFE^\theta / RT$
+    \item \textbf{微溶盐溶度积 ($K_{\text{sp}}$):} 通过设计一个总反应为该微溶盐溶解平衡的电池，利用其标准电动势 $E^\theta$ 计算 $K_{\text{sp}}$。例如 $\phi^\theta(\text{AgCl/Ag}) = \phi^\theta(\text{Ag}^+/\text{Ag}) + (RT/F)\ln(K_{\text{sp}})$。
+\end{itemize}
+
+\textbf{电极与电池}
+\begin{itemize}
+    \item \textbf{电池书写规则:} 左负右正；|为相界面；||为盐桥；须注明物态、浓度/压力。
+    \item \textbf{电池电动势E:} $E = \phi_{\text{正极}} - \phi_{\text{负极}} = \phi_{\text{右}} - \phi_{\text{左}}$。
+    \item \textbf{液接界电势与盐桥:} 因离子扩散速率不同产生，可用含迁移数相近离子的盐桥（如饱和KCl）消除。
+    \item \textbf{离子平均活度系数$\gamma_\pm$的测定:} 设计无液接界电势的电池，测量不同浓度下的E，作图外推求得标准电势，再反求各浓度下的$\gamma_\pm$。
+    \item \textbf{溶液pH值的测定 (玻璃电极):} $E = K + (2.303RT/F) \cdot \text{pH}$，K为常数。
+\end{itemize}
+
+\subsection*{二、 电化学动力学}
+\textbf{核心定义}
+\begin{itemize}
+    \item \textbf{分解电压 ($V_d$):}
+    \begin{itemize}
+        \item \textbf{理论分解电压:} $V_d(\text{理论}) = E(\text{可逆})$。
+        \item \textbf{实际分解电压:} $V_d(\text{实际}) > E(\text{可逆})$。
+    \end{itemize}
+    \item \textbf{超电势 ($\eta$):} $\eta = \phi_{\text{ir}} (\text{有电流}) - \phi_r (\text{无电流})$。
+    \item 阳极超电势 $\eta_a > 0$；阴极超电势 $\eta_c < 0$。
+    \item \textbf{极化：} 电流通过时电极电势偏离平衡值的现象。
+\end{itemize}
+
+\textbf{电化学池的电压关系}
+\begin{itemize}
+    \item \textbf{电解池:} $V_{\text{外加}} = E_{\text{可逆}} + \eta_a + |\eta_c| + IR$
+    \item \textbf{原电池:} $V_{\text{输出}} = E_{\text{可逆}} - (\eta_a + |\eta_c| + IR)$
+\end{itemize}
+
+\textbf{三类极化}
+\begin{itemize}
+    \item \textbf{电化学极化 (活化极化):}
+    \begin{itemize}
+        \item \textbf{原因:} 电荷转移步骤本身缓慢，存在活化能垒。
+        \item \textbf{减小方法:} 使用高效催化剂、升高温度。
+    \end{itemize}
+    \item \textbf{浓差极化:}
+    \begin{itemize}
+        \item \textbf{原因:} 物质传递（扩散、对流）速率慢，导致电极表面浓度与主体溶液不同。
+        \item \textbf{减小方法:} 搅拌溶液、升高温度、增加反应物浓度。
+    \end{itemize}
+    \item \textbf{电阻极化 (欧姆极化):}
+    \begin{itemize}
+        \item \textbf{原因:} 电流通过溶液、电极等产生的电压降 (IR降)。
+        \item \textbf{减小方法:} 增加电解质浓度、减小电极间距、使用鲁金毛细管。
+    \end{itemize}
+\end{itemize}
+
+\textbf{极化曲线与动力学方程}
+\begin{itemize}
+    \item \textbf{极化曲线:} 描述电极电势($\phi$)或超电势($\eta$)与电流密度($j$)关系的曲线。
+    \item \textbf{三电极体系:} 由工作电极、参比电极和辅助电极构成，用于精确测量单个电极的极化曲线。
+    \item \textbf{巴特勒-福尔默方程:} $j = j_0 [\exp((1-\alpha)nF\eta/RT) - \exp(-\alpha nF\eta/RT)]$
+    \item \textbf{塔菲尔方程 (高超电势区近似):} $\eta_a = a + b \lg(j)$
+    \item \textbf{浓差极化的极限电流:} $j_L = nFDc_b / \delta$ ($\delta$为扩散层厚度)
+\end{itemize}
+
+\section*{第五部分：其他物理化学性质}
+\subsection*{液体的黏度 ($\eta$)}
+\begin{itemize}
+    \item \textbf{定义:} 流体内部阻碍其相对流动的性质。
+    \item \textbf{温度依赖性:} $\eta = \eta_0e^{(E_a/RT)}$。温度(T)升高，黏度($\eta$)指数级下降。
+    \item \textbf{计算:} $\ln(\eta_2/\eta_1) = (E_a/R) \cdot (1/T_2 - 1/T_1)$。
+\end{itemize}
+
+\subsection*{电解质溶液的电导}
+\textbf{基本概念:}
+\begin{itemize}
+    \item \textbf{电导 (G):} 电阻(R)的倒数, $G = 1/R$。
+    \item \textbf{电导率 ($\kappa$):} 材料导电能力, $\kappa = G \cdot (l/A)$。
+    \item \textbf{摩尔电导率 ($\Lambda_m$):} 消除浓度影响, $\Lambda_m = \kappa / c$ (计算时c单位须为$\text{mol}\cdot\text{m}^{-3}$)。
+\end{itemize}
+
+\textbf{科尔劳施定律 (强电解质稀溶液):}
+\begin{itemize}
+    \item \textbf{浓度关系:} $\Lambda_m = \Lambda_m^\circ - K\sqrt{c}$ ($\Lambda_m^\circ$为极限摩尔电导率)。
+    \item \textbf{离子独立移动定律:} $\Lambda_m^\circ = \nu_+ \lambda_+^\circ + \nu_- \lambda_-^\circ$ ($\lambda^\circ$为极限摩尔离子电导率)。
+\end{itemize}
+
+\textbf{极限摩尔电导率的求法:}
+\begin{itemize}
+    \item \textbf{强电解质:} $\Lambda_m^\circ$ 可通过 $\Lambda_m$ 对 $\sqrt{c}$ 作图，将直线外推至 c=0 时的截距求得。
+    \item \textbf{弱电解质:} 由于解离度随稀释急剧变化，不能直接外推。其 $\Lambda_m^\circ$ 必须通过离子独立移动定律，由其阴、阳离子的极限摩尔离子电导率 $\lambda^\circ$ 计算得到。例如 $\Lambda_m^\circ(\text{HAc}) = \lambda^\circ(\text{H}^+) + \lambda^\circ(\text{Ac}^-)$。
+\end{itemize}
+
+\subsection*{离子的电迁移与输运}
+\textbf{迁移数 (t):}
+\begin{itemize}
+    \item 溶液中某种离子所迁移的电量占总电量的分数。$t_i = I_i / I_{\text{总}}$。
+    \item \textbf{迁移数与离子电导率的关系:} $t_i = |z_i|\nu_i\lambda_i / \Lambda_m$
+    \item \textbf{迁移数与离子迁移率的关系 (1-1型电解质):} $t_+ = u_+ / (u_+ + u_-)$ ; $t_- = u_- / (u_+ + u_-)$
+\end{itemize}
+
+\textbf{离子的微观运动:}
+\begin{itemize}
+    \item \textbf{离子迁移率 (u):} 单位电场强度下的漂移速率, $u = ze / (6\pi\eta a)$ (a为流体力学半径)。
+    \item \textbf{质子(H$^+$)反常高迁移率:} 格罗特斯机理（质子在水分子链上跳跃传递）。
+\end{itemize}
+
+\textbf{连接宏观与微观的核心关系式:}
+\begin{itemize}
+    \item \textbf{迁移率与离子电导率:} $\lambda = |z|uF$
+    \item \textbf{爱因斯坦关系式 (连接u与D)：} $u_i = |z_i| F D_i / (RT)$
+\end{itemize}
+
+\end{document}
