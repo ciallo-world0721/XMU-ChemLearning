@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 typedef char datatype;
 typedef struct node {
     datatype data;
     struct node *next;
 } listnode;
 typedef listnode *linklist;
+
 listnode *p;
 linklist createlist(void) {
     char ch;
@@ -21,7 +24,8 @@ linklist createlist(void) {
     }
     return (head);
 }
-main() {
+
+int main() {
     linklist newlist = createlist();
     do {
         printf("%c\n", newlist->data);
