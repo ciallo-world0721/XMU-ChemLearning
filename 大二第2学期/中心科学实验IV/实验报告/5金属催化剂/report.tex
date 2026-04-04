@@ -1,0 +1,474 @@
+% !TEX program = xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+\usepackage{setspace}
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage[super,sort&compress]{natbib}
+\bibliographystyle{unsrt}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{needspace}
+\setlist{nosep}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.85}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{template/images/img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+\begin{document}
+\setstretch{1.05}
+\zihaoWu
+
+\begin{center}
+	{\zihaoSan\heiti Ni/SiO\textsubscript{2} 催化剂的制备、表征及甲烷部分氧化制合成气性能评价}
+\end{center}
+
+\vspace{6pt}
+
+\section{引言} \vspace{-0.5em}
+
+甲烷部分氧化制合成气（partial oxidation of methane, POM）反应具有微放热、流程短、产物H\textsubscript{2}/CO接近2等特点，可直接与甲醇合成及费托合成过程衔接，在天然气资源高值利用方面具有明确应用前景。Ni基催化剂具有价格低、活性较高等优点，是甲烷活化研究中的典型体系。本实验实际研究对象为3.0 wt\% Ni/SiO\textsubscript{2} 催化剂，共涉及四种催化剂：I（1\# SiO\textsubscript{2}、无氨）、II（1\# SiO\textsubscript{2}、有氨）、III（2\# SiO\textsubscript{2}、无氨）和IV（2\# SiO\textsubscript{2}、有氨）。实验内容包含浸渍法制备、POM催化性能评价、H\textsubscript{2}-TPR、BET比表面积测定、CO脉冲吸附测定金属分散度以及XPS/LEIS表征。
+
+\section{实验部分} \vspace{-0.5em}
+
+\subsection{实验原理}
+
+\textbf{1. 催化剂制备（浸渍法）：} 催化剂性能与组分、制备方法密切相关，浸渍法是制备负载型催化剂的常用方法。它利用载体孔结构吸附金属盐溶液，分为浸入式和干式浸渍。浸入式将载体浸入浓溶液后处理，负载量不够精确；干式浸渍吸附与孔体积相当的溶液，负载更精准均匀。经烘干、分解得到催化剂，分散度和载体性质共同决定催化性能。
+
+\textbf{2. 催化剂性能评价：} 催化剂性能主要评价活性、选择性和寿命。活性常用反应物转化率、产物收率或时空产率表示，反映催化反应快慢与深度。选择性衡量生成目标产物的效率。寿命指催化剂保持有效活性的时间。通过测定转化率、收率、选择性等指标，可全面评价催化剂的应用价值。
+
+\textbf{3. 程序升温还原（TPR）：} TPR 是表征金属氧化物还原行为的方法。在氢气/惰性气流中线性升温，金属氧化物被还原并消耗氢气。用检测器监测氢气浓度变化，可得到TPR曲线。峰温对应还原难易程度，峰面积与还原量成正比，可用于分析金属价态及金属--载体相互作用信息。
+
+\textbf{4. 氮气静态吸附法测比表面积：} 比表面积是催化剂关键结构参数。氮气静态吸附法基于BET多分子层吸附理论，在液氮温度下测定氮气吸附量，在合适相对压范围内拟合BET方程，得到单层饱和吸附量，再根据氮分子横截面积计算单位质量固体的总表面积。
+
+\textbf{5. 脉冲吸附法测定金属分散度：} 金属分散度为表面金属原子与总原子之比。CO脉冲吸附法利用探针气体在金属表面选择性化学吸附，吸附量与表面原子数成正比。催化剂经还原、吹扫后，脉冲通入CO，通过吸附消耗量计算饱和吸附量，进而得到金属分散度及表面结构信息。
+
+\textbf{6. X射线光电子能谱（XPS）与LEIS：} XPS基于光电效应，可定性定量分析样品近表层元素组成和化学态；LEIS利用低能离子散射，信号主要来自最外层原子，可用于研究最表层元素分布与结构。
+
+\subsection{仪器与试剂}
+
+仪器：容量瓶（50 mL）、坩埚（30 mL）、小烧杯、玻璃棒、带刻度移液管、烘箱、马弗炉、催化剂性能评价装置、GC-930 气相色谱仪、CDMC-3.0 色谱工作站、ÜGU AI-708 程序控温仪、计算机、皂膜流速计、TPR 实验装置、冷阱、Nova 4000E 吸附仪、TP3060 型程序升温和脉冲吸附分析仪、Omicron XPS 谱仪、Qtac100 LEIS 谱仪、NICOLET 6700 红外光谱仪。
+
+试剂按讲义实际体系统一为Ni/SiO\textsubscript{2}：硝酸镍溶液（93.2 mg-Ni/mL）、商品微球SiO\textsubscript{2} 载体、25 wt\%浓氨水、去离子水、CH\textsubscript{4}、O\textsubscript{2}、H\textsubscript{2}、Ar、N\textsubscript{2}、He、5\% H\textsubscript{2}/Ar、5\% O\textsubscript{2}/Ar、5\% CO/He、乙醇和液氮等。
+
+\subsection{实验方法}
+
+\textbf{（一）催化剂制备：} 目标催化剂为1000 mg、3.0 wt\% Ni/SiO\textsubscript{2}。按计算，单份样品所需Ni为30.0 mg，对应硝酸镍溶液体积0.322 mL，SiO\textsubscript{2} 载体质量0.970 g。有氨样品按NH\textsubscript{3}/Ni摩尔比40加入浓氨水约1.53 mL，其余以去离子水补足至3.00 mL；无氨样品直接以去离子水补足至3.00 mL。浸渍液与载体混匀后，在通风橱中挥发至少24 h，再于马弗炉中以20 $^\circ$C/min升至600 $^\circ$C并保温4 h。
+
+\textbf{（二）甲烷部分氧化催化性能评价：} 采用微型固定床--气相色谱联用装置。GC-930以Ar为载气，TCD检测H\textsubscript{2}、O\textsubscript{2}/N\textsubscript{2}、CO、CH\textsubscript{4}和CO\textsubscript{2}，FID复核含碳产物。柱温80--90 $^\circ$C，汽化室100 $^\circ$C，热导池60 $^\circ$C，桥流65 mA。称取20 mg催化剂，在H\textsubscript{2}（30 mL/min）中升温至600 $^\circ$C并还原30 min；随后通入CH\textsubscript{4}:O\textsubscript{2}:Ar = 2:1:45、总流量50 mL/min混合气，于600 $^\circ$C下反应并定时采样分析。
+
+\textbf{（三）H\textsubscript{2}-TPR表征：} 取100 mg样品装入石英反应管，先在5\% O\textsubscript{2}/Ar中完成氧化预处理，再切换为5\% H\textsubscript{2}/Ar，待基线平稳后按程序升温并记录温度通道与检测通道信号。
+
+\textbf{（四）N\textsubscript{2}静态吸附测比表面积：} 样品先在吸附仪上脱气处理，再于液氮温度下测定N\textsubscript{2}吸附等温线，在0.05--0.35相对压范围内按BET方程进行线性拟合，求得斜率、截距、单层饱和吸附量和比表面积。
+
+\textbf{（五）CO脉冲吸附测定金属分散度：} 样品于500 $^\circ$C、5\% H\textsubscript{2}/Ar中还原30 min后切换He吹扫。随后用5\% CO/He（按讲义要求CO体积分数取5\%）进行脉冲进样，定量环体积1.06 mL，根据饱和峰平均面积与总吸附脉冲当量计算CO吸附量，并进一步求得Ni分散度。
+
+\textbf{（六）XPS/LEIS表征：} 样品在化学楼124完成近表层组成与价态测试。XPS以Al-K$\alpha$为X射线源，并以表面污染C 1s = 284.8 eV进行荷电校正；LEIS用于表征最外层元素分布。
+
+\section{结果与讨论} \vspace{-0.5em}
+
+\subsection{甲烷部分氧化催化性能}
+
+实验得到了四种催化剂在600 $^\circ$C下、不同反应时刻的TCD与FID定量结果。各样品已由色谱工作站自动完成特征峰积分，并给出H\textsubscript{2}、O\textsubscript{2}/N\textsubscript{2}、CO、CH\textsubscript{4} 和CO\textsubscript{2}的峰面积以及由此计算的转化率、选择性和H\textsubscript{2}/CO。为便于比较，表\ref{tab:tcdavg}汇总四个时刻TCD结果的平均值，表\ref{tab:tcdarea}和表\ref{tab:fidarea}进一步列出自动积分得到的平均峰面积。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 四种催化剂在600 $^\circ$C下POM反应TCD平均结果}}
+	\label{tab:tcdavg}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccccc}
+					\toprule
+					催化剂 & CH\textsubscript{4}转化率/\% & CO选择性/\% & H\textsubscript{2}选择性/\% & CO\textsubscript{2}选择性/\% & H\textsubscript{2}/CO \\
+					\midrule
+					I   & 79.19                     & 81.50    & 89.38                    & 18.50                     & 2.19                  \\
+					II  & 86.07                     & 90.79    & 96.28                    & 9.21                      & 2.12                  \\
+					III & 62.79                     & 74.46    & 87.20                    & 25.54                     & 2.34                  \\
+					IV  & 87.23                     & 91.14    & 94.93                    & 8.86                      & 2.08                  \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+由表\ref{tab:tcdavg}可见，IV样品（2\# SiO\textsubscript{2} 有氨）整体性能最好，平均CH\textsubscript{4}转化率87.23\%，CO选择性91.14\%，H\textsubscript{2}选择性94.93\%，CO\textsubscript{2}选择性仅8.86\%。II样品（1\# SiO\textsubscript{2} 有氨）也保持了较高转化率和较低深度氧化倾向。相比之下，III样品（2\# SiO\textsubscript{2} 无氨）平均转化率仅62.79\%，且CO\textsubscript{2}选择性最高，说明更容易发生完全氧化副反应。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 四种催化剂在600 $^\circ$C下POM反应TCD自动积分平均峰面积}}
+	\label{tab:tcdarea}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccccc}
+					\toprule
+					催化剂 & H\textsubscript{2} & O\textsubscript{2}/N\textsubscript{2} & CO      & CH\textsubscript{4} & CO\textsubscript{2} \\
+					\midrule
+					I   & 638584.6           & 7592.5                                & 21636.5 & 21360.5             & 4240.2              \\
+					II  & 726506.3           & 7469.9                                & 25447.0 & 13822.5             & 2223.6              \\
+					III & 482103.3           & 7603.9                                & 15302.0 & 37010.5             & 4478.2              \\
+					IV  & 724786.9           & 6999.0                                & 25844.5 & 12647.4             & 2169.2              \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 四种催化剂在600 $^\circ$C下POM反应FID自动积分平均峰面积}}
+	\label{tab:fidarea}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					催化剂 & CO       & CH\textsubscript{4} & CO\textsubscript{2} \\
+					\midrule
+					I   & 370065.6 & 124174.8            & 65676.1             \\
+					II  & 446175.8 & 81276.4             & 42461.4             \\
+					III & 253488.9 & 193708.5            & 83512.9             \\
+					IV  & 426521.9 & 70022.2             & 37301.5             \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+从自动积分的峰面积看，II和IV样品在TCD与FID中都表现出更大的H\textsubscript{2}、CO峰面积和更小的残余CH\textsubscript{4}、CO\textsubscript{2}峰面积；III样品则恰好相反，其CH\textsubscript{4}与CO\textsubscript{2}峰面积最高、CO峰面积最低。这与表\ref{tab:tcdavg}中的转化率和选择性排序相互印证，说明工作站自动积分结果已能够直接支持“有氨样品优于无氨样品、IV综合性能最佳、III深度氧化倾向最强”的结论。
+
+从时间变化看，II和IV样品约40 min内活性基本稳定，而I和III样品转化率下降更明显。结合讲义可推测，酸处理有助于去除SiO\textsubscript{2} 表面Na、Ca等杂质，而氨辅助浸渍可通过形成氨镍配合物改善Ni前驱体在孔道中的分布均匀性，因此“酸处理 + 氨辅助”的IV样品得到最佳综合性能。
+
+\subsection{BET与CO脉冲吸附计算}
+
+取讲义推荐的五个数据点，对 $P/[V(P_0-P)]$ 与 $P/P_0$ 作线性拟合，并按如下公式计算单层饱和吸附量与比表面积，其中 $a_m = 0.162$ nm\textsuperscript{2}。
+\[
+	V_m = \frac{1}{k+b}, \qquad C = \frac{k}{b}+1
+\]
+\[
+	S_{BET}=\frac{V_m L a_m}{22414}
+\]
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 根据四份BET导出PDF手动计算得到的参数}}
+	\label{tab:bet}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{ccccccc}
+					\toprule
+					样品         & BET斜率      & BET截距      & $V_m$/(cm\textsuperscript{3}/g) & $C$    & $S_{BET}$/(m\textsuperscript{2}/g) \\
+					\midrule
+					I（1\#无氨）   & 0.01188518 & 0.00008078 & 83.57                           & 148.14 & 363.74                             \\
+					II（1\#有氨）  & 0.01148124 & 0.00007571 & 86.53                           & 152.65 & 376.61                             \\
+					III（2\#无氨） & 0.01184357 & 0.00007822 & 83.88                           & 152.41 & 365.09                             \\
+					IV（2\#有氨）  & 0.01129238 & 0.00008469 & 87.90                           & 134.33 & 382.57                             \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+四个样品的拟合线性度均较高（$R^2 > 0.999$），说明尽管仪器报告末页提示自动处理失败，分析日志中的原始数据仍足以支持手动BET拟合。由表\ref{tab:bet}可见，2\#有氨样品IV的比表面积最高，为382.57 m\textsuperscript{2}/g；1\#有氨样品II次之，为376.61 m\textsuperscript{2}/g；两种无氨样品I和III分别为363.74与365.09 m\textsuperscript{2}/g。整体上看，有氨样品的比表面积均高于对应无氨样品，说明氨辅助浸渍并未造成明显孔堵塞，反而更有利于保持较高的可利用表面积。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\linewidth]{src/BET拟合图.png}
+	\caption{{\zihaoWu 依据四份BET导出PDF重建的拟合图}}
+	\label{fig:betfit}
+\end{figure}
+
+
+实验中CO体积分数为5\%，据此计算：
+\[
+	n_{CO} = \frac{0.6117 \times 1.06 \times 0.05}{24293} = 1.33 \times 10^{-6}\ \mathrm{mol}
+\]
+对0.200 g、Ni质量分数3.0 wt\%的样品，有
+\[
+	n_{Ni} = \frac{0.200 \times 0.03}{58.6934} = 1.02 \times 10^{-4}\ \mathrm{mol}
+\]
+故Ni分散度为
+\[
+	D = \frac{n_{CO}}{n_{Ni}} \times 100\% = 1.31\%
+\]
+
+由表\ref{tab:co}可见，四个样品的Ni分散度排序为IV $>$ III $\approx$ II $\gg$ I。I样品分散度仅1.31\%，明显低于其余三种样品，说明其焙烧后Ni物种更可能以较大颗粒或较低外表面暴露度存在。把这一结果与BET数据合并考察时可以看到：I样品虽然仍具有363.74 m\textsuperscript{2}/g的较高比表面积，但金属分散度最低，说明比表面积本身并不能直接保证活性金属高度分散，浸渍方式和前驱体在孔道中的分布同样关键。IV样品同时具有最高比表面积（382.57 m\textsuperscript{2}/g）和最高Ni分散度（5.82\%），与其最优POM综合性能相一致；II样品的比表面积和分散度也处于较高水平，对应较高CH\textsubscript{4}转化率与较低CO\textsubscript{2}选择性。III样品虽然分散度不低，但POM性能仍明显弱于II和IV，说明其反应表现还受到Ni物种可还原性、表面化学状态及完全氧化副反应倾向等因素共同影响。总体而言，现有BET和CO脉冲吸附结果共同表明，氨辅助浸渍更有利于提高孔结构可利用性和Ni分散状态，而酸处理与氨辅助协同时综合效果最好。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 四种样品CO脉冲吸附结果与Ni分散度}}
+	\label{tab:co}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					样品         & $A_{sat}$/counts & $D$/\% \\
+					\midrule
+					I（1\#无氨）   & 64600.8          & 1.31   \\
+					II（1\#有氨）  & 60637.4          & 4.79   \\
+					III（2\#无氨） & 59949.5          & 4.87   \\
+					IV（2\#有氨）  & 60553.4          & 5.82   \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+\subsection{TPR原始CSV处理结果}
+
+本次TPR图谱重新按A、B双通道的实际物理意义进行了处理：A通道作为检测响应信号，B通道作为温度程序信号。先逐点核对两通道时间轴，确认同一样品的A、B通道记录一一对应；再以B通道按记录单给出的换算公式
+$T = (B\times 23.946)/1000 + 15.423 + T_{\mathrm{room}}$
+转换为温度轴，其中I、II、III、IV样品实验当天室温分别取14、19、16、16 $^\circ$C；A通道则以前300个点的平均值作基线扣除，以便更稳定地比较不同样品的响应形貌。由此得到的“响应--温度”图谱见图\ref{fig:tpr}。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 由A/B双通道重建得到的TPR主要响应特征}}
+	\label{tab:tpr}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					催化剂        & 主要特征位置/$^\circ$C & 相对响应强度   & 说明            \\
+					\midrule
+					I（1\#无氨）   & 约417.5           & 55448.21 & 中温区主峰，随后快速回落  \\
+					II（1\#有氨）  & 约770.0           & 9434.30  & 高温区主响应        \\
+					III（2\#无氨） & 约410.5           & 35782.61 & 中温区强主峰        \\
+					IV（2\#有氨）  & 约484.1           & 14207.35 & 中温区主峰，随后有宽峰肩部 \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+从重建后的TPR曲线看，I、III和IV样品都在中温区出现明显响应，但峰形和强度存在差异：I样品在约417.5 $^\circ$C附近出现较尖锐主峰，随后迅速回落；III样品主峰位置与I接近，但峰强明显更高，说明其对应还原过程更为集中；IV样品主峰则位于稍高温的约484.1 $^\circ$C，并在高温侧延伸出较宽肩部，提示其样品中可能同时存在易还原与较难还原的Ni物种。相比之下，II样品的主响应整体偏向高温区，峰顶约770.0 $^\circ$C，说明其主要可还原物种需要更高温度才能充分还原。总体而言，氨辅助浸渍和载体预处理确实改变了Ni物种的还原响应行为：2\#载体样品更倾向在中温区发生明显还原，而1\#有氨样品则保留了更强的高温还原特征。
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth,height=0.4\textheight,keepaspectratio]{src/TPR图谱.png}
+	\caption{{\zihaoWu 根据四个样品A/B双通道原始CSV重建的TPR响应图谱}}
+	\label{fig:tpr}
+\end{figure}
+
+\subsection{XPS与LEIS近表层表征}
+
+根据四个样品在室温状态和500 $^\circ$C H\textsubscript{2}处理后的谱及O 1s、C 1s、Si 2p、Ni 2p等自动缩窗窄扫结果，并分别给出室温状态和H\textsubscript{2}处理后的谱图，见图\ref{fig:xpsfullrt}和图\ref{fig:xpsfullh2}。
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.95\linewidth,height=0.42\textheight,keepaspectratio]{src/xps_full_regions_rt.png}
+	\caption{{\zihaoWu 四种催化剂室温状态下XPS图}}
+	\label{fig:xpsfullrt}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.95\linewidth,height=0.42\textheight,keepaspectratio]{src/xps_full_regions_h2.png}
+	\caption{{\zihaoWu 四种催化剂经500 $^\circ$C H\textsubscript{2}处理后XPS图}}
+	\label{fig:xpsfullh2}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 四种催化剂XPS中Ni 2p主响应位置与相对峰顶计数}}
+	\label{tab:xpsni}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{ccccc}
+					\toprule
+					样品         & RT位置/eV & 500 $^\circ$C H\textsubscript{2}后位置/eV & RT峰顶计数 & H\textsubscript{2}后峰顶计数 \\
+					\midrule
+					I（1\#无氨）   & 854.5   & 854.0                                  & 12021  & 12696                   \\
+					II（1\#有氨）  & 856.1   & 853.6                                  & 16069  & 12253                   \\
+					III（2\#无氨） & 854.6   & 854.2                                  & 13734  & 14327                   \\
+					IV（2\#有氨）  & 856.2   & 853.7                                  & 19148  & 17234                   \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+由图\ref{fig:xpsfullrt}、图\ref{fig:xpsfullh2}、表\ref{tab:xpsni}可见，四个样品在O 1s与Si 2p能区的主响应位置差别较小：O 1s主响应集中在532.2--532.5 eV，Si 2p主响应位于102.7--103.2 eV，说明SiO\textsubscript{2}骨架与表面氧环境整体相近。Ni 2p区的差异更明显：II和IV样品在室温状态下的Ni 2p主响应位于856.1--856.2 eV，更接近氧化态Ni物种特征区；经500 $^\circ$C H\textsubscript{2}处理后，四个样品的Ni 2p主响应均移至853.6--854.2 eV，表明近表层Ni物种已明显还原。需要说明的是，这里不同样品间比较的重点是峰位移动与谱形差异，而不是把不同测试之间的峰顶计数直接等同于严格的表面含量定量。就可视化响应强弱而言，IV样品在室温和H\textsubscript{2}处理后都表现出较强Ni信号，II样品在室温下也有较明显Ni响应，说明氨辅助浸渍样品在近表层更容易观察到Ni相关信号；酸处理与氨辅助协同时，这一趋势更为明显。该趋势与IV样品在POM反应中表现出的最高CH\textsubscript{4}转化率和较优CO、H\textsubscript{2}选择性相一致。
+
+LEIS原始数据也已覆盖四个室温样品，表明最外层表征确已完成。根据原始属性文件可将现有数据整理为He$^+$ 3 keV和Ne$^+$ 5 keV两组一致束流条件，并进一步绘制归一化对比图，如图\ref{fig:leis}所示。
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=0.7\textheight,keepaspectratio]{src/leis_comparison.png}
+	\caption{{\zihaoWu 四种催化剂在相同束流条件下的LEIS归一化谱图}}
+	\label{fig:leis}
+\end{figure}
+
+He$^+$ 3 keV条件下，四个样品在约1100 eV和1700 eV附近均可见明显散射响应，但峰形和相对强度存在差异，其中II、IV样品在主峰附近整体响应更强；Ne$^+$ 5 keV条件下，各样品谱线整体形貌更接近，说明不同制备条件对最外层结构的影响在不同入射离子条件下表现程度并不完全一致。
+
+\section{思考题解答} \vspace{-0.5em}
+
+\subsection*{1. 采用干式浸渍法制备负载型催化剂，若浸渍溶液的体积与载体的孔容积相差太大，对所制备的催化剂有何影响？}
+
+干式浸渍法的核心是使溶液体积与载体孔容积精确匹配，以实现活性组分的均匀分布。若两者相差过大，会产生以下影响：
+
+（1）若溶液体积远大于孔容积：多余溶液在载体颗粒外表面形成液膜，烘干时金属盐易在颗粒表面团聚沉积，导致活性金属分散度下降、孔道可能堵塞，且负载量无法精准控制。
+
+（2）若溶液体积远小于孔容积：载体孔道无法被充分浸润，活性金属仅分布于部分孔道或外表面，分布不均使活性位点减少，催化活性和选择性下降，载体利用率降低。
+
+\subsection*{2. 什么情况下可采用修正面积归一化方法计算混合物中各组份含量？本实验采用此法计算POM反应的CH\textsubscript{4}转化率和生成H\textsubscript{2}、CO、CO\textsubscript{2}的选择性，可能的误差来自何处？}
+
+\textbf{适用情况：}混合物中所有组份均能被检测器有效检测，各组分相对校正因子已知且经过标定，并且各组份在色谱柱上能完全分离，不存在未知的未检测组分。
+
+\textbf{误差来源：}(1)H\textsubscript{2}、O\textsubscript{2}等组份在碳分子筛柱上峰重叠，峰面积积分不准；(2)校正因子与实验实际条件不匹配，或直接使用文献值未标定；(3)热导检测器桥流或载气流速波动导致响应信号不稳；(4)采样时反应未达稳态，或进样量不一致，重复性差；(5)装置微漏或原料气含微量杂质干扰计算。
+
+\subsection*{3. 在催化剂性能评价和TPR实验中，若控温热电偶未插入电炉即通电加热，可能造成什么后果？}
+
+控温仪接收不到电炉实际温度信号，会持续按程序升温，导致：(1)电炉温度远超设定值，催化剂严重烧结、活性组分失活，Al\textsubscript{2}O\textsubscript{3}载体结构坍塌；(2)超温损坏加热丝和保温层，石英反应管因热应力炸裂，造成装置漏气；(3)高温引燃周边易燃物，炸裂碎片和高温气体易烫伤人员；若涉及H\textsubscript{2}、CH\textsubscript{4}等可燃气体，还可能引发爆炸。
+
+\subsection*{4. 做TPR实验时，为何采用低氢浓度的H\textsubscript{2}/Ar混合气为载气？}
+
+(1)\textbf{控制还原速率：}低H\textsubscript{2}浓度使金属氧化物还原缓慢平稳，避免颗粒团聚烧结，TPR峰形清晰，便于准确判断峰温和计算峰面积。(2)\textbf{防止飞温：}还原反应放热，低浓度可控制局部放热量，避免破坏催化剂结构。(3)\textbf{提高灵敏度：}低背景H\textsubscript{2}浓度下，微小的H\textsubscript{2}消耗即可在热导检测器上产生明显信号，避免被淹没。(4)\textbf{安全性：}降低H\textsubscript{2}泄漏引发燃烧爆炸的风险。
+
+\subsection*{5. TPR实验装置稍加改动就可进行程序升温氧化（TPO）和O\textsubscript{2}-程序升温脱附（O\textsubscript{2}-TPD）等实验，请说明在这些实验中应选择何种气源，为什么？}
+
+\textbf{TPO：}选择低浓度O\textsubscript{2}/Ar混合气（如5\% O\textsubscript{2}/Ar）。氧化反应为放热反应，低氧浓度可控制氧化速率、防止飞温，使氧化峰形清晰易分析；Ar为惰性载气，不干扰反应，且与O\textsubscript{2}热导系数差异明显，便于热导检测器检测O\textsubscript{2}浓度变化。
+
+\textbf{O\textsubscript{2}-TPD：}吸附阶段用纯O\textsubscript{2}或高浓度O\textsubscript{2}/Ar，使表面氧吸附位点充分饱和；程序升温脱附阶段改用纯Ar或He，消除O\textsubscript{2}背景干扰，精准检测脱附氧物种信号，并将脱附O\textsubscript{2}顺利携带至检测器。
+
+\subsection*{6. 试列举气相色谱基线不稳的可能原因。}
+
+(1)\textbf{载气因素：}载气纯度不足，含微量水、O\textsubscript{2}等杂质；减压阀压力不稳或管路漏气/堵塞导致流速波动。(2)\textbf{检测器因素：}热导检测器桥流或温度不稳定；检测器污染或预热未达热平衡。(3)\textbf{色谱柱因素：}色谱柱老化不充分，固定相流失；柱温波动或接头漏气。(4)\textbf{装置因素：}进样口污染，进样垫漏气；管路中有冷凝水或残留样品。(5)\textbf{外界因素：}实验台震动，温湿度大幅变化，或附近强电磁干扰。(6)\textbf{样品因素：}样品含高沸点杂质，缓慢流出持续干扰检测器。
+
+\subsection*{7. 为何在使用BET方程计算比表面积时，通常只选用相对压在0.05\textasciitilde{}0.3范围之间的吸附数据？}
+
+(1)相对压$<$0.05时：吸附量过少，以单分子层吸附为主，分子间横向相互作用不可忽略，BET线性拟合偏差大，结果不可靠。(2)相对压$>$0.3时：孔道内发生毛细管凝聚，偏离多层物理吸附假设，拟合结果偏高。(3)0.05\textasciitilde{}0.3范围内吸附量适中，多层吸附模型成立，线性相关性最好，是BET方程的最佳适用区间。
+
+\subsection*{8. 进行脉冲CO吸附实验测试金属催化剂分散度时，为何须使用超高纯度载气或对载气严格除氧除水？}
+
+CO脉冲吸附依赖CO在Ni表面的选择性化学吸附计算分散度，杂质会严重干扰：(1)载气中O\textsubscript{2}会氧化已还原的Ni活性位点，减少可供CO吸附的金属表面原子；同时O\textsubscript{2}与CO反应生成CO\textsubscript{2}，使CO消耗量偏高并干扰热导检测器信号。(2)H\textsubscript{2}O吸附占据金属表面活性位，阻碍CO的选择性化学吸附；水还可能与Ni反应或使Al\textsubscript{2}O\textsubscript{3}水合，改变催化剂表面结构。(3)烃类等杂质竞争活性位点，导致饱和吸附量计算误差，使金属分散度和颗粒尺寸结果失真。
+
+\subsection*{9. XPS测试Ni/Al\textsubscript{2}O\textsubscript{3}催化剂为什么需要加电子中和？为什么需要宽扫描和窄扫描？该实验能得到哪些关键信息？}
+
+\textbf{电子中和原因：}Ni/Al\textsubscript{2}O\textsubscript{3}为绝缘体/半导体，X射线照射使表面光电子逸出，正电荷积累产生“荷电效应”，导致测量结合能整体偏高，谱峰位移，影响元素化学态判断和定量精度。低能电子束（电子中和枪）可补偿表面正电荷，消除荷电位移；实验中通常以污染C 1s（284.8 eV）作为能量校正基准。
+
+\textbf{宽扫描与窄扫描：}宽扫描（0\textasciitilde{}1200 eV，步长大、速度快）用于快速定性筛查样品表面所有元素的种类及大致含量；窄扫描（小能量范围，步长小、分辨率高）针对目标元素（Ni 2p、Al 2p等）进行精细扫描，获得高分辨谱图，用于准确的元素定量分析和化学价态鉴别。
+
+\textbf{可获得的关键信息：}(1)样品近表层（2\textasciitilde{}5 nm）的元素组成及原子百分比；(2)Ni的化学价态（Ni\textsuperscript{0}、Ni\textsuperscript{2+}、Ni\textsuperscript{3+}等），确定活性金属存在形式；(3)由结合能位移判断Ni与Al\textsubscript{2}O\textsubscript{3}载体间相互作用强弱；(4)表面碳污染程度；(5)结合还原/氧化处理前后谱图，分析催化剂表面物种变化规律。
+
+% \clearpage
+
+\section{结论} \vspace{-0.5em}
+
+本实验较为成功地采用浸渍法制备了四种3.0 wt\% Ni/SiO\textsubscript{2}催化剂，并完成了POM催化性能评价、BET比表面积计算、CO脉冲吸附分散度估算、TPR重建以及XPS/LEIS近表层表征。各项测试结果在总体趋势上具有较好一致性，说明本实验能够较系统地比较载体预处理与氨辅助浸渍对催化剂结构和性能的影响。
+
+综合POM活性、自动积分峰面积、BET、CO脉冲吸附以及XPS/LEIS结果，四种催化剂的综合性能排序可概括为IV（2\#有氨）$>$II（1\#有氨）$>$I（1\#无氨）$>$III（2\#无氨）。其中IV样品表现最好，具有最高的CH\textsubscript{4}转化率、较高的CO与H\textsubscript{2}选择性、最高的BET比表面积（382.57 m\textsuperscript{2}/g）以及最高的Ni分散度（5.82\%）；III样品综合性能最差，CH\textsubscript{4}转化率最低且CO\textsubscript{2}选择性最高，表现出更强的完全氧化副反应倾向。
+
+性能差异的可能原因在于酸处理与氨辅助浸渍共同改善了Ni前驱体在载体孔道中的分布和最终活性位状态。BET和CO脉冲吸附结果表明，有氨样品通常具有更高的可利用表面积和更好的Ni分散；XPS结果表明IV样品近表层Ni响应更强，说明表面可探测Ni物种暴露程度更高；TPR则说明不同样品的Ni物种可还原性明显不同。因而，IV样品最可能同时具备较好的孔结构、较高的金属分散度和更有利的近表层Ni状态，从而得到最佳综合性能；而III样品虽有一定分散度，但更易发生深度氧化，说明其表面化学状态和活性位性质并不理想。
+
+{\footnotesize
+\setstretch{1}
+\begin{thebibliography}{9}
+	\bibitem{rostrup2004}
+	Rostrup-Nielsen J.
+	Invited lecture at the 13th International Congress on Catalysis, Paris, 2004.
+
+	\bibitem{lihaiqiang2026}
+	林海强.
+	{负载型金属催化剂的制备、性能评价和谱学表征（甲烷部分氧化制合成气Ni/SiO\textsubscript{2}催化剂的制备、性能评价和表征）}.
+	厦门大学中心科学实验IV课程讲义, 2026.
+
+\end{thebibliography}
+}
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+\end{document}

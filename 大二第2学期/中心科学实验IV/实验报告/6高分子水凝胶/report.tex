@@ -1,0 +1,366 @@
+% !TEX program = xelatex
+% 中心科学实验 IV 研究型实验报告初稿
+
+\documentclass[a4paper]{article}
+
+% ===== 字体 =====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+% ===== 字号定义 =====
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+% ===== 正文行距 =====
+\usepackage{setspace}
+
+% ===== 页面 =====
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+
+% ===== 页眉页脚 =====
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{template/images/img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+% ===== 标题样式 =====
+\usepackage{titlesec}
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+% ===== 表格图片 =====
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{float}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+
+% ===== 其他 =====
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage{array}
+\usepackage{needspace}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\l@section}{1.5em}{2.5em}{}{}
+\makeatother
+
+\begin{document}
+
+\setstretch{1.05}
+\zihaoWu
+
+\begin{center}
+	{\zihaoSan\heiti 温度响应高分子微凝胶的水相制备与表征}
+\end{center}
+
+\section{引言}
+\vspace{-0.5em}
+
+聚（N-异丙基丙烯酰胺）（PNIPAM）是最典型的温度响应聚合物之一，其在水中的最低临界溶解温度（LCST）附近会发生可逆的溶胀--塌缩转变，因此在药物递送、分离分析、传感与仿生软材料等领域具有持续的研究价值。将 PNIPAM 构筑为交联微凝胶后，体系兼具胶体颗粒的可分散性与凝胶网络的可变形性，能够通过粒径、透光性和散射行为直接反映温度刺激下的结构变化。文献表明，微凝胶的粒径分布、交联密度及残余离子或表面活性剂都会显著影响其相转变行为及测试结果的重现性。
+
+本实验采用异相自由基聚合法制备 PNIPAM 温度响应微凝胶，并分别利用动态光散射（DLS）与紫外-可见分光光度法考察其温度响应行为。DLS 可直接给出流体动力学粒径及多分散指数（PDI），适合判断颗粒尺寸变化与分散状态；紫外法则通过吸光度变化间接表征微凝胶溶胀/塌缩引起的散射增强。通过比较两种表征结果，可进一步讨论微凝胶相转变的温区、数据离散来源及实验条件对结果的影响。
+
+\section{实验部分}
+\vspace{-0.5em}
+
+\subsection{仪器与试剂}
+
+本实验主要使用恒温磁力搅拌装置、三颈烧瓶、冷凝器、激光粒度/动态光散射仪以及紫外-可见分光光度计。主要试剂为 N-异丙基丙烯酰胺（NIPAM）、N,N-亚甲基双丙烯酰胺（MBA）、十二烷基硫酸钠（SDS）、过硫酸钾（KPS）与去离子水。
+
+\subsection{实验方法}
+
+在三颈烧瓶中加入去离子水、NIPAM、MBA 与 SDS，充分溶解后在搅拌条件下升温，并以 KPS 水溶液引发自由基聚合。反应完成后通过离心--重新分散的方式除去可溶性小分子和表面活性剂，得到 PNIPAM 微凝胶分散液。表征前将样品稀释并静置平衡，对 DLS 样品进一步过滤除尘。
+
+温度响应测试分为两部分：其一，在室温和 25--60~$^{\circ}$C 条件下记录 DLS 给出的流体动力学粒径与 PDI；其二，在 500~nm 波长下记录微凝胶分散液的吸光度。根据项目给定的实验记录，紫外数据按测量顺序对应 25、30、35、40、45、50、55 和 60~$^{\circ}$C。
+
+\section{结果与讨论}
+\vspace{-0.5em}
+
+\subsection{微凝胶制备现象与室温粒径}
+
+在加入引发剂（过硫酸钾）后，体系从澄清迅速变为稍显浑浊；在加热搅拌一段时间后重新变为澄清。随着继续加热搅拌，到达约75度时，体系开始逐渐转为略带蓝色的白色，最后完全变为浑浊乳白色。
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{eb152c8d9d44cf65aabe89335419dff9.png}
+	\caption{{\zihaoWu 实验过程现象图}}
+	\label{fig:phenomenon}
+\end{figure}
+
+以上现象说明聚合过程反应液中生成了能够显著散射可见光的胶体颗粒，这与 PNIPAM 微凝胶形成的预期现象一致。参考实验记录，升温后体系出现由轻微发蓝到乳白的变化，可理解为自由基聚合启动后，聚合物链增长、交联和颗粒成核/长大共同导致散射增强。
+
+室温 DLS 结果见表~\ref{tab:room}。样品室温平均有效直径为 214.04~nm，平均 PDI 为 0.155。该 PDI 说明样品具有适中的分散性，能够满足后续温度响应表征的需要。由原始强度分布数据可见， 1 与 3 两个有效重复的分布轮廓具有较好的重现性，各有效重复均在约 294~nm 处出现主峰。结合累积量法得到的平均有效直径，说明样品在室温下处于较好的溶胀状态。由于 DLS 对散射强度和颗粒分布高度敏感， 1 与 3 之间直径的离散可能源于极少量大颗粒的存在，说明样品的分散度并不是很理想，在下文中将会进一步讨论，但整体平均值仍处于微凝胶样品的合理尺寸范围内。
+
+\begin{table}[H]
+	\centering
+	\caption{{\zihaoXiaoWu 室温下 PNIPAM 微凝胶 DLS 测试结果}}
+	\label{tab:room}
+	\scalebox{1.35}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					测试编号 & 有效直径 / nm & PDI   & 数据保留率 / \% \\
+					\midrule
+					1    & 131.358   & 0.311 & 100.00     \\
+					2    & --        & --    & --         \\
+					3    & 296.60    & 0.000 & 100.00     \\
+					平均值  & 214.04    & 0.155 & 100.00     \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+\subsection{DLS 变温结果分析}
+
+25~$^{\circ}$C 时样品平均粒径为 942.11~nm；升温至 35~$^{\circ}$C 时仍保持在约 922.09~nm，表明微凝胶在低温区维持较高水化程度。继续升温到 40~$^{\circ}$C 后，平均粒径迅速降至 708.98~nm，60~$^{\circ}$C 时进一步减小到 617.85~nm，说明颗粒已发生明显的热诱导塌缩。整体来看，样品在 35--40~$^{\circ}$C 附近出现最显著的粒径突降，这与 PNIPAM 微凝胶接近 LCST 时疏水作用增强、交联网络脱水收缩的规律一致。本文分别给出原始均值图、Boltzmann 拟合及其一阶导数图及 Lorentz 拟合及其一阶导数图，见图~\ref{fig:dls_raw}--图~\ref{fig:dls_lorentz_dual}。
+
+需要注意的是，30~$^{\circ}$C 组三次测试中有一次测得 1909.98~nm 的异常大粒径，且对应 PDI 为 2.799，远高于其余数据，提示该结果很可能受到灰尘污染、瞬时聚集或样品池扰动的影响。若直接采用三次均值，会明显抬高 30~$^{\circ}$C 的平均粒径并夸大标准差。为兼顾原始信息保留与拟合稳健性，本文在原始图中保留该温度点以展示数据全貌，而在拟合时按照“PDI 大于 0.7 视为异常重复”的规则剔除了该重复值。图~\ref{fig:dls_raw} 中的红色菱形即表示包含异常重复的温度点。除该点外，其余温度下 PDI 大多位于 0.10--0.25，说明样品在变温过程中总体仍保持可接受的分散状态。
+
+对剔除高 PDI 异常重复后的均值进行 Boltzmann 与 Lorentz 拟合，前者的拟合优度 $R^2$ 为 0.902，对应转变中心为 36.45~$^{\circ}$C；后者的 $R^2$ 为 0.882，中心落在 28.91~$^{\circ}$C，明显偏离粒径骤降的实际区间。图~\ref{fig:dls_boltz_dual} 展示了 Boltzmann 拟合曲线及其一阶导数，可见导数极值对应的特征温度同样位于 36.45~$^{\circ}$C，这更符合微凝胶随温度升高而发生单调塌缩的 S 型变化。相比之下，Lorentz 作为典型峰型函数，其拟合效果及物理意义（图~\ref{fig:dls_lorentz_dual}）均不如 Boltzmann 模型。因此，可将 36.45~$^{\circ}$C 视为本样品的 DLS 表观 LCST。综合表~\ref{tab:room} 与表~\ref{tab:temp_dls} 可见，室温独立测试所得粒径（约 214~nm）与 25~$^{\circ}$C 变温测试值（约 942~nm）存在显著差异。这一离散可能源于两次配样浓度的不同、过滤除尘彻底程度的差异以及变温实验中样品池的长时平衡状态。这种数据上的不一致性提示我们在定量分析微凝胶绝对尺寸时需保持审慎，但其随温度升高而发生显著塌缩的变化趋势在两组实验中均得到了体现。
+
+\begin{table}[H]
+	\centering
+	\caption{{\zihaoXiaoWu PNIPAM 微凝胶粒径随温度变化的 DLS 结果}}
+	\label{tab:temp_dls}
+	\scalebox{1.35}{
+		{\zihaoLiu
+				\begin{tabular}{ccccc}
+					\toprule
+					温度 / $^{\circ}$C & 平均粒径 / nm & 标准差 / nm & 平均 PDI & 备注      \\
+					\midrule
+					25               & 942.11    & 49.18    & 0.114  & --      \\
+					30               & 1288.11   & 539.03   & 0.977  & 含异常大粒径点 \\
+					35               & 922.09    & 42.23    & 0.115  & --      \\
+					40               & 708.98    & 20.99    & 0.226  & 粒径明显下降  \\
+					45               & 734.60    & 23.24    & 0.189  & 收缩后趋于稳定 \\
+					50               & 758.81    & 22.76    & 0.151  & 轻微波动    \\
+					55               & 709.05    & 30.54    & 0.170  & 维持塌缩态   \\
+					60               & 617.85    & 17.94    & 0.253  & 最小粒径    \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+图~\ref{fig:dls_raw} 给出了保留全部原始重复后的均值与误差棒结果。可以看到 30~$^{\circ}$C 的标准差显著偏大，而在剔除高 PDI 异常重复后，整体收缩趋势更加平滑。图~\ref{fig:dls_boltz_dual} 和图~\ref{fig:dls_lorentz_dual} 同时展示了拟合曲线及其一阶导数，进一步说明该样品在 35--40~$^{\circ}$C 范围内经历最显著的热致塌缩。
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/dls_temperature_raw.png}
+	\caption{{\zihaoWu 微凝胶粒径随温度变化的原始均值图}}
+	\label{fig:dls_raw}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/dls_boltzmann_dual_axis.png}
+	\caption{{\zihaoWu 微凝胶粒径随温度变化的 Boltzmann 拟合及其一阶导数}}
+	\label{fig:dls_boltz_dual}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/dls_lorentz_dual_axis.png}
+	\caption{{\zihaoWu 微凝胶粒径随温度变化的 Lorentz 拟合及其一阶导数}}
+	\label{fig:dls_lorentz_dual}
+\end{figure}
+
+\subsection{紫外吸光度变温结果分析}
+
+紫外简单读数结果显示，在 500~nm 下微凝胶分散液的吸光度随温度升高先快速上升、后缓慢回落，结果见表~\ref{tab:uv}。25~$^{\circ}$C 时吸光度仅为 0.2604，35~$^{\circ}$C 时升至 1.1778，45~$^{\circ}$C 达到最大值 1.9928，随后在 50--60~$^{\circ}$C 略有下降。该趋势表明，随着升温接近相转变区，微凝胶脱水收缩使折射率差增大、体系散射增强，因此表观吸光度明显上升；当颗粒进一步塌缩且体系状态趋于稳定后，吸光度变化幅度减小。原始曲线、Boltzmann 拟合及 Lorentz 拟合图见图~\ref{fig:uv_raw}--图~\ref{fig:uv_lorentz_dual}。
+
+将吸光度数据分别用 Boltzmann 与 Lorentz 模型进行拟合后，前者给出 $R^2=0.989$，中心温度为 34.51~$^{\circ}$C；后者给出 $R^2=0.948$，中心位置约为 50.28~$^{\circ}$C。与 DLS 数据分析一致，Boltzmann 拟合（图~\ref{fig:uv_boltz_dual}）在拟合吸光度上升阶段时具有较好的适用性，物理意义也更清晰。需要指出的是，由于实验测得的吸光度在高温下略有回落，Boltzmann 模型仅作为对转变温区的近似描述，而非对全过程的精确拟合。图~\ref{fig:uv_boltz_dual} 中一阶导数的极值位于 34.51~$^{\circ}$C，说明紫外法更敏感地捕捉到了散射快速增强的起始区间；相比之下，Lorentz 导出的 50.28~$^{\circ}$C 更接近整条曲线的宽峰中心（图~\ref{fig:uv_lorentz_dual}），不宜直接解释为相转变温度。
+
+与 DLS 结果相比，紫外法得到的特征温度略低，说明吸光度对体系由透明向浑浊转变的初始阶段更为敏感，而 DLS 更侧重反映颗粒流体动力学尺寸已经明显缩小后的状态。两种方法给出的 34.51~$^{\circ}$C 与 36.45~$^{\circ}$C 差异不大，且均落在 PNIPAM 微凝胶常见的相转变温区内，因此能够相互印证该样品具有明确的温度响应行为。
+
+\begin{table}[H]
+	\centering
+	\caption{{\zihaoXiaoWu 500~nm 下微凝胶吸光度随温度变化结果}}
+	\label{tab:uv}
+	\scalebox{1.35}{
+		{\zihaoLiu
+				\begin{tabular}{cc}
+					\toprule
+					温度 / $^{\circ}$C & 吸光度    \\
+					\midrule
+					25               & 0.2604 \\
+					30               & 0.3264 \\
+					35               & 1.1778 \\
+					40               & 1.7564 \\
+					45               & 1.9928 \\
+					50               & 1.9158 \\
+					55               & 1.8282 \\
+					60               & 1.7429 \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+图~\ref{fig:uv_raw} 显示吸光度在 30--45~$^{\circ}$C 区间提升最为明显，随后趋于平台并略有下降。图~\ref{fig:uv_boltz_dual} 与图~\ref{fig:uv_lorentz_dual} 展示了拟合及其一阶导数，表明 Boltzmann 拟合在本实验数据上更能保持单调上升至平台的总体特征，而 Lorentz 拟合虽可描述宽峰外形，但对相转变起始温区的刻画较弱。
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/uv_temperature_raw.png}
+	\caption{{\zihaoWu 微凝胶吸光度随温度变化的原始曲线}}
+	\label{fig:uv_raw}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/uv_boltzmann_dual_axis.png}
+	\caption{{\zihaoWu 微凝胶吸光度随温度变化的 Boltzmann 拟合及其一阶导数}}
+	\label{fig:uv_boltz_dual}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{src/img/uv_lorentz_dual_axis.png}
+	\caption{{\zihaoWu 微凝胶吸光度随温度变化的 Lorentz 拟合及其一阶导数}}
+	\label{fig:uv_lorentz_dual}
+\end{figure}
+
+\subsection{结果合理性与误差来源}
+
+本实验样品表现出较为典型的温度响应，但数据中也暴露出若干值得注意的问题。首先，30~$^{\circ}$C 的 DLS 异常值说明测量对灰尘、瞬时团聚及样品池清洁度极为敏感；其次，室温与变温两组测试的绝对粒径存在一定差异，提示配样浓度、平衡时间和过滤质量会显著影响结果；再次，紫外部分仅有简单读数结果，尽管已经按参考报告方式完成重绘与拟合，但其原始信息完整度仍低于 DLS，因此更适合作为辅助判定相变温区的证据，而不宜单独用于给出过度精确的结构参数。
+
+从物理化学角度看，PNIPAM 微凝胶的相转变源于分子链亲水作用与疏水作用平衡的改变。低温时酰胺基与水分子之间形成较强氢键，颗粒处于溶胀状态；升温后链段逐步脱水、疏水缔合作用增强，交联网络收缩，因而表现为粒径下降和散射增强。
+
+值得注意的是，实验数据反映出样品的分散状态并非处于理想的单分散状态。在室温重复测试中，测得的流体动力学直径呈现出 131.36~nm 与 296.60~nm 的显著差异；同时，变温 DLS 原始记录中偶见 7--10~nm 的极小表观信号，而 30~$^{\circ}$C 下又出现了约 1910~nm 的异常大颗粒贡献。一个理想的单分散微凝胶系统不应在呈现数百纳米主成分的同时，又具有纳米级的小尺寸信号和微米级的巨大颗粒波动。这种显著的尺寸跨度可能暗示体系中存在未除尽的小分子杂质、可溶性高分子链（产生极小表观信号），或是在特定条件下发生了瞬时聚集（产生微米级信号）。这说明微凝胶在水相中的分散稳定性对纯化程度和环境扰动较为敏感，非理想的颗粒分散度是导致不同批次或重复测试间粒径数据离散的主要原因。
+
+本实验中 DLS 拟合中心为 36.45~$^{\circ}$C，紫外拟合中心为 34.51~$^{\circ}$C，二者仅相差约 2~$^{\circ}$C，说明尽管体系的交联密度和粒径分布并不完全均一，但两种表征方法仍对同一相变过程给出了相互接近的判断。若后续需要进一步提升数据质量，可通过增加纯化次数、严格控温、延长每个温度点的平衡时间，并在 DLS 测试前再次过滤样品来改善重复性。
+
+\section{思考题}
+\vspace{-0.5em}
+
+\subsection{十二烷基硫酸钠在反应中的作用}
+
+SDS 在本实验中主要作为表面活性剂或乳化剂使用。其一，它有助于在水相中建立较稳定的反应微环境，限制聚合发生在分散尺度上，从而促进微凝胶颗粒而非整体块状凝胶的形成；其二，SDS 能降低颗粒间界面张力，减弱早期成核颗粒的并聚，使粒径分布更可控。因此，SDS 的存在对于获得可分散的 PNIPAM 微凝胶至关重要。
+
+\subsection{反应体系颜色变化的原因}
+
+升温后 KPS 分解产生自由基，引发 NIPAM 与 MBA 聚合，体系中逐渐形成交联聚合物颗粒。随着颗粒数量增加和尺寸长大，体系对可见光的散射显著增强，因此宏观上由澄清转为浑浊甚至乳白。颜色变化本质上并非单纯的化学显色，而是聚合反应推进、胶体颗粒生成以及散射增强的综合结果。
+
+\subsection{如何减小灰尘对 DLS 测试的影响}
+
+应在测试前使用洁净针筒和滤膜对样品进行过滤，避免大颗粒灰尘进入样品池；样品池内外壁需彻底清洁，避免指纹和残液残留；测试过程中应避免振动和气泡，并保证样品充分稀释与恒温平衡。由于 DLS 对少量大颗粒极其敏感，上述操作往往比单纯增加重复次数更有效。
+
+\subsection{是否存在类似 PNIPAM 的温敏单体}
+
+与 PNIPAM 相似的温敏单体通常也是带有酰胺基且具有可调亲疏水平衡的丙烯酰胺或甲基丙烯酰胺衍生物，例如 N-异丙基甲基丙烯酰胺、N,N-二乙基丙烯酰胺和 N-正丙基丙烯酰胺等。它们聚合后同样可能表现出一定的 LCST 行为，但具体转变温度和响应陡峭程度会随取代基结构、交联程度和溶液环境而变化。
+
+\subsection{温度响应微凝胶的潜在应用}
+
+温度响应微凝胶可在外界温度变化下实现体积、孔径和界面性质的可逆调节，因此适合用于药物控释载体、智能传感、分离介质、细胞培养与组织工程支架等场景。在生物医学方向，若将相转变温度调控至接近生理温度，还可实现对局部温度变化的高灵敏响应，这也是 PNIPAM 类微凝胶长期受到关注的重要原因。
+
+\section{结论}
+\vspace{-0.5em}
+
+本实验采用异相自由基聚合法成功制备出 PNIPAM 温度响应微凝胶。室温 DLS 结果显示样品平均有效直径约为 214.04~nm，PDI 为 0.155；变温 DLS 数据表明，微凝胶在 35--40~$^{\circ}$C 附近发生明显收缩。剔除 30~$^{\circ}$C 的高 PDI 异常重复后，Boltzmann 拟合得到的表观 LCST 为 36.45~$^{\circ}$C。500~nm 下的紫外吸光度在 30--45~$^{\circ}$C 显著上升，对应的 Boltzmann 拟合中心为 34.51~$^{\circ}$C。两种方法得到的特征温度彼此接近，说明所得微凝胶具有明确的温度响应行为。Boltzmann 拟合对相转变温区的刻画仍具有较高的参考价值。若进一步优化样品纯化、严格执行过滤除尘并延长控温平衡时间，有望提高粒径测量的重现性与拟合精度。
+
+\vspace{3em}
+
+{\footnotesize
+	\setstretch{1}
+	\begin{thebibliography}{9}
+		\bibitem{wu1997}
+		Wu C, Zhou S.
+		\textit{Macromolecules}, \textbf{1997}, 30: 574--576
+
+		\bibitem{wu2009}
+		Wu W, Zhou T, Zhou S.
+		\textit{Chem. Mater.}, \textbf{2009}, 21: 2851--2861
+
+		\bibitem{textbook}
+		王尊本主编.
+		{\kaishu 综合化学实验（第二版）}.
+		北京: 科学出版社, 2007
+	\end{thebibliography}
+}
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+
+\end{document}
