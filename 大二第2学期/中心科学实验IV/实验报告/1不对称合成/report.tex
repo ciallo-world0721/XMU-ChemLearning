@@ -1,0 +1,337 @@
+% !TEX program = xelatex
+% 中心科学实验 IV 研究型实验报告模板
+% 化学国家级实验教学示范中心（厦门大学）
+
+\documentclass[a4paper]{article}
+
+% ===== 字体 =====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+% ===== 字号定义 =====
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+% ===== 正文行距 =====
+\usepackage{setspace}
+
+% ===== 页面 =====
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+
+% ===== 页眉页脚 =====
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{images/img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+% ===== 标题样式 =====
+\usepackage{titlesec}
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+% ===== 表格图片 =====
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subfigure}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+
+% ===== 参考文献 =====
+\usepackage[super,sort&compress]{natbib}
+\bibliographystyle{unsrt}
+
+% ===== 其他 =====
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage{needspace}
+\usepackage{array}
+
+\begin{document}
+
+\setstretch{1.05}
+\zihaoWu
+
+\begin{center}
+	{\zihaoSan\heiti 手性 Co(III) 络合物的不对称合成与光谱表征}
+\end{center}
+
+\vspace{6pt}
+
+\section{引言}
+\vspace{-0.5em}
+
+手性金属络合物的拆分与构型指认是配位化学发展史上的关键问题。Werner 体系中不含手性碳的八面体 Co(III) 络合物能够形成稳定对映体，这一事实为无机立体化学奠定了基础。以乙二胺为螯体的 Co(III) 体系既具有明确的几何构型，又具有较好的动力学稳定性，因此长期被作为研究手性起源、对映选择性结晶与手性表征的经典模型\cite{ehnbom2016,saito1968}。
+
+本实验围绕 \textit{cis}-[CoBr(NH$_3$)(en)$_2$]Br$_2$ 的不对称合成与表征展开。实验体系一方面涉及晶种诱导与镜面对称性破缺，另一方面也要求借助紫外-可见吸收光谱和电子圆二色谱（CD）判断产物的组成一致性与手性富集程度。对于低自旋八面体 Co(III) 配合物，可见区吸收通常表现为较弱的配位场跃迁，而紫外区更容易叠加配体相关或电荷转移吸收，因此 UV-Vis 更适于确认样品是否属于同一发色体系；相比之下，CD 直接反映左、右圆偏振光吸收差异，是判断手性与粗略评估光学纯度更敏感的工具\cite{mccaffery1963,haas_libretexts}。
+
+结合本实验讲义可知，该体系既可以通过常规途径得到外消旋产物，也可能在晶种诱导和结晶放大过程中形成对某一对映体的明显偏向。由于当前保留下来的原始数据主要是三份样品的 UV-Vis 谱和两批 CD 谱，本报告以这些实测数据为核心，对三份平行样品的组成一致性、手性信号强弱及其可能原因进行讨论。在缺乏完整工作曲线原始点和全部称量记录的条件下，文中对 ee 的讨论仅作半定量分析，但仍可用于判断哪一份样品最可能形成以单一手性为主的 Co(III) 络合物\cite{iupac_ee}。
+
+\section{实验部分}
+\vspace{-0.5em}
+
+\subsection{仪器与试剂}
+
+实验所用主要仪器包括双向磁力搅拌器、恒温水浴锅、电冰箱、抽滤装置和色谱柱；光谱表征使用 JASCO J-810 型圆二色分光偏振仪、SHIMADZU UV-2501 PC 紫外可见分光光度计以及 WZZ-2S 型数字式自动旋光仪。讲义给出的定量测定条件为：ECD、UV-Vis 和旋光度测试样品通常配制为约 1.5 mg/mL 的水溶液，光程分别取 1 cm 和 5 cm\cite{teaching_lab}。
+
+主要试剂为乙二胺、七水合硫酸钴、溴化铵、氢溴酸、乙醇、乙醚、NH$_4^+$ 型 SP-Sephadex C-25 葡聚糖凝胶以及手性晶种，所用试剂纯度均为分析纯。本文的全部光谱图均直接依据实验保留的 UV-Vis 与 CD 原始导出数据重新绘制。
+
+\subsection{实验方法}
+
+\textbf{（1）三核钴前驱体的制备。} 按讲义条件，将 72.5 g 七水合硫酸钴(II)溶于 90 mL 水中，缓慢加入 150 mL 10\% 乙二胺溶液，在空气中持续搅拌 4 h，并继续静置氧化 3--4 d。待暗红棕色沉淀析出后抽滤，依次用水、乙醇和乙醚洗涤，其中水洗需持续至滤液仅呈浅粉红色，最后自然风干得到羟基桥联三核钴前驱体\cite{teaching_lab}。
+
+\textbf{（2）目标产物的常规制备与重结晶。} 取 1.07 g 三核钴前驱体、3.43 g NH$_4$Br 和 3.40 mL 水混合，磁力搅拌 1 min 形成悬浮液后，在 50~$^{\circ}$C 水浴中加热搅拌 5 min；冷却后于 0~$^{\circ}$C 保持约 20 h 促进结晶。析出的红紫色固体经抽滤后，先后用乙醇和乙醚洗涤以除去残余溴化铵及副产物。粗产物再用最少量 5\% HBr 溶液重结晶，并在室温下静置析晶；必要时可加入微量晶种以诱导单一手性晶体形成。
+
+\textbf{（3）色谱分离与晶种诱导。} 为考察绝对不对称合成现象，可将三核钴前驱体、NH$_4$Br 和水按讲义给出的比例分别配成三份平行样品，在室温下短时搅拌形成悬浮液后，于 50~$^{\circ}$C 恒温水浴中处理 5 min。其上层清液可负载于 NH$_4^+$ 型 Sephadex SP C-25 离子交换柱，依次用 0.2 mol/L 与 0.5 mol/L NH$_4$Br 溶液淋洗分离；对晶种诱导实验，则在反应体系中加入约 0.0036 g 手性晶种，并在冰浴或低温条件下完成结晶放大\cite{teaching_lab}。
+
+\textbf{（4）光谱测定与数据处理。} 现有数据包括两批 CD 数据和一批 UV-Vis 数据。第一批 CD 数据对应前期上清液，单位为 mdeg、采样间隔为 0.1 nm，可用于定性比较手性信号是否已经出现；第二批 CD 数据对应结晶后样品，导出单位为 molar CD、采样间隔为 2 nm，适合用于不同样品之间的半定量比较。UV-Vis 数据覆盖 350--700 nm 波段，可用于比较三份样品的可见区吸收带是否一致。所有图谱均采用 Python 对原始导出表重新绘制，使用 \texttt{bmh} 风格统一处理。对于结晶后样品，本文选取 542 nm 附近的吸光度比较样品浓度是否处于相近量级，选取 560 nm 附近的 $\Delta\varepsilon$ 值按
+\[
+	ee\,(\%) \approx \frac{|\Delta\varepsilon_{560}|}{0.336}\times 100\%
+\]
+估算其相对 ee 水平；该估算仅用于样品间比较，不作为严格定量结果。
+
+\section{结果与讨论}
+\vspace{-0.5em}
+
+\subsection{产物产量和外观特征}
+
+实验中制得的三核钴如预期那样为粉红色结晶粉末（如图\ref{fig:Co3}所示），得到14.69g（理论产量72.73g），计算产率为20.2\%。为了保证产品的纯度，需要加入大量蒸馏水进行多次洗涤，因而最终得到的三核钴产量较低。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\linewidth]{src/img/Co3.jpg}
+	\caption{{\zihaoWu 实验中制得的三核钴前驱体的外观照片}}
+	\label{fig:Co3}
+\end{figure}
+
+三份结晶后产品外观如图\ref{fig:samplepics}所示。产量分别为0.56g, 0.68g, 0.51g。三份样品均为结晶的红紫色固体或粉末，结晶为柱状或针状，外观略有差别。第三份（加入了晶种）的样品带有较多颜色较深的柱状晶体。
+
+\begin{figure}[htbp]
+	\centering
+	\subfigure[样品 1]{
+		\includegraphics[width=0.3\linewidth]{src/img/1.jpg}
+		\label{fig:sample1pic}
+	}
+	\subfigure[样品 2]{
+		\includegraphics[width=0.3\linewidth]{src/img/2.jpg}
+		\label{fig:sample2pic}
+	}
+	\subfigure[样品 3]{
+		\includegraphics[width=0.3\linewidth]{src/img/3.jpg}
+		\label{fig:sample3pic}
+	}
+	\caption{{\zihaoWu 三份结晶后样品的外观照片}}
+	\label{fig:samplepics}
+\end{figure}
+
+\subsection{结晶后样品的 UV-Vis 特征}
+
+三份结晶后样品的 UV-Vis 光谱见图\ref{fig:uv}。三条曲线在 350--700 nm 范围内形状高度相似，均在紫外区表现出较强吸收，并在 540--542 nm 附近保留较弱但清晰的可见吸收带。这说明三份样品的 Co(III) 发色体系高度一致，其光谱特征与预期的溴代乙二胺钴(III) 络合物相符。
+
+从 542 nm 处的吸光度看，样品 1、2、3 分别约为 0.203、0.192 和 0.195，差别较小，说明三份终产物溶液的有效浓度处于同一量级。为了更清楚比较可见区吸收峰位置和峰高，将 500--590 nm 区域进一步放大，如图\ref{fig:uvzoom} 所示。放大图表明三份样品在 541--542 nm 附近均有较稳定的吸收峰，峰位仅有极小偏差，其中样品 1 峰高略高于其余两组，但整体差异仍主要表现为浓度或配液误差，而非发色团类型差异。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.86\linewidth]{src/img/uv_vis_overlay.pdf}
+	\caption{{\zihaoWu 三份结晶后样品的 UV-Vis 光谱}}
+	\label{fig:uv}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.86\linewidth]{src/img/uv_vis_peak_zoom.pdf}
+	\caption{{\zihaoWu 三份结晶后样品在可见区的 UV-Vis 光谱放大图}}
+	\label{fig:uvzoom}
+\end{figure}
+
+\subsection{前期上清液与结晶后样品的 CD 差异}
+
+前期上清液的 CD 光谱如图\ref{fig:cd1} 所示。由于该批数据单位为 mdeg，且记录条件与结晶后样品不同，因此不能直接与后续 molar CD 数值对比，但其谱形仍有定性意义。样品 1 的 CD 信号整体较弱，仅在可见区表现出轻微的正、负摆动；样品 2 曲线则整体偏正且基线明显上移，提示样品状态或基线校正存在不稳定因素；样品 3 在 560 nm 左右出现显著的负峰，提示该样品在该测量条件下已经表现出更强的手性信号。
+
+这种差异在结晶后样品的 molar CD 光谱中表现得更加清楚。图\ref{fig:cd2} 和图\ref{fig:cd2zoom} 显示，三份样品在 500--580 nm 区域均出现负 Cotton 效应，但样品 3 的信号绝对值远大于样品 1 和样品 2。特别是在 560 nm 附近，样品 3 的 $\Delta\varepsilon$ 达到 $-0.2249$，而样品 1 和样品 2 仅分别约为 $-0.0182$ 和 $-0.0126$。这一结果说明样品 3 在结晶后显著富集了某一手性构型，而样品 1 和样品 2 则更接近外消旋或仅有很弱的偏向。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.86\linewidth]{src/img/cd_week1_overlay.pdf}
+	\caption{{\zihaoWu 前期上清液的 CD 光谱（原始 mdeg 数据）}}
+	\label{fig:cd1}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.86\linewidth]{src/img/cd_week2_overlay.pdf}
+	\caption{{\zihaoWu 结晶后样品的 CD 光谱（molar CD）}}
+	\label{fig:cd2}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.86\linewidth]{src/img/cd_week2_visible_zoom.pdf}
+	\caption{{\zihaoWu 结晶后样品在可见区的 CD 光谱放大图}}
+	\label{fig:cd2zoom}
+\end{figure}
+
+\subsection{手性富集程度及其化学含义}
+
+根据结晶后样品在 560 nm 附近的 molar CD 值，可以对三份样品的手性富集程度作半定量估计，结果列于表\ref{tab:summary}。如果采用教学实验给出的纯物参考值 $|\Delta\varepsilon|=0.336$，则样品 3 的近似 ee 为 66.9\%，明显高于样品 1 和样品 2 的 5\% 左右水平。由此可见，样品 3 表现出显著的对映体富集，并且已经明显偏向某一手性构型，而另外两份样品更接近消旋体系。
+
+这一结果与晶种诱导的不对称结晶机制是相符的。种晶一旦提供了与自身构型匹配的晶面环境，溶液中与之同向的配合物更容易被优先吸附并继续长大，于是体系中的微小手性差异可以被逐步放大\cite{ehnbom2016,saito1968}。然而，这一过程对实验条件非常敏感。\textit{cis}-[CoBr(NH$_3$)(en)$_2$]Br$_2$ 在水溶液中可能发生配位环境扰动，若样品久置、洗涤时间过长或溶液酸度控制不足，都可能削弱已有的手性优势，使样品重新趋向外消旋。正因为如此，样品 2 虽然在前期 CD 数据中出现了明显基线偏移，但在结晶后并未显示出对应的强手性信号，反而提示其测量结果可能与样品状态、基线或测试条件有关。
+
+关于构型指认，讲义与相关文献都指出：对于结构相近的 Co(III) 五元螯环体系，应关注 Cotton 效应在整个波段中的走向，而不能仅凭某个单独波长的正负号判断构型\cite{saito1968,mccaffery1963,teaching_lab}。本实验中样品 3 在 560 nm 附近呈显著负信号，若沿用教学实验中“$\Delta$-(−)”的经验对应，则样品 3 最可能是以 $\Delta$ 构型为主的手性产物。不过，这一判断仍应视为基于经验规律的谱学推断；若要完成严格的绝对构型认定，还需要与已知标准品或单晶结构数据相互印证。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 三份结晶后样品的 UV/CD 关键参数与半定量 ee}}
+	\label{tab:summary}
+	{\zihaoLiu
+		\begin{tabular}{>{\centering\arraybackslash}p{1.7cm} >{\centering\arraybackslash}p{2.2cm} >{\centering\arraybackslash}p{2.6cm} >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{4.2cm}}
+			\toprule
+			样品 & $A_{542}$ & $\Delta\varepsilon_{560}$ & 近似 $ee/\%$ & 结论                  \\
+			\midrule
+			1  & 0.203     & $-0.0182$                 & 5.4        & 可见区 CD 很弱，接近外消旋     \\
+			2  & 0.192     & $-0.0126$                 & 3.8        & 结晶后仍接近外消旋，前期曲线需谨慎解释 \\
+			3  & 0.195     & $-0.2249$                 & 66.9       & 明显偏向某一手性，是最成功的不对称样品 \\
+			\bottomrule
+		\end{tabular}}
+\end{table}
+
+% \section{思考题}
+% \vspace{-0.5em}
+
+% \subsection{为什么晶种诱导能够打破镜面对称并放大手性差异？}
+
+% 在不对称结晶体系中，最初的手性偏向可能极其微弱，但一旦溶液中出现某一构型的种晶，晶面便会为同构型配合物提供更低的成核与生长势垒，从而优先捕获并固定胆量一致的配合物单元。随着结晶继续进行，溶液中的微弱偏向被不断放大，最终表现为某一对映体占优。对 Co(III) 乙二胺体系而言，这种放大并不是“从零凭空生成手性”，而是将体系中原本极小的统计涨落通过结晶动力学放大为可测的 CD 信号。
+
+% \subsection{为什么 UV-Vis 只能证明产物类型相近，而不能单独证明手性？}
+
+% 在非手性介质中，对映体对普通线偏振或非偏振光的吸收完全相同，因此 UV-Vis 只能反映发色团是否一致、浓度是否处于相近范围、是否存在明显杂质吸收等信息，而不能区分左、右手性产物。CD 则不同，它直接比较左、右圆偏振光的吸收差，因此只要体系具有手性，便可能出现正负相反的 Cotton 效应。也就是说，UV-Vis 负责回答“是不是同一类 Co(III) 配合物”，CD 负责回答“是否发生了手性富集以及富集方向如何”。
+
+% \subsection{如何区分外消旋化合物与外消旋混合物？}
+
+% 根据讲义，区分两者的关键在于固相组织方式。若样品属于外消旋混合物（conglomerate），则两种对映体分别形成独立晶体，机械拆分或晶种诱导才有可能奏效；若属于外消旋化合物，则两种对映体在同一晶格中以固定比例共存，单纯依靠物理分拣很难实现拆分。实验上可以通过粉末 XRD、溶解度曲线、熔点行为及晶体形貌比较来判断：若拆分前后晶相差别明显且可通过种晶放大手性，通常更倾向于外消旋混合物；若始终表现为单一稳定晶相，则更可能是外消旋化合物\cite{teaching_lab}。
+
+\section{结论}
+\vspace{-0.5em}
+
+本次实验成功地合成了三核钴原料，并进一步合成了 cis-[CoBr(NH$_3$)(en)$_2$]Br$_2$ 的三份样品，并通过UV-vis和CD光谱测定验证了八面体络合物的手性破缺理论。
+
+三份平行样品的 UV-Vis 光谱表明，结晶后所得产物具有一致的 Co(III) 发色体系，说明实验产物与目标类型的溴代乙二胺钴(III) 络合物具有较高一致性。进一步的 CD 比较显示，样品 1 和样品 2 在结晶后仅表现出很弱的手性偏向，而样品 3 在 560 nm 附近出现显著负 Cotton 效应，近似 ee 达到 66.9\%，说明其最有效地实现了不对称放大。
+
+综合前期上清液与结晶后样品的数据可知，在本实验中，晶种诱导与更高的手性富集结果相伴随，但该过程也可能受到样品酸度、停留时间和溶液稳定性的影响。另外，本实验中称取了10mg样品配置溶液进行紫外-可见光谱和圆二色光谱测定，从而验证旋光性，而由于样品形态不够均一，同时包含柱状结晶和粉末，可能会造成主观性的误差。若沿用教学实验中“$\Delta$-(−)”的经验对应，则样品 3 最可能形成了以 $\Delta$ 构型为主的手性 Co(III) 络合物；而样品 2 前期曲线的异常偏移则提醒我们，光谱解释必须建立在可靠样品状态和合适基线之上。由此可见，不对称合成能否成功，并不只取决于是否加入种晶，还取决于后续结晶与表征过程中是否尽可能减少水解、外消旋和测试伪差。
+
+\vspace{1em}
+{\footnotesize
+	\setstretch{1}
+	\begin{thebibliography}{9}
+		\bibitem{ehnbom2016}
+		Ehnbom A, Ghosh S, Lewis K G, Gladysz J A.
+		\textit{Chem. Soc. Rev.}, \textbf{2016}, 45: 6799--6811.
+
+		\bibitem{saito1968}
+		Saito Y.
+		\textit{Pure Appl. Chem.}, \textbf{1968}, 17: 21--36.
+
+		\bibitem{mccaffery1963}
+		McCaffery A J, Mason S F.
+		\textit{Mol. Phys.}, \textbf{1963}, 6(4): 359--371.
+
+		\bibitem{haas_libretexts}
+		Haas K.
+		\textit{Electronic Spectra of Coordination Compounds}. Chemistry LibreTexts.
+
+		\bibitem{iupac_ee}
+		IUPAC Gold Book.
+		\textit{Enantiomeric excess} and \textit{Optical purity}.
+
+		\bibitem{teaching_lab}
+		“中心科学实验IV”讲义《实验一 手性 Co(III) 络合物的不对称合成和表征》.
+	\end{thebibliography}
+}
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+
+\end{document}

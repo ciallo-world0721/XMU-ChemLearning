@@ -1,0 +1,539 @@
+Analysis.AcquisitionTime	240.10 s
+Analysis.CountsPerSecond	-9223372036854775808
+Analysis.Description	Stream Filter
+Analysis.ITG247.GainCorrectionArray	
+Analysis.Id	0
+Analysis.LEISSpectrum.Accumulate	0.333333333333333 s
+Analysis.LEISSpectrum.AccumulateScans.formula	Analysis.LEISSpectrum.AccumulateShots Registration.Raster.ShotsPerPixel Registration.Raster.Resolution Registration.Raster.Resolution * * /
+Analysis.LEISSpectrum.AccumulateSeconds.formula	Analysis.LEISSpectrum.Accumulate
+Analysis.LEISSpectrum.AccumulateShots.formula	Analysis.LEISSpectrum.AccumulateSeconds Measurement.CycleTime /
+Analysis.LEISSpectrum.AccumulateSynchronous	on
+Analysis.LEISSpectrum.Description	Spectrum
+Analysis.LEISSpectrum.FixedAccumulationUnit	s
+Analysis.LEISSpectrum.Id	8
+Analysis.LEISSpectrum.Source	0
+Analysis.LEISSpectrum.StartChannel	0
+Analysis.LEISSpectrum.Started	true
+Analysis.LEISSpectrum.Type	LEISSpectrum
+Analysis.LEISSpectrum.X.Channels	70
+Analysis.LEISSpectrum.Y.Channels	70
+Analysis.MassIntervalList.DebugProperties	off
+Analysis.MassIntervalList.NumberMassIntervals	2
+Analysis.PIShots	4802000
+Analysis.PartialSpectra	0
+Analysis.PauseTime	0 
+Analysis.PrimaryGun.IonDose	2.3977384e+012 
+Analysis.PrimaryGun.PIDD	5.994346e+013 
+Analysis.Raster.Roi.Coverage	100.00 %
+Analysis.Raster.Roi.CoveredPixels	4900
+Analysis.SEImage.Description	Secondary Electrons Image
+Analysis.SEImage.Id	3
+Analysis.SEImage.IsStageRasterMeasurement	0
+Analysis.SEImage.MaxTOF	1073741823
+Analysis.SEImage.MinTOF	0
+Analysis.SEImage.Source	0
+Analysis.SEImage.Started	false
+Analysis.SEImage.Type	SEImage
+Analysis.SEImage.X.Channels	70
+Analysis.SEImage.X.Compression	1
+Analysis.SEImage.X.StageRasterChannels	0
+Analysis.SEImage.Y.Channels	70
+Analysis.SEImage.Y.Compression	1
+Analysis.SEImage.Y.StageRasterChannels	0
+Analysis.SICount	53208
+Analysis.SICountDeadtimeCorrected	143895.69 
+Analysis.ScanNumber	980
+Analysis.Source	0
+Analysis.SputterTime	0 
+Analysis.Started	false
+Analysis.Timestamp	Sat Mar 14 05:36:36 2026
+Analysis.TofCorrection.DeadSICount	0
+Analysis.TofCorrection.DeadTime	0 ns
+Analysis.TofCorrection.Description	PI Flight Time Correction
+Analysis.TofCorrection.Id	2
+Analysis.TofCorrection.ImageStack.Counts	143821
+Analysis.TofCorrection.ImageStack.Description	SI Images
+Analysis.TofCorrection.ImageStack.Id	6
+Analysis.TofCorrection.ImageStack.NumberMassIntervals	2
+Analysis.TofCorrection.ImageStack.OutputAccumulateCoords	4096
+Analysis.TofCorrection.ImageStack.OutputMaxAge	1000
+Analysis.TofCorrection.ImageStack.Shots	4802000
+Analysis.TofCorrection.ImageStack.ShotsImage	false
+Analysis.TofCorrection.ImageStack.Source	2
+Analysis.TofCorrection.ImageStack.Started	true
+Analysis.TofCorrection.ImageStack.Type	ImageStack
+Analysis.TofCorrection.ImageStack.X.Channels	70
+Analysis.TofCorrection.ImageStack.Y.Channels	70
+Analysis.TofCorrection.SICount	0
+Analysis.TofCorrection.SIImage.Description	Secondary Ions Image
+Analysis.TofCorrection.SIImage.Id	4
+Analysis.TofCorrection.SIImage.IsStageRasterMeasurement	0
+Analysis.TofCorrection.SIImage.MaxMass	72057325468
+Analysis.TofCorrection.SIImage.MaxTOF	2147483647
+Analysis.TofCorrection.SIImage.MinMass	0.0
+Analysis.TofCorrection.SIImage.MinTOF	-2300
+Analysis.TofCorrection.SIImage.Source	2
+Analysis.TofCorrection.SIImage.Started	true
+Analysis.TofCorrection.SIImage.Type	SIImage
+Analysis.TofCorrection.SIImage.X.Channels	70
+Analysis.TofCorrection.SIImage.X.Compression	1
+Analysis.TofCorrection.SIImage.X.StageRasterChannels	0
+Analysis.TofCorrection.SIImage.Y.Channels	70
+Analysis.TofCorrection.SIImage.Y.Compression	1
+Analysis.TofCorrection.SIImage.Y.StageRasterChannels	0
+Analysis.TofCorrection.Source	0
+Analysis.TofCorrection.Spectrum.Accumulate	1 s
+Analysis.TofCorrection.Spectrum.AccumulateScans.formula	Analysis.TofCorrection.Spectrum.AccumulateShots Registration.Raster.ShotsPerPixel Registration.Raster.Resolution Registration.Raster.Resolution * * /
+Analysis.TofCorrection.Spectrum.AccumulateSeconds.formula	Analysis.TofCorrection.Spectrum.Accumulate
+Analysis.TofCorrection.Spectrum.AccumulateShots.formula	Analysis.TofCorrection.Spectrum.AccumulateSeconds Measurement.CycleTime /
+Analysis.TofCorrection.Spectrum.AccumulateSynchronous	on
+Analysis.TofCorrection.Spectrum.ChannelWidth.formula	Registration.TimeResolution Analysis.TofCorrection.Spectrum.Compression *
+Analysis.TofCorrection.Spectrum.Compression	2
+Analysis.TofCorrection.Spectrum.Description	Spectrum
+Analysis.TofCorrection.Spectrum.FixedAccumulationUnit	s
+Analysis.TofCorrection.Spectrum.Id	5
+Analysis.TofCorrection.Spectrum.NumberChannels	499999
+Analysis.TofCorrection.Spectrum.PIShots	4802000
+Analysis.TofCorrection.Spectrum.Profile.DeadtimeCorrection	1
+Analysis.TofCorrection.Spectrum.Profile.Description	Profile
+Analysis.TofCorrection.Spectrum.Profile.Id	7
+Analysis.TofCorrection.Spectrum.Profile.NumberMassIntervals	2
+Analysis.TofCorrection.Spectrum.Profile.SendImmediately	0
+Analysis.TofCorrection.Spectrum.Profile.ShotsPerDataPoint	4900
+Analysis.TofCorrection.Spectrum.Profile.Source	5
+Analysis.TofCorrection.Spectrum.Profile.Started	true
+Analysis.TofCorrection.Spectrum.Profile.Type	Profile
+Analysis.TofCorrection.Spectrum.SICount	143821
+Analysis.TofCorrection.Spectrum.Source	2
+Analysis.TofCorrection.Spectrum.StartChannel	0
+Analysis.TofCorrection.Spectrum.Started	true
+Analysis.TofCorrection.Spectrum.Type	Spectrum
+Analysis.TofCorrection.Spectrum.UseEDRCorrection	on
+Analysis.TofCorrection.Started	true
+Analysis.TofCorrection.TofCorrection	0
+Analysis.TofCorrection.TofCorrectionFactor	1 
+Analysis.TofCorrection.TofCorrectionPolarity	Positive
+Analysis.TofCorrection.Type	TofCorrection
+Analysis.TotalPIDD	5.994346e+013 
+Analysis.TotalScans	980
+Analysis.TotalTime	271.46 s
+Analysis.Type	PropertyTrend
+Context.InfiniteTimeouts	false
+Context.InstalledMediators	Demo
+Context.MassScale.K0	-2300 
+Context.MassScale.Polarity	Positive
+Context.MassScale.SF	67400 
+Context.MediatorPath	C:\Program Files\ION-TOF\SurfaceLab 6\bin
+Context.Mode	LEIS
+Context.Mode.Description	Do LEIS measurements
+Context.Mode.LEIS.TDC.AcquisitionGate	open
+Context.Mode.LEIS.TDC.AdjustMode	On
+Context.Mode.LEIS.TDC.AquisitionBuffers	4
+Context.Mode.LEIS.TDC.DeadTime	66 ns
+Context.Mode.LEIS.TDC.OverlappedIO	on
+Context.Mode.LEIS.TDC.StartDelay	
+Context.Mode.LEIS.TDC.StreamingMode	off
+Context.Mode.LEIS.TDC.TimeResolution	50 ps
+Context.Mode.Name	LEIS
+Context.State	started
+Context.StateChange	resumed
+Context.Storage	on
+Context.Storage.Compression	on
+Context.Storage.DiskSpace	363941
+Context.Storage.File.FinalName	c:\users\operator\appdata\local\temp\~tmp7vquzq.itm
+Context.Storage.File.Name	c:\users\operator\appdata\local\temp\~tmp7vquzq.itm
+Context.Storage.File.Prefix	Temp
+Context.Storage.MinDiskSpace.Action	Pause
+Context.Storage.Path	C:\Users\Operator\Documents\My Tofdata
+Context.Storage.WarnMinDiskSpace	1000
+Instrument.AbsoluteTargetCurrent	-3.603 uA
+Instrument.Analyzer.ExtractionDelay	0.000 us
+Instrument.Analyzer.Polarity	Positive
+Instrument.AnalyzerL.C1	6.24
+Instrument.AnalyzerL.C2	9.89
+Instrument.AnalyzerL.Detector	2685 V
+Instrument.AnalyzerL.Detector.unprotected	2685 V
+Instrument.AnalyzerL.DetectorMode	Energy C2/(C1 + C2)
+Instrument.AnalyzerL.Detector_In	-50 V
+Instrument.AnalyzerL.E_add	574 V
+Instrument.AnalyzerL.E_add.Max	1200
+Instrument.AnalyzerL.E_add.Min	-3000
+Instrument.AnalyzerL.I_Detector	0.41 mA
+Instrument.AnalyzerL.Input_Select	ADC
+Instrument.AnalyzerL.Lens	0 V
+Instrument.AnalyzerL.Lower_Energy	7.8 %
+Instrument.AnalyzerL.Lower_Threshold	1.2 %
+Instrument.AnalyzerL.Lower_Time	0.00 us
+Instrument.AnalyzerL.Monitor	C1, C2, pulse_C12, pulse_C2
+Instrument.AnalyzerL.Monitor2	C1
+Instrument.AnalyzerL.Pass_Energy	3000 V
+Instrument.AnalyzerL.SE_Det	0 V
+Instrument.AnalyzerL.SE_Grid	0 V
+Instrument.AnalyzerL.Second_Test_Pulse	On
+Instrument.AnalyzerL.Skimmer	125 V
+Instrument.AnalyzerL.Test.Testpulse_C1_Amplitude	6.2 %
+Instrument.AnalyzerL.Test.Testpulse_C2_Amplitude	9.9 %
+Instrument.AnalyzerL.Test_Delay	0.00 %
+Instrument.AnalyzerL.Toroid_1_inner	1024 V
+Instrument.AnalyzerL.Toroid_1_outer	831 V
+Instrument.AnalyzerL.Toroid_2_inner	1054 V
+Instrument.AnalyzerL.Toroid_2_outer	820 V
+Instrument.AnalyzerL.Upper_Energy	90.2 %
+Instrument.AnalyzerL.Upper_Threshold	73.4 %
+Instrument.AnalyzerL.Upper_Time	50.00 us
+Instrument.ChargeCompensation	On
+Instrument.ChargeCompensation.Deflection	6.0 V
+Instrument.ChargeCompensation.Energy	12 V
+Instrument.ChargeCompensation.Filament	3.30 A
+Instrument.ChargeCompensation.Filament.unprotected	3.30 A
+Instrument.DSC-S/A.Anode	125.0 V
+Instrument.DSC-S/A.Bits	0
+Instrument.DSC-S/A.Buncher.Delay	125.0 ns
+Instrument.DSC-S/A.Chopper.Width	49000 ns
+Instrument.DSC-S/A.Cs_Pulser.orig	400 V
+Instrument.DSC-S/A.Current_1	0.89 uA
+Instrument.DSC-S/A.Current_2	0.00 uA
+Instrument.DSC-S/A.Emission	1.2 mA
+Instrument.DSC-S/A.Energy	5000 V
+Instrument.DSC-S/A.Extractor	894.5 V
+Instrument.DSC-S/A.I_Glas	0.0 mA
+Instrument.DSC-S/A.Lens_Crossover	46.15 %
+Instrument.DSC-S/A.Lens_Source	92.06 %
+Instrument.DSC-S/A.Lens_Target	53.65 %
+Instrument.DSC-S/A.MFC_H2	0.0 %
+Instrument.DSC-S/A.MFC_O2	0.0 %
+Instrument.DSC-S/A.RangeSwitch	0x00
+Instrument.DSC-S/A.Sensitivity_X	38.8 %
+Instrument.DSC-S/A.Sensitivity_Y	38.8 %
+Instrument.DSC-S/A.Stigmator	0.0 %
+Instrument.DSC-S/A.Stigmator_Source	-2.0 %
+Instrument.DSC-S/A.Suppressor_Current	0.00 uA
+Instrument.DSC-S/A.U_Glas	114.92 V
+Instrument.DSC-S/A.X_Crossover	1.05 %
+Instrument.DSC-S/A.X_Source	1.60 %
+Instrument.DSC-S/A.X_Target	9.0 %
+Instrument.DSC-S/A.Y_Crossover	23.580 %
+Instrument.DSC-S/A.Y_Source	19.70 %
+Instrument.DSC-S/A.Y_Target	-5.5 %
+Instrument.Floodgun.Delay	0.0 us
+Instrument.Floodgun.Lead_Off	0.0 us
+Instrument.ITG247.LEISParameter.A	1.0
+Instrument.ITG247.LEISParameter.B	-34.0496588476
+Instrument.ITG247.LEISParameter.C	0.853536389849
+Instrument.ITG247.LEISParameter.D	0.00407324255362
+Instrument.ITG247.LEISParameter.E	-2.30009412223e-06
+Instrument.ITG247.LEIS_E0	74.09
+Instrument.ITG247.Limit.A	41
+Instrument.ITG247.Limit.B	131
+Instrument.ITG247.LowerPositionCorr	17 
+Instrument.ITG247.SignalDelay	0.0 ns
+Instrument.ITG247.TDCDataOffset	1713.00
+Instrument.ITG247.TofHistogram	1
+Instrument.ITG247.UpperPositionCorr	126 
+Instrument.Id	00000000
+Instrument.Measurement.EnableIntegrator	Off
+Instrument.PrimaryGun	DSC-S/A
+Instrument.PrimaryGun.Analysis.MeanCurrent	1.6e+003 pA
+Instrument.PrimaryGun.Anode	125.0 V
+Instrument.PrimaryGun.Bits	0
+Instrument.PrimaryGun.Buncher.Delay	125.0 ns
+Instrument.PrimaryGun.ChargePerParticle	1 e
+Instrument.PrimaryGun.Chopper.Offset	0.0 ns
+Instrument.PrimaryGun.Chopper.Width	49000 ns
+Instrument.PrimaryGun.Cs_Pulser	On
+Instrument.PrimaryGun.Cs_Pulser.orig	400 V
+Instrument.PrimaryGun.CurrentCorrectionFactor	1 
+Instrument.PrimaryGun.Current_1	0.00 uA
+Instrument.PrimaryGun.Current_2	0.00 uA
+Instrument.PrimaryGun.Emission	1.2 mA
+Instrument.PrimaryGun.EndOfAnalysis.Current	1600.000 pA
+Instrument.PrimaryGun.Energy	5000 V
+Instrument.PrimaryGun.Extractor	894.5 V
+Instrument.PrimaryGun.I_Glas	0.0 mA
+Instrument.PrimaryGun.Lens_Crossover	46.15 %
+Instrument.PrimaryGun.Lens_Source	92.06 %
+Instrument.PrimaryGun.Lens_Target	53.65 %
+Instrument.PrimaryGun.MFC_H2	0.0 %
+Instrument.PrimaryGun.MFC_O2	0.0 %
+Instrument.PrimaryGun.MassPerCharge	20.0 amu
+Instrument.PrimaryGun.MeanCurrent	1.6e+003 pA
+Instrument.PrimaryGun.ParticleEnergy	5000 
+Instrument.PrimaryGun.Position	180
+Instrument.PrimaryGun.RangeSwitch	0x00
+Instrument.PrimaryGun.Sensitivity_X	38.8 %
+Instrument.PrimaryGun.Sensitivity_Y	38.8 %
+Instrument.PrimaryGun.Species	Ne
+Instrument.PrimaryGun.StartOfAnalysis.Current	1600.000 pA
+Instrument.PrimaryGun.StartOfMeasurement.Current	1600.000 pA
+Instrument.PrimaryGun.StartOfMeasurement.EffectiveCurrent	1600.000 pA
+Instrument.PrimaryGun.Stigmator	0.0 %
+Instrument.PrimaryGun.Stigmator_Source	-2.0 %
+Instrument.PrimaryGun.Suppressor_Current	0.00 uA
+Instrument.PrimaryGun.U_Glas	0.00 V
+Instrument.PrimaryGun.X_Crossover	1.05 %
+Instrument.PrimaryGun.X_Source	1.60 %
+Instrument.PrimaryGun.X_Target	9.0 %
+Instrument.PrimaryGun.Y_Crossover	23.580 %
+Instrument.PrimaryGun.Y_Source	19.70 %
+Instrument.PrimaryGun.Y_Target	-5.5 %
+Instrument.SputterGun	---
+Instrument.SputterGun.Interlaced_Cycle_Time	0.0 ns
+Instrument.Stage.Position.R	14.4426 deg
+Instrument.Stage.Position.T	2.5913 deg
+Instrument.Stage.Position.U	-41.1359 mm
+Instrument.Stage.Position.V	-33.3096 mm
+Instrument.Stage.Position.W	28.1303 mm
+Instrument.Stage.Position.X	-29.1919 mm
+Instrument.Stage.Position.Y	-41.8065 mm
+Instrument.Stage.Position.Z	-3.1303 mm
+Instrument.Target_Current	-36.03 %
+Instrument.Target_Current.Range	25 uA
+Instrument.Timing.Cycle_Time	50 us
+Instrument.Timing.Floodgun	Off
+Instrument.Timing.Ion_Beam	Off
+Instrument.Timing.Primary_Beam	On
+Instrument.VCU.3rdGun.ReadyLimit	6.0E-5 mbar
+Instrument.VCU.3rdGun.VentingDuration	100 s
+Instrument.VCU.AcquisitionRunning	off
+Instrument.VCU.Bakeout.External.Duration	16 h
+Instrument.VCU.Bakeout.External.Start	off
+Instrument.VCU.Bakeout.External.Temperature.set	115 °C
+Instrument.VCU.Bakeout.Internal.Duration	10 h
+Instrument.VCU.Bakeout.Internal.Start	off
+Instrument.VCU.Bakeout.Internal.Temperature.set	100 °C
+Instrument.VCU.Bakeout.Loadlock.Duration	8 h
+Instrument.VCU.Bakeout.Loadlock.Start	off
+Instrument.VCU.Bakeout.Loadlock.Temperature.set	100 °C
+Instrument.VCU.Beeper	off
+Instrument.VCU.Buffer.LowerLimit	5.0E-1 mbar
+Instrument.VCU.Buffer.PurgingTime	5:00
+Instrument.VCU.Buffer.UpperLimit	1.5E+0 mbar
+Instrument.VCU.Buffer.VentedLimit	<OverRng>
+Instrument.VCU.DSC.ReadyLimit	5.0E-4 mbar
+Instrument.VCU.DSC.VentingDuration	100 s
+Instrument.VCU.Enable.TSP	 
+Instrument.VCU.ExchangePosition	svc
+Instrument.VCU.Ext_Heater	off
+Instrument.VCU.Fan	off
+Instrument.VCU.Forepump	on
+Instrument.VCU.GasSupply	off
+Instrument.VCU.GasSupplyBypass	off
+Instrument.VCU.GasSupplyValve1	on
+Instrument.VCU.GasSupplyValve2	off
+Instrument.VCU.GasSupplyValve3	off
+Instrument.VCU.GasSupplyValve4	off
+Instrument.VCU.Gas_Supply	Mix
+Instrument.VCU.Gate_Main_Close	off
+Instrument.VCU.Gate_Main_Open	off
+Instrument.VCU.Gate_Prep_Close	off
+Instrument.VCU.Gate_Prep_Open	off
+Instrument.VCU.Gate_Vatterfly	on
+Instrument.VCU.Gauge_3rdGun	on
+Instrument.VCU.Gauge_Analyzer	on
+Instrument.VCU.Gauge_Buffer	on
+Instrument.VCU.Gauge_DSC	off
+Instrument.VCU.Gauge_Drag	on
+Instrument.VCU.Gauge_LMIG	off
+Instrument.VCU.Gauge_Loadlock	on
+Instrument.VCU.Gauge_Main	on
+Instrument.VCU.Gauge_Prep	on
+Instrument.VCU.Gauge_PrepLL	on
+Instrument.VCU.Heater1	off
+Instrument.VCU.Heater2	off
+Instrument.VCU.Heater3	off
+Instrument.VCU.Illumination	on
+Instrument.VCU.Int_Heater	off
+Instrument.VCU.LL_Heater	off
+Instrument.VCU.LMIG.ReadyLimit	5.0E-6 mbar
+Instrument.VCU.LMIG.VentingDuration	100 s
+Instrument.VCU.Laser	off
+Instrument.VCU.Loadlock.ReadyLimit	4.1E-3 mbar
+Instrument.VCU.Loadlock.VentingDuration	70 s
+Instrument.VCU.Main.Forevacuum.Timeout	1500 s
+Instrument.VCU.Main.ForevacuumLimit	1.0E+0 mbar
+Instrument.VCU.Main.ReadyLimit	3.0E-5 mbar
+Instrument.VCU.Main.VentedLimit	<OverRng>
+Instrument.VCU.OpenClose.Gate_Main	
+Instrument.VCU.OpenClose.Gate_Prep	off
+Instrument.VCU.PV	closed
+Instrument.VCU.Power_3rdGun	on
+Instrument.VCU.Power_Analyzer	on
+Instrument.VCU.Power_DSC	off
+Instrument.VCU.Power_LMIG	off
+Instrument.VCU.Power_Prep	on
+Instrument.VCU.Prep.ForevacuumLimit	5.0E-1 mbar
+Instrument.VCU.Prep.ReadyLimit	3.0E-7 mbar
+Instrument.VCU.Prep.VentedLimit	<OverRng>
+Instrument.VCU.PrepLoadlock.ReadyLimit	5.0E-1 mbar
+Instrument.VCU.Pressure.3rd.Delay	6.0 s
+Instrument.VCU.Pressure.3rd.Prop_Gain	2.4
+Instrument.VCU.Pressure.3rdGun	1.0E-5 mbar
+Instrument.VCU.Pressure.3rd_set	1.0E-5 mbar
+Instrument.VCU.Pressure.Buffer	6.7E-1 mbar
+Instrument.VCU.Pressure.Drag	9.7E-4 mbar
+Instrument.VCU.Pressure.Loadlock	4.4E-8 mbar
+Instrument.VCU.Pressure.Main	2.1E-8 mbar
+Instrument.VCU.Pressure.Main.Delay	6.0 s
+Instrument.VCU.Pressure.Main.Prop_Gain	2.4
+Instrument.VCU.Pressure.Main_set	1.0E-10 mbar
+Instrument.VCU.Pressure.Prep	8.9E-9 mbar
+Instrument.VCU.Pressure.PrepLL	1.2E-3 mbar
+Instrument.VCU.ProtectedPower.3rdGun	on
+Instrument.VCU.ProtectedPower.Analyzer	on
+Instrument.VCU.ProtectedPower.Prep	on
+Instrument.VCU.QuickLoadlock.ForevacuumLimit	5.0E-1 mbar
+Instrument.VCU.QuickLoadlock.TurboVentingDuration	40 s
+Instrument.VCU.SampleIllumination.Brightness	26 s
+Instrument.VCU.Service_Mode	 
+Instrument.VCU.Service_Mode_Flag	auto
+Instrument.VCU.StageInExchangePositionManual	off
+Instrument.VCU.StageInExchangePositionReferenceSample	off
+Instrument.VCU.StartStop.3rdGun	off
+Instrument.VCU.StartStop.DSC	off
+Instrument.VCU.StartStop.DSI_1	off
+Instrument.VCU.StartStop.Instrument	off
+Instrument.VCU.StartStop.LMIG	off
+Instrument.VCU.StartStop.Loadlock	off
+Instrument.VCU.StartStop.Main	off
+Instrument.VCU.StartStop.Prep	off
+Instrument.VCU.StartStop.Purging	off
+Instrument.VCU.Status.3rdGun_Valve	open
+Instrument.VCU.Status.3rd_Gun	
+Instrument.VCU.Status.Bakeout_enable	false
+Instrument.VCU.Status.DSC_Valve	closed
+Instrument.VCU.Status.DSI1	
+Instrument.VCU.Status.DSI_Transfer	closed
+Instrument.VCU.Status.Fan_Turbo_Drag	stopped
+Instrument.VCU.Status.GateMain	closed
+Instrument.VCU.Status.GatePrep	open
+Instrument.VCU.Status.Gate_Main_closed	true
+Instrument.VCU.Status.Gate_Main_open	false
+Instrument.VCU.Status.Gate_Prep_closed	false
+Instrument.VCU.Status.Gate_Prep_open	true
+Instrument.VCU.Status.HW_Btn_CloseGateMain	false
+Instrument.VCU.Status.HW_Btn_OpenGateMain	false
+Instrument.VCU.Status.HW_Btn_StartLoadlock	false
+Instrument.VCU.Status.HW_Btn_StopLoadlock	false
+Instrument.VCU.Status.LMIG_Valve	closed
+Instrument.VCU.Status.Loadlock	
+Instrument.VCU.Status.Main	
+Instrument.VCU.Status.Prep	
+Instrument.VCU.Status.Transfer	parked
+Instrument.VCU.Status.Transfer_Prep	not parked
+Instrument.VCU.Status.Vatterfly	open
+Instrument.VCU.TSP	off
+Instrument.VCU.TSP.OFF_Time_High	1000 s
+Instrument.VCU.TSP.OFF_Time_Low	3000 s
+Instrument.VCU.TSP.OFF_Time_Lowest	10000 s
+Instrument.VCU.TSP.ON_Time	60 s
+Instrument.VCU.Temperature.External	29 °C
+Instrument.VCU.Temperature.Internal1	27 °C
+Instrument.VCU.Temperature.Internal2	28 °C
+Instrument.VCU.Temperature.Loadlock	1000 °C
+Instrument.VCU.TurboDragFan	off
+Instrument.VCU.Turbo_3rdGun	running
+Instrument.VCU.Turbo_Analyzer	<not present>
+Instrument.VCU.Turbo_DSC	<not present>
+Instrument.VCU.Turbo_Drag	running
+Instrument.VCU.Turbo_LMIG	<not present>
+Instrument.VCU.Turbo_Loadlock	<not present>
+Instrument.VCU.Turbo_Main	running
+Instrument.VCU.Turbo_Prep	running
+Instrument.VCU.Turbo_PrepLL	running
+Instrument.VCU.Turbo_QLoadlock	<not present>
+Instrument.VCU.V10	closed
+Instrument.VCU.V11	closed
+Instrument.VCU.V12	closed
+Instrument.VCU.V13	open
+Instrument.VCU.V14	closed
+Instrument.VCU.V15	closed
+Instrument.VCU.V2	open
+Instrument.VCU.V3	closed
+Instrument.VCU.V4	open
+Instrument.VCU.V5	closed
+Instrument.VCU.V6	closed
+Instrument.VCU.V7	open
+Instrument.VCU.V8	open
+Instrument.VCU.V9	open
+Instrument.VCU.VV_3rdGun	closed
+Instrument.VCU.VV_Analyzer	closed
+Instrument.VCU.VV_DSC	closed
+Instrument.VCU.VV_LMIG	closed
+Instrument.VCU.VV_Loadlock	closed
+Instrument.VCU.VV_Main	closed
+Instrument.VCU.VV_Prep	closed
+Instrument.VCU.VV_Turbo_QLL	closed
+Instrument.VCU.V_dT	open
+Instrument.VCU.Valve_3rdGun	on
+Instrument.VCU.Valve_DSC	off
+Instrument.VCU.Valve_LMIG	off
+Measurement.AcquisitionTime	240.10 s
+Measurement.BurstMode	Off
+Measurement.CountsPerSecond	-9223372036854775808
+Measurement.CycleTime	50 us
+Measurement.ITG247.GainCorrectionArray	
+Measurement.Id	{20128564-64E6-440E-862F-02DAA27DBB83}
+Measurement.LowerMass	0.0011644903 u
+Measurement.PIShots	4802000
+Measurement.PauseTime	0 
+Measurement.PrimaryGun.IonDose	2.3977384e+012 
+Measurement.PrimaryGun.PIDD	5.994346e+013 
+Measurement.SICount	53208
+Measurement.SICountDeadtimeCorrected	143895.69 
+Measurement.ScanNumber	980
+Measurement.SputterTime	0 
+Measurement.StopCondition.AcquisitionTime	
+Measurement.StopCondition.MinDiskSpace	200
+Measurement.StopCondition.Pause.AcquisitionTime	
+Measurement.StopCondition.Pause.AcquisitionTime.Increment	0
+Measurement.StopCondition.Pause.Scans	
+Measurement.StopCondition.Pause.Scans.Increment	0
+Measurement.StopCondition.Pause.TotalShots	
+Measurement.StopCondition.Pause.TotalShots.Increment	0
+Measurement.StopCondition.Scans	
+Measurement.StopCondition.SputterTime	
+Measurement.StopCondition.TotalDose	
+Measurement.StopCondition.TotalShots	
+Measurement.StopCondition.TotalTime	
+Measurement.StopConditionMaster	
+Measurement.Timestamp	Sat Mar 14 05:36:36 2026
+Measurement.TotalPIDD	5.994346e+013 
+Measurement.TotalTime	271.46 s
+Measurement.UpperMass	221.14426 u
+PropertyCollection.Version	2
+Registration.Raster.BlocksPerSec	5
+Registration.Raster.LEIS.CurrentEnergyRange	
+Registration.Raster.LEIS.EnergyRanges	600.0 eV - 3500.0 eV * 1
+Registration.Raster.LEIS.ProfileMode	off
+Registration.Raster.LEIS.TofFilter	off
+Registration.Raster.LEIS.TofFilter.LowerMass	0 
+Registration.Raster.LEIS.TofFilter.Mode	
+Registration.Raster.LEIS.TofFilter.UpperMass	0 
+Registration.Raster.Mode	sawtooth
+Registration.Raster.NonInterlaced	Off
+Registration.Raster.Resolution	70 x 70
+Registration.Raster.Resolution.Max	1024
+Registration.Raster.Resolution.Min	1
+Registration.Raster.Roi.Coverage	100.00 %
+Registration.Raster.Roi.CoveredPixels	4900
+Registration.Raster.ShotsInBlock	4000
+Registration.Raster.ShotsInBlock.Max	4096
+Registration.Raster.ShotsPerPixel	1
+Registration.Raster.ShotsPerPixel.Max	1024
+Registration.Raster.SputterTimePerDataPoint	245 ms
+Registration.Raster.StageRaster	False
+Registration.Raster.StageRaster.CorrectionAngle	0.0
+Registration.Raster.TotalFieldOfView.X	2 mm
+Registration.Raster.TotalFieldOfView.Y	2 mm
+Registration.Raster.Zoom.Center.X	0 
+Registration.Raster.Zoom.Center.Y	0 
+Registration.Raster.Zoom.Factor	2 
+Registration.SEDetector	0
+Registration.SIDetector	on
+Registration.TimeResolution	50 ps
+Software.Build	56454 (stable_SL63)
+Software.Servicepack	56454
+Software.Version	6.3
+Storage.File.Extension	.ita
+Storage.File.Name	32-3-Ni-RT-2000X2000-Ne-5k-240s-6_0
+Storage.File.Path	C:\data\Chen\BKS\2026-03\20260306\32-3-Ni-RT-2000X2000-Ne-5k-240s-6_0.ita
