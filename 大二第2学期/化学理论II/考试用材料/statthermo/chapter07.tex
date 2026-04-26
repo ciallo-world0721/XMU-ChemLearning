@@ -1,0 +1,286 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{derivation}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{推导：}}\par}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize7-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 7 Collections - 核自旋统计与对称数（Lect.8）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{multicols}{2}
+	\scriptsize{\tableofcontents}
+
+	\section{为什么会出现核自旋统计}
+
+	前面引入转动配分函数时写过
+	\[
+		q_{\mathrm{rot}}=\frac{kT}{\sigma B},
+	\]
+	其中的对称数 $\sigma$ 之前只是“告诉你要除一下”，这一讲要解释它的来源。根本原因是：对同核分子，交换两个相同核以后，总波函数必须满足玻色子/费米子的对称性要求。
+
+	总波函数按 Born--Oppenheimer 近似可写为
+	\[
+		\Psi=\psi_{\mathrm{elec}}\psi_{\mathrm{vib}}\psi_{\mathrm{rot}}\psi_{\mathrm{nuclear\ spin}}.
+	\]
+
+	\begin{keypoint}
+		这里真正新增的是核自旋波函数。平时做常规光谱题常忽略它，但一旦涉及同核分子与核交换，对称性限制就会直接影响允许的转动态、Raman 谱线强度、乃至配分函数中的有效可及态数。
+	\end{keypoint}
+
+	\section{核自旋波函数}
+
+	核自旋量子数为 $I$ 的核，在无磁场下有简并度
+	\[
+		2I+1.
+	\]
+	异核双原子若两个核自旋分别为 $I_1,I_2$，则总核自旋态数为
+	\[
+		(2I_1+1)(2I_2+1).
+	\]
+
+	对同核双原子情况更复杂：把两个核临时标成 1 和 2，合法波函数在交换标签时只能保持不变或改变符号，不能变成完全不同的函数。一般结果是：
+	\[
+		\text{anti-symmetric nuclear spin states}=I(2I+1),
+	\]
+	\[
+		\text{symmetric nuclear spin states}=(I+1)(2I+1),
+	\]
+	总数仍为
+	\[
+		(2I+1)^2.
+	\]
+
+	\begin{derivation}
+		两个相同核各自都有 $2I+1$ 个自旋态，所以总核自旋函数数目当然是
+		\[
+			(2I+1)^2.
+		\]
+		把这批函数按交换两核后的符号拆成对称与反对称两类，可证明它们的数目分别为
+		\[
+			(I+1)(2I+1)
+			\quad\text{和}\quad
+			I(2I+1).
+		\]
+		快速自检：两者相加必须回到总数，确实有
+		\[
+			(I+1)(2I+1)+I(2I+1)=(2I+1)^2.
+		\]
+		所以这两个公式首先是一个完备计数拆分，随后再由总波函数对称性决定哪一组能与 even/odd $J$ 搭配。
+	\end{derivation}
+
+	\begin{examplebox}
+		以 $I=\frac12$ 的同核双原子为例，有 4 个核自旋函数，其中 3 个是对称的、1 个是反对称的。这正是后面 H$_2$ 奇偶 $J$ 权重比为 $3:1$ 的来源。
+	\end{examplebox}
+
+	\section{如何“交换两个核”}
+
+	真正的“交换两个核并保持其他自由度定义不变”不是简单把分子转 180°，而是要组合以下操作：
+	\begin{itemize}
+		\item $C_2$：整分子绕垂直于键轴的轴旋转 180°；
+		\item $i_{\mathrm{elec}}$：只对电子做中心反演；
+		\item $\sigma_{\mathrm{elec}}$：只对电子做镜面反射；
+		\item $p_{\mathrm{nuc}}$：交换核自旋坐标。
+	\end{itemize}
+	然后逐项判断各部分波函数在这些操作下是否变号。
+
+	特别是对刚性转子波函数，
+	\[
+		\text{even }J: \psi_{\mathrm{rot}} \text{ 在 }C_2\text{ 下不变},
+		\qquad
+		\text{odd }J: \psi_{\mathrm{rot}} \text{ 变号}.
+	\]
+	电子部分则由项符号决定：
+	\begin{itemize}
+		\item 有 $g/u$ 时决定 $i_{\mathrm{elec}}$ 下的符号；
+		\item 对 $\Sigma$ 态，$+/-$ 决定 $\sigma_{\mathrm{elec}}$ 下的符号。
+	\end{itemize}
+
+	\begin{keypoint}
+		最终的“allowed / forbidden”并不是看某一个部分，而是把所有部分在交换操作下的符号相乘，再与核是 boson 还是 fermion 的要求比较。
+	\end{keypoint}
+
+	\section{H$_2$、N$_2$、O$_2$ 和 CO$_2$ 的后果}
+
+	\subsection{H$_2$ 与 ortho/para}
+	H$_2$ 的电子基态项符号为
+	\[
+		{}^1\Sigma_g^+,
+	\]
+	$^1$H 核自旋为 $I=\frac12$，属于 fermion。因此交换两个核时，总波函数必须变号。分析后得到：
+	\begin{itemize}
+		\item even $J$ 只能与 anti-symmetric nuclear spin states 结合；
+		\item odd $J$ 只能与 symmetric nuclear spin states 结合。
+	\end{itemize}
+	由于对称核自旋态有 3 个、反对称只有 1 个，所以 odd $J$ 的统计权重是 even $J$ 的 3 倍，Raman 强度出现
+	\[
+		1:3:1:3:\cdots
+	\]
+	的交替。
+
+	这也带来 ortho-/para-hydrogen：
+	\begin{itemize}
+		\item ortho-H$_2$：odd $J$，对称核自旋；
+		\item para-H$_2$：even $J$，反对称核自旋。
+	\end{itemize}
+	它们在常规条件下几乎不自发互变，因此可视作两种不同组分。
+
+	\subsection{$^{14}$N$_2$}
+	$^{14}$N 核自旋为 $I=1$，属于 boson，因此总波函数在交换时必须不变。两核共有 6 个对称核自旋态、3 个反对称态，于是 even $J$ 与 odd $J$ 的统计权重比变成
+	\[
+		6:3=2:1.
+	\]
+	所以 Raman 强度交替是 $2:1:2:1:\cdots$，并且强的是 even $J$。
+
+	\subsection{$^{16}$O$_2$ 与 $^{12}$C$^{16}$O$_2$}
+	对自旋为 0 的核，不存在核自旋态需要再配。O$_2$ 的基态是
+	\[
+		{}^3\Sigma_g^-.
+	\]
+	分析后可得：
+	\[
+		{}^{16}\mathrm O_2 \text{ 只能占据 odd }J\text{ 态。}
+	\]
+	因此 Raman 中只出现 $S_1,S_3,S_5,\dots$。
+
+	而 $^{12}$C$^{16}$O$_2$ 的电子态为
+	\[
+		{}^1\Sigma_g^+,
+	\]
+	于是只允许 even $J$，因此 Raman 中只出现 $S_0,S_2,S_4,\dots$。
+
+	\begin{examplebox}
+		Ex.~26--28 这一类题的核心永远是三步：
+		\begin{enumerate}
+			\item 先判定核是 boson 还是 fermion；
+			\item 再由项符号决定电子部分在 $i_{\mathrm{elec}}$、$\sigma_{\mathrm{elec}}$ 下的符号；
+			\item 最后把 odd/even $J$ 的旋转符号乘进去，判断哪些组态被允许。
+		\end{enumerate}
+	\end{examplebox}
+
+	\section{对称数 $\sigma$ 的真正来源}
+
+	若核自旋与转动自由度彼此独立，则可以简单写
+	\[
+		q=q_{\mathrm{trans}}q_{\mathrm{NS}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+	\]
+	但对同核分子，核自旋与转动态是 entangled 的，不能完全独立求和。高温极限下，可证明同核分子的 even/odd $J$ 求和各占全部 $J$ 求和的一半，于是相对于相应异核分子，允许的转动态组合数恰好少一半。
+
+	因此在不显式保留核自旋配分函数时，可等效写成
+	\[
+		q_{\mathrm{rot}}=\frac{kT}{2B}
+		\quad\text{(同核)},
+		\qquad
+		q_{\mathrm{rot}}=\frac{kT}{B}
+		\quad\text{(异核)},
+	\]
+	统一记成
+	\[
+		q_{\mathrm{rot}}=\frac{kT}{\sigma B}.
+	\]
+
+	对简单同核双原子，
+	\[
+		\sigma=2,
+	\]
+	而对更复杂分子，$\sigma$ 等于能通过旋转彼此重合的等价构型数，如 H$_2$O 有 $\sigma=2$，NH$_3$ 有 $\sigma=3$。
+
+	\begin{keypoint}
+		所以 $\sigma$ 不是“凭习惯补上的修正常数”，而是由\textbf{交换对称性限制了可用转动态数}这一事实压缩出来的有效因子。
+	\end{keypoint}
+
+	\begin{examplebox}
+		Ex.~29 的高温极限证明就是这里最好的“半个 $J$ 梯子”练习：若完整求和有
+		\[
+			\sum_{J=0}^{\infty}(2J+1)e^{-BJ(J+1)/kT}\approx \frac{kT}{B},
+		\]
+		那么在高温下 even $J$ 与 odd $J$ 两部分各占一半，因此
+		\[
+			\sum_{\text{even }J}(2J+1)e^{-BJ(J+1)/kT}\approx \frac{kT}{2B}.
+		\]
+		这就是同核双原子最终写成
+		\[
+			q_{\mathrm{rot}}=\frac{kT}{2B}=\frac{kT}{\sigma B}
+		\]
+		背后的高温计数理由。
+	\end{examplebox}
+
+	\section{最后速记}
+	\begin{keypoint}
+		Lect.~8 高频结论：
+		\[
+			\begin{aligned}
+				\Psi          & =\psi_{\mathrm{elec}}\psi_{\mathrm{vib}}\psi_{\mathrm{rot}}\psi_{\mathrm{nuclear\ spin}}, \\
+				\text{even }J & :\ C_2\text{ 下不变},                                                                        \\
+				\text{odd }J  & :\ C_2\text{ 下变号}.
+			\end{aligned}
+		\]
+		\[
+			\text{symm spin states}=(I+1)(2I+1),
+			\qquad
+			\text{anti-symm spin states}=I(2I+1),
+		\]
+		\[
+			{}^1\mathrm H_2: \text{odd }J\text{ 权重 }3,\ \text{even }J\text{ 权重 }1,
+			\qquad
+			{}^{14}\mathrm N_2: \text{even:odd}=2:1,
+		\]
+		\[
+			{}^{16}\mathrm O_2\text{ only odd }J,
+			\qquad
+			{}^{12}\mathrm C{}^{16}\mathrm O_2\text{ only even }J,
+			\qquad
+			q_{\mathrm{rot}}=\frac{kT}{\sigma B}.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,339 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize5-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 5 Collections - 内能与热容（Lect.6）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{multicols}{2}
+	\scriptsize{\tableofcontents}
+
+	\section{为什么气体热容会有平台}
+
+	实验上，许多气体的 $C_V(T)$ 并不是平滑线性变化，而是随着温度上升出现一系列台阶和平台。对双原子分子，典型图像是
+	\[
+		\frac32R\ \longrightarrow\ \frac52R\ \longrightarrow\ \frac72R.
+	\]
+	最低温只有平动贡献；升温到足够激发转动时，热容增加一个 $R$；再高温时振动激活，再增加一个 $R$。
+
+	\begin{keypoint}
+		平台值对不同双原子分子几乎相同，真正变化的是“台阶出现的温度”。这说明决定平台高度的是自由度类型，而不是具体分子；决定台阶位置的则是相应能级间隔与 $kT$ 的比较。
+	\end{keypoint}
+
+	\section{均分定理}
+
+	均分定理表述为：每个“平方项”对每摩尔内能贡献
+	\[
+		\frac12 RT,
+	\]
+	对单粒子贡献
+	\[
+		\frac12 kT.
+	\]
+	所谓“平方项”是指能量表达式中对位置或速度的平方依赖项。
+
+	三维平动有三个平方项，因此
+	\[
+		U_{\mathrm{trans}}=\frac32RT,
+		\qquad
+		C_{V,\mathrm{trans}}=\frac32R.
+	\]
+	对一般非线性分子转动，有三个转动平方项；线性分子（包括双原子）少一个绕键轴转动，因此只有两个：
+	\[
+		U_{\mathrm{rot}}=RT,
+		\qquad
+		C_{V,\mathrm{rot}}=R.
+	\]
+	每个振动模既有动能平方项，又有势能平方项，因此高温极限下每个模贡献
+	\[
+		U_{\mathrm{vib}}=RT,
+		\qquad
+		C_{V,\mathrm{vib}}=R.
+	\]
+
+	\begin{keypoint}
+		均分定理并不是无条件成立。它只在相关能级间隔远小于 $kT$ 时有效。换句话说：\textbf{自由度已经被热激活} 时，才会出现每个平方项贡献 $\frac12RT$ 的经典极限。
+	\end{keypoint}
+
+	\section{从配分函数求内能与热容}
+
+	通式始终是
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V,
+		\qquad
+		C_V=\left(\frac{\partial U}{\partial T}\right)_V.
+	\]
+	若某配分函数能写成
+	\[
+		q=\alpha T^{\beta},
+	\]
+	其中 $\alpha$ 对温度无关，则
+	\[
+		\ln q=\ln\alpha+\beta\ln T,
+	\]
+	故
+	\[
+		U=\beta NkT,
+		\qquad
+		C_V=\beta Nk.
+	\]
+	这就是为什么在高温极限下，平动、转动、振动都能回到简单的均分结果。
+
+	\section{平动贡献}
+
+	三维平动配分函数为
+	\[
+		q_{\mathrm{trans}}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V.
+	\]
+	在定容下只剩 $T^{3/2}$ 依赖，因此
+	\[
+		q_{\mathrm{trans}}=\alpha T^{3/2}.
+	\]
+	代入通式：
+	\[
+		U_{\mathrm{trans}}=\frac32NkT,
+		\qquad
+		C_{V,\mathrm{trans}}=\frac32Nk.
+	\]
+	一摩尔时就是
+	\[
+		U_{\mathrm{trans},m}=\frac32RT,
+		\qquad
+		C_{V,\mathrm{trans},m}=\frac32R.
+	\]
+
+	\begin{examplebox}
+		这一段也解释了为什么理想气体平动在几乎所有实际温度下都服从均分：因为平动能级极密，推导 $q_{\mathrm{trans}}$ 时本来就假定了能级间隔 $\ll kT$。
+	\end{examplebox}
+
+	\section{转动贡献}
+
+	对线性分子高温极限，有
+	\[
+		q_{\mathrm{rot}}=\frac{T}{\sigma\theta_{\mathrm{rot}}}=\alpha T.
+	\]
+	于是
+	\[
+		U_{\mathrm{rot}}=NkT,
+		\qquad
+		C_{V,\mathrm{rot}}=Nk.
+	\]
+	一摩尔时
+	\[
+		U_{\mathrm{rot},m}=RT,
+		\qquad
+		C_{V,\mathrm{rot},m}=R.
+	\]
+
+	但当温度很低、只有基态 $J=0$ 被占据时，
+	\[
+		q_{\mathrm{rot}}\approx 1,
+		\qquad
+		\left(\frac{\partial\ln q_{\mathrm{rot}}}{\partial T}\right)_V\approx 0,
+	\]
+	所以
+	\[
+		U_{\mathrm{rot}}\approx 0,
+		\qquad
+		C_{V,\mathrm{rot}}\approx 0.
+	\]
+	当 $T\sim\theta_{\mathrm{rot}}$ 时进入过渡区，$C_{V,\mathrm{rot}}$ 会从 0 快速上升并在更高温处逼近 $R$。
+
+	\begin{keypoint}
+		转动自由度是否有贡献，关键看
+		\[
+			T\gtrless \theta_{\mathrm{rot}}.
+		\]
+		若 $T\ll\theta_{\mathrm{rot}}$，热能不足以激发转动，转动热容几乎消失；若 $T\gg\theta_{\mathrm{rot}}$，转动达到均分极限。
+	\end{keypoint}
+
+	\section{振动贡献}
+
+	对双原子分子，取基态为零点时
+	\[
+		q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+	代入通式得振动内能：
+	\[
+		U'_{\mathrm{vib}}=\frac{Nk\theta_{\mathrm{vib}}}{e^{\theta_{\mathrm{vib}}/T}-1}.
+	\]
+	若从势阱底计能，则还要加零点能
+	\[
+		U_0=N\varepsilon_0,
+		\qquad
+		\varepsilon_0=\frac12k\theta_{\mathrm{vib}},
+	\]
+	但它与温度无关，所以\textbf{不影响热容}。
+
+	继续对 $U'_{\mathrm{vib}}$ 求导可得
+	\[
+		C_{V,\mathrm{vib}}=Nk\left(\frac{\theta_{\mathrm{vib}}}{T}\right)^2
+		\frac{e^{\theta_{\mathrm{vib}}/T}}{\big(e^{\theta_{\mathrm{vib}}/T}-1\big)^2}.
+	\]
+
+	低温极限 $T\ll\theta_{\mathrm{vib}}$ 时，
+	\[
+		U'_{\mathrm{vib}}\to 0,
+		\qquad
+		q'_{\mathrm{vib}}\to 1,
+		\qquad
+		C_{V,\mathrm{vib}}\to 0.
+	\]
+	高温极限 $T\gg\theta_{\mathrm{vib}}$ 时，用 $e^x\approx 1+x$ 得
+	\[
+		U'_{\mathrm{vib}}\to NkT,
+		\qquad
+		C_{V,\mathrm{vib}}\to Nk,
+	\]
+	即每摩尔回到 $RT$ 与 $R$ 的均分极限。
+
+	\begin{examplebox}
+		Ex.~18/19 的主线就是：
+		\[
+			q'_{\mathrm{vib}} \longrightarrow U'_{\mathrm{vib}} \longrightarrow C_{V,\mathrm{vib}}.
+		\]
+		其中最关键的判断是 $T$ 相对 $\theta_{\mathrm{vib}}$ 的大小，而不是死记某个单独数值。
+	\end{examplebox}
+
+	\section{电子贡献与平台总结}
+
+	通常只有电子基态占据，因此电子内能主导项只是
+	\[
+		U_{\mathrm{elec}}=N\varepsilon^0_{\mathrm{elec}}.
+	\]
+	虽然这项在化学平衡里很重要，但它不依赖温度，所以
+	\[
+		C_{V,\mathrm{elec}}=0.
+	\]
+
+	因此对双原子气体，热容平台的来源总结为：
+	\[
+		C_V=\frac32R \quad (\text{仅平动}),
+	\]
+	\[
+		C_V=\frac52R \quad (\text{平动+转动}),
+	\]
+	\[
+		C_V=\frac72R \quad (\text{平动+转动+振动}).
+	\]
+
+	\begin{keypoint}
+		一般规律：若某组能级间隔远小于 $kT$，对应自由度给出均分贡献；若远大于 $kT$，该自由度被冻结，不贡献内能和热容；若二者同量级，则进入过渡区，$U$ 随 $T$ 上升但并非简单线性。
+	\end{keypoint}
+
+	\section{Einstein 固体与 Dulong--Petit 定律}
+
+	把晶体中的每个原子看成 3 个彼此独立的一维简谐振子，则每个一维振动在高温极限下都满足
+	\[
+		U_{1D}\to kT,
+		\qquad
+		C_{V,1D}\to k.
+	\]
+	因此对单个原子有
+	\[
+		U_{\mathrm{atom}}\to 3kT,
+		\qquad
+		C_{V,\mathrm{atom}}\to 3k,
+	\]
+	一摩尔时便得到
+	\[
+		U_m\to 3RT,
+		\qquad
+		C_{V,m}\to 3R.
+	\]
+这就是 Dulong--Petit 定律。
+
+	\begin{examplebox}
+		Ex.~22 的关键判断：低温时 Einstein 固体的振动模式尚未完全激活，所以 $C_V<3R$；高温时所有振动模都进入均分极限，才有 $C_V\to 3R.$
+		因此 Dulong--Petit 定律是\textbf{高温极限}，不是对所有温度都成立的经验式。
+	\end{examplebox}
+
+	\begin{examplebox}
+		Ex.~15 的快速计数法：对非线性三原子如 H$_2$O，若振动未激活，则只有 3 个平动和 3 个转动自由度，故
+		\[
+			C_V=\frac32R+\frac32R=3R.
+		\]
+		若三个振动模也都达到高温极限，则每模再贡献一个 $R$，总热容升到
+		\[
+			C_V=3R+3R=6R.
+		\]
+	\end{examplebox}
+
+	\section{最后速记}
+	\begin{keypoint}
+		Lect.~6 高频公式：
+		\[
+			U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V,
+			\qquad
+			C_V=\left(\frac{\partial U}{\partial T}\right)_V,
+		\]
+		\[
+			q=\alpha T^{\beta}\Rightarrow U=\beta NkT,\ C_V=\beta Nk,
+		\]
+		\[
+			U_{\mathrm{trans},m}=\frac32RT,
+			\quad
+			C_{V,\mathrm{trans},m}=\frac32R,
+			\quad
+			U_{\mathrm{rot},m}=RT,
+			\quad
+			C_{V,\mathrm{rot},m}=R,
+		\]
+		\[
+			U'_{\mathrm{vib}}=\frac{Nk\theta_{\mathrm{vib}}}{e^{\theta_{\mathrm{vib}}/T}-1},
+			\qquad
+			C_{V,\mathrm{vib}}=Nk\left(\frac{\theta_{\mathrm{vib}}}{T}\right)^2\frac{e^{\theta_{\mathrm{vib}}/T}}{(e^{\theta_{\mathrm{vib}}/T}-1)^2}.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

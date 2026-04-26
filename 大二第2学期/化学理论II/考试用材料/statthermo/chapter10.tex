@@ -1,0 +1,272 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize10-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 10 Collections - 过渡态理论、位阻因子与同位素效应（Lect.11）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+\scriptsize{\tableofcontents}
+
+\section{过渡态理论的出发点}
+
+对反应
+\[
+A+BC\rightleftharpoons TS \rightarrow AB+C,
+\]
+过渡态理论（TST）的核心假设是：\textbf{反应物与过渡态之间建立准平衡}。由于能真正到达 TS 的分子很少，而 TS 又有有限寿命，因此体系有机会在“上坡又滑回”过程中与反应物维持近似平衡。
+
+若把 TS 的形成平衡常数记作
+\[
+K^*=\frac{[TS]c^\circ}{[A][BC]},
+\]
+又设 TS 向产物分解是一阶过程
+\[
+r=k_{1\mathrm{st}}[TS],
+\]
+而总反应速率定律是
+\[
+r=k_{2\mathrm{nd}}[A][BC],
+\]
+比较二式可得
+\[
+k_{2\mathrm{nd}}=\frac{1}{c^\circ}k_{1\mathrm{st}}K^*.
+\]
+
+\begin{keypoint}
+这一式子把求速率常数的问题拆成了两半：
+\begin{itemize}
+  \item 反应物能否形成 TS：由 $K^*$ 控制；
+  \item 形成后的 TS 多快塌向产物：由 $k_{1\mathrm{st}}$ 控制。
+\end{itemize}
+\end{keypoint}
+
+\section{从配分函数计算 $K^*$ 与 $k_{1\mathrm{st}}$}
+
+\subsection{去掉反应坐标的特殊振动}
+过渡态的一个特殊振动模式对应\textbf{沿反应坐标的运动}，它不是普通稳定振动，因为 TS 沿这一方向处在势能极大点，没有恢复力。因此需把它从普通振动配分函数中单独提出来：
+\[
+f_{TS}=q^{\ddagger}f'_{TS},
+\]
+其中 $q^{\ddagger}$ 是沿反应坐标的“特殊振动”贡献，$f'_{TS}$ 是去掉该自由度后的体积无关配分函数。
+
+于是
+\[
+K^*=q^{\ddagger}K^{\ddagger},
+\qquad
+K^{\ddagger}=\frac{f'_{TS}}{f_Af_{BC}}\left(\frac{1}{c^\circ}\right)^{-1}
+\exp\left(-\frac{\Delta\varepsilon_0^{\ddagger}}{kT}\right).
+\]
+
+\subsection{$q^{\ddagger}$ 的低频近似与 $kT/h$}
+这条特殊振动的配分函数是
+\[
+q^{\ddagger}=\frac{\exp(-h\nu^{\ddagger}/2kT)}{1-\exp(-h\nu^{\ddagger}/kT)}.
+\]
+由于沿反应坐标的振动频率往往很低，可取
+\[
+h\nu^{\ddagger}\ll kT,
+\]
+从而近似成
+\[
+q^{\ddagger}\approx \frac{kT}{h\nu^{\ddagger}}.
+\]
+在本课程的简化 TST 图像里，TS 塌向产物的一阶分解速率常数可识别为
+\[
+k_{1\mathrm{st}}=\nu^{\ddagger}.
+\]
+于是
+\[
+k_{2\mathrm{nd}}=\frac{1}{c^\circ}\nu^{\ddagger}\frac{kT}{h\nu^{\ddagger}}K^{\ddagger}
+=\left(\frac{1}{c^\circ}\right)\frac{kT}{h}K^{\ddagger}.
+\]
+
+这就是 Eyring 公式出现的最核心来源。
+
+\begin{keypoint}
+\[
+k_{2\mathrm{nd}}=\left(\frac{1}{c^\circ}\right)\frac{kT}{h}K^{\ddagger}
+\]
+这里的 $kT/h$ 不是经验拍脑袋写上的，而是由本课程近似下的
+\begin{itemize}
+  \item 反应坐标振动的低频近似 $q^{\ddagger}\approx kT/h\nu^{\ddagger}$；
+  \item TS 沿该方向分解速率 $k_{1\mathrm{st}}=\nu^{\ddagger}$
+\end{itemize}
+相消后严格留下来的。
+\end{keypoint}
+
+\begin{keypoint}
+	量纲检查也要一起记：$kT/h$ 的单位是 $\mathrm{s^{-1}}$；$K^{\ddagger}$ 在这里按标准态处理为无量纲；因此二级速率常数的单位实际来自前面的 $1/c^\circ$。若取 $c^\circ=1\ \mathrm{mol\,L^{-1}}$，则 $k_{2\mathrm{nd}}$ 的常用单位就是 $\mathrm{L\,mol^{-1}\,s^{-1}}$。
+\end{keypoint}
+
+\section{位阻因子}
+
+若线型 $A+BC$ 反应要求 A 必须沿 B--C 方向攻击，则引入明显取向限制。lect11 用“只数自由度类型”的近似法来估算位阻因子：令
+\[
+\{\mathrm{trans}\},\quad \{\mathrm{rot}\},\quad \{\mathrm{vib}\}
+\]
+分别表示单个自由度对应的平动、转动、振动因子，并利用
+\[
+q_{\mathrm{trans}}\gg q_{\mathrm{rot}}\gg q_{\mathrm{vib}}.
+\]
+
+对线型 $A+BC$ 过渡态，有
+\[
+f_A=\{\mathrm{trans}\}^3,
+\qquad
+f_{BC}=\{\mathrm{trans}\}^3\{\mathrm{rot}\}^2\{\mathrm{vib}\},
+\]
+而线型三原子 TS 去掉反应坐标振动后可近似写成
+\[
+f'_{TS}=\{\mathrm{trans}\}^3\{\mathrm{rot}\}^2\{\mathrm{vib}\}^3.
+\]
+于是
+\[
+k_{2\mathrm{nd}}(A+BC)=\frac{kT}{h}
+\frac{\{\mathrm{vib}\}^2}{\{\mathrm{trans}\}^3}
+\exp\left(-\frac{\Delta\varepsilon_0^{\ddagger}}{kT}\right).
+\]
+
+若把 $BC$ 当成无结构原子 $D$，则
+\[
+k_{2\mathrm{nd}}(A+D)=\frac{kT}{h}
+\frac{\{\mathrm{rot}\}^2}{\{\mathrm{trans}\}^3}
+\exp\left(-\frac{\Delta\varepsilon_0^{\ddagger}}{kT}\right).
+\]
+二者之比给出位阻因子：
+\[
+p=\frac{k_{2\mathrm{nd}}(A+BC)}{k_{2\mathrm{nd}}(A+D)}
+=\frac{\{\mathrm{vib}\}^2}{\{\mathrm{rot}\}^2}.
+\]
+
+\begin{examplebox}
+Ex.~40 类型题最重要的不是数值，而是符号量级：因为通常
+\[
+q_{\mathrm{rot}}\gg q_{\mathrm{vib}},
+\]
+所以
+\[
+p\ll 1.
+\]
+这说明“需要严格定向的反应”会显著比无结构碰撞更慢。
+\end{examplebox}
+
+\section{动力学同位素效应（KIE）}
+
+H/D 置换不会改变电子结构，但会改变涉及 H/D 的振动频率。由简谐振子模型
+\[
+\frac{\nu_A}{\nu_B}=\sqrt{\frac{\mu_B}{\mu_A}}.
+\]
+若某断键振动对反应最关键，则 H 与 D 反应物的振动配分函数分别为
+\[
+q_{\mathrm{vib},H}=\frac{\exp(-h\nu_H/2kT)}{1-\exp(-h\nu_H/kT)},
+\]
+\[
+q_{\mathrm{vib},D}=\frac{\exp(-h\nu_D/2kT)}{1-\exp(-h\nu_D/kT)}.
+\]
+对高频模，常有 $h\nu\gg kT$，于是近似为
+\[
+q_{\mathrm{vib},H}\approx \exp(-h\nu_H/2kT),
+\qquad
+q_{\mathrm{vib},D}\approx \exp(-h\nu_D/2kT).
+\]
+在速率常数比里，大部分项相消，只剩与该模相关的零点能差：
+\[
+\frac{k_{2\mathrm{nd}}(H)}{k_{2\mathrm{nd}}(D)}
+=\frac{q_{\mathrm{vib},D}}{q_{\mathrm{vib},H}}
+=\exp\left[-\frac{ZPE_D-ZPE_H}{kT}\right].
+\]
+
+\begin{keypoint}
+KIE 的统计热力学本质：\textbf{较重同位素降低振动频率，降低零点能，使活化能有效增大，因此速率变小。}
+这也是为什么 H/D KIE 往往很大，而 $^{12}$C/$^{13}$C 只给很小效应。
+\end{keypoint}
+
+\section{TST 的优势与局限}
+
+TST 的优势是把速率常数写成可解释的统计形式；但其局限也非常明确：
+\begin{itemize}
+  \item 过渡态寿命极短，不易实验直接测定；
+  \item $f'_{TS}$ 与 $\Delta\varepsilon_0^{\ddagger}$ 往往难以精确获得；
+  \item 因而 TST 更适合做\textbf{机理解释与量级估算}，而不是“纸笔上绝对精确预测”。
+\end{itemize}
+
+\section{最后速记}
+
+\begin{keypoint}
+lect11 高频公式：
+\[
+K^*=\frac{[TS]c^\circ}{[A][BC]},
+\qquad
+k_{2\mathrm{nd}}=\frac{1}{c^\circ}k_{1\mathrm{st}}K^*,
+\]
+\[
+f_{TS}=q^{\ddagger}f'_{TS},
+\qquad
+q^{\ddagger}\approx \frac{kT}{h\nu^{\ddagger}},
+\qquad
+k_{1\mathrm{st}}=\nu^{\ddagger},
+\]
+\[
+k_{2\mathrm{nd}}=\left(\frac{1}{c^\circ}\right)\frac{kT}{h}K^{\ddagger}
+=\frac{kT}{h}\frac{f'_{TS}}{f_Af_{BC}}\exp\left(-\frac{\Delta\varepsilon_0^{\ddagger}}{kT}\right),
+\]
+\[
+p=\frac{\{\mathrm{vib}\}^2}{\{\mathrm{rot}\}^2},
+\qquad
+\frac{k(H)}{k(D)}=\exp\left[-\frac{ZPE_D-ZPE_H}{kT}\right].
+\]
+\end{keypoint}
+
+\end{multicols}
+\end{document}

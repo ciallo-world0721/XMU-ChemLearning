@@ -1,0 +1,494 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{sectioncolor}}
+  {\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{subsectioncolor}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=keybg,
+  colframe=keycolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{derivation}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{推导：}}\par}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par
+\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize3-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 3 Collections - 配分函数的具体求值（Lect.4）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+
+\scriptsize{\tableofcontents}
+
+	\section{如何真正去“算” $q$}
+
+	Lect.~3 解决了“知道 $q$ 以后怎么算 $A,U,S$”；Lect.~4 解决的是“给定某组能级，如何实际求出 $q$”。
+
+	对一组能级写出
+	\[
+		q=\sum_i e^{-\varepsilon_i/kT}
+	\]
+	之后，第一判断永远是：\textbf{很多项参与，还是只有少数项参与？}
+
+	\begin{keypoint}
+		总原则：
+		\begin{itemize}
+			\item 若能级间隔 $\ll kT$，很多项有贡献，常可把和式近似为积分；
+			\item 若能级间隔 $\gg kT$，只需保留前几项，积分近似很差；
+			\item 若能级间隔 $\sim kT$，逐项算到项变小为止。
+		\end{itemize}
+	\end{keypoint}
+
+	\subsection{$kT$ 判据的等间距图像}
+	若能级等间距为
+	\[
+		0,\Delta,2\Delta,3\Delta,\dots
+	\]
+	则
+	\[
+		q'=1+e^{-\Delta/kT}+e^{-2\Delta/kT}+e^{-3\Delta/kT}+\cdots
+	\]
+	可分三类：
+	\begin{itemize}
+		\item $\Delta\gg kT$：第二项都很小，$q'\approx1$；
+		\item $\Delta\ll kT$：很多项贡献，$q'\gg1$；
+		\item $\Delta\sim kT$：只有少数几项有贡献。
+	\end{itemize}
+
+	\begin{keypoint}
+		只有满足
+		\[
+			\varepsilon_i\lesssim kT
+		\]
+		的能级才显著贡献到配分函数，因此 $q$ 也可以理解成“可及态数”的量度。
+	\end{keypoint}
+
+	\subsection{积分近似什么时候可用}
+	若很多项贡献，和式可近似成积分。例如上式可写成
+	\[
+		q'\approx \int_0^{\infty} e^{-i\Delta/kT}\,di.
+	\]
+	若只有 1--2 项重要，则积分会严重高估，必须逐项求和。
+
+	此外，当只能逐项算时，导数也可逐项算：
+	\[
+		\left(\frac{\partial q}{\partial T}\right)_V
+		=\frac1{kT^2}\sum_i \varepsilon_i e^{-\varepsilon_i/kT}.
+	\]
+
+	\section{degeneracy：对态求和还是对能级求和}
+
+	若不同波函数具有相同能量，则系统有简并。此时配分函数本质上仍是对\textbf{态}求和，只是更方便改写成对\textbf{能级}求和：
+	\[
+		q=\sum_j g_j e^{-\varepsilon_j/kT},
+	\]
+	其中 $g_j$ 为第 $j$ 个能级的简并度。
+
+	\begin{examplebox}
+		二维正方形箱中
+		\[
+			E_{n_x,n_y}=\frac{h^2}{8ma^2}(n_x^2+n_y^2)
+		\]
+		若 $n_x\neq n_y$，则 $(n_x,n_y)$ 与 $(n_y,n_x)$ 为两个不同波函数但能量相同，因此存在二重简并。
+	\end{examplebox}
+
+	\begin{keypoint}
+		见到题目给出“某能级的 degeneracy 为 $g_j$”，第一反应就是
+		\[
+			q=\sum_j g_j e^{-\varepsilon_j/kT}.
+		\]
+		这和 lect1 的布居公式
+		\[
+			n_j=\frac{N}{q}g_j e^{-\varepsilon_j/kT}
+		\]
+		是一一对应的。
+	\end{keypoint}
+
+	\section{平动配分函数}
+
+	\subsection{粒子在箱中模型}
+	一维箱中粒子能级：
+	\[
+		E_n=\frac{n^2h^2}{8ma^2},\qquad n=1,2,3,\dots
+	\]
+	其中 $a$ 是箱长，$m$ 是粒子质量。
+
+	先估计有多少项贡献：令 $E_{n_{\max}}\sim kT$，则
+	\[
+		\frac{n_{\max}^2h^2}{8ma^2}=kT
+		\quad\Rightarrow\quad
+		n_{\max}^2=\frac{8ma^2kT}{h^2}.
+	\]
+	常温下气体平动能级极密，因此 $n_{\max}$ 极大，积分近似完全安全。
+
+	\subsection{一维结果}
+	于是
+	\[
+		q_{\mathrm{trans},1D}=\sum_{n=1}^{\infty} e^{-E_n/kT}
+		\approx \int_0^{\infty} e^{-E_n/kT}\,dn.
+	\]
+	这里把下限从 $1$ 改成 $0$，是因为常温气体满足 $n_{\max}\gg 1$；多加的那个“假想 $n=0$ 项”相对成千上万真实可及态可以忽略，不会改变积分结果。
+	借助高斯积分得
+	\[
+		q_{\mathrm{trans},1D}=\left(\frac{2\pi mkT}{h^2}\right)^{1/2}a.
+	\]
+
+	定义热波长
+	\[
+		\Lambda=\left(\frac{h^2}{2\pi mkT}\right)^{1/2},
+	\]
+	则
+	\[
+		q_{\mathrm{trans},1D}=\frac{a}{\Lambda}.
+	\]
+
+	\subsection{三维结果}
+	三维箱中能级为
+	\[
+		E_{n_x,n_y,n_z}=\frac{h^2}{8ma^2}(n_x^2+n_y^2+n_z^2).
+	\]
+	由于三方向独立，配分函数可乘，得到
+	\[
+		q_{\mathrm{trans},3D}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V
+		=\frac{V}{\Lambda^3}.
+	\]
+
+	\begin{keypoint}
+		平动公式是本章最高频：
+		\[
+			q_{\mathrm{trans},3D}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V=\frac{V}{\Lambda^3}.
+		\]
+		平动几乎总在“高温极限”，所以最常见做法就是直接上积分结果。
+	\end{keypoint}
+
+	\begin{examplebox}
+		对应习题：
+		\begin{itemize}
+			\item Ex.~7：从一维箱出发推到三维平动配分函数；
+			\item Ex.~24：用 $q_{\mathrm{trans}}\propto m^{3/2}$ 处理熵比；
+			\item Ex.~48：估算 0 到 $kT$ 之间有多少平动能级。
+		\end{itemize}
+	\end{examplebox}
+
+	\section{双原子分子的转动配分函数}
+
+	\subsection{刚性转子能级}
+	双原子刚性转子：
+	\[
+		E_J=BJ(J+1),\qquad J=0,1,2,\dots
+	\]
+	简并度为
+	\[
+		g_J=2J+1.
+	\]
+	故
+	\[
+		q_{\mathrm{rot}}=\sum_{J=0}^{\infty}(2J+1)e^{-BJ(J+1)/kT}.
+	\]
+	前几项是
+	\[
+		q_{\mathrm{rot}}=1+3e^{-2B/kT}+5e^{-6B/kT}+\cdots.
+	\]
+
+	其中
+	\[
+		B=\frac{\hbar^2}{2I},
+		\qquad
+		I=\mu R^2,
+		\qquad
+		\mu=\frac{m_1m_2}{m_1+m_2}.
+	\]
+	若用波数表示：
+	\[
+		\tilde E_J=\tilde BJ(J+1),
+		\qquad
+		\tilde B=\frac{h}{8\pi^2 cI}.
+	\]
+
+	\begin{keypoint}
+		转动常数最容易混两套写法：若写
+		\[
+			E_J=BJ(J+1),
+		\]
+		则 $B$ 是\textbf{能量}；若写
+		\[
+			\tilde E_J=\tilde B J(J+1),
+		\]
+		则 $\tilde B$ 是\textbf{波数}（常用 $\mathrm{cm^{-1}}$）。Boltzmann 因子里分子分母必须同单位：前者配能量形式的 $kT$，后者则可配波数形式的 $kT$，此时常用
+		\[
+			k=0.6950\ \mathrm{cm^{-1}\,K^{-1}}.
+		\]
+	\end{keypoint}
+
+	\subsection{高温近似与转动温度}
+	室温下常用换算
+	\[
+		k=0.6950\ \mathrm{cm^{-1}K^{-1}},
+		\qquad
+		kT\approx 207\ \mathrm{cm^{-1}}\ (298\,\mathrm K).
+	\]
+	对多数双原子分子，$kT\gg B$，因此可把和式近似为积分：
+	\[
+		q_{\mathrm{rot}}\approx \int_0^{\infty}(2J+1)e^{-BJ(J+1)/kT}\,dJ
+		=\frac{kT}{B}.
+	\]
+
+	定义转动温度
+	\[
+		\theta_{\mathrm{rot}}=\frac{B}{k},
+	\]
+	再加上对称数 $\sigma$：
+	\[
+		q_{\mathrm{rot}}=\frac{kT}{\sigma B}=\frac{T}{\sigma\theta_{\mathrm{rot}}}.
+	\]
+	其中
+	\[
+		\sigma=1\ (\text{异核}),\qquad \sigma=2\ (\text{同核双原子}).
+	\]
+
+	\begin{keypoint}
+		双原子高温转动公式：
+		\[
+			q_{\mathrm{rot}}=\frac{T}{\sigma\theta_{\mathrm{rot}}}.
+		\]
+		能不能直接用它，先看 $T\gg\theta_{\mathrm{rot}}$ 是否成立。
+	\end{keypoint}
+
+	\subsection{低温时必须逐项算}
+	若 $T\not\gg\theta_{\mathrm{rot}}$，积分公式失效，只能回到
+	\[
+		q_{\mathrm{rot}}=\sum_{J=0}^{\infty}(2J+1)e^{-BJ(J+1)/kT}
+	\]
+	逐项累加到项足够小为止。此时只占据低几个转动态，所以其实不难算。
+
+	\begin{examplebox}
+		习题对应：
+		\begin{itemize}
+			\item Ex.~8：室温下 $N_2$ 的 $\theta_{\mathrm{rot}}$ 与 $q_{\mathrm{rot}}$；
+			\item Ex.~21：30 K 下不能偷用高温公式，必须逐项求和；
+			\item Ex.~47：用转动分布找最可几 $J$。
+		\end{itemize}
+	\end{examplebox}
+
+	\section{非线性分子的转动配分函数}
+
+	非线性分子有三个转动惯量 $I_a,I_b,I_c$，对应三个转动常数和三个转动温度。在高温极限，
+	\[
+		q_{\mathrm{rot}}=\frac{\pi^{1/2}}{\sigma}
+		\left(\frac{T^3}{\theta_{\mathrm{rot},a}\theta_{\mathrm{rot},b}\theta_{\mathrm{rot},c}}\right)^{1/2}.
+	\]
+	典型例子：$H_2O$ 的 $\sigma=2$，$NH_3$ 的 $\sigma=3$。
+
+	\begin{keypoint}
+		线性分子：一个“转动温度”；
+		非线性分子：三个“转动温度”。
+		高温极限下仍是“很多转动态可及”的思想，只是公式变成三轴版本。
+	\end{keypoint}
+
+	\section{振动配分函数}
+
+	\subsection{简谐振子模型}
+	讲义把振动看作简谐振子，其能级（相对势阱底）为
+	\[
+		E_v=\left(v+\frac12\right)h\nu_0,
+		\qquad v=0,1,2,\dots
+	\]
+	若把基态定义为零点，则
+	\[
+		E_v=vh\nu_0.
+	\]
+	于是
+	\[
+		q'_{\mathrm{vib}}=\sum_{v=0}^{\infty}e^{-vh\nu_0/kT}
+		=1+e^{-h\nu_0/kT}+e^{-2h\nu_0/kT}+\cdots.
+	\]
+
+	这是几何级数，令
+	\[
+		\theta_{\mathrm{vib}}=\frac{h\nu_0}{k},
+	\]
+	则
+	\[
+		q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+	若能量相对势阱底而不是相对基态，则
+	\[
+		q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+
+	\begin{keypoint}
+		振动一定要分清零点：
+		\[
+			q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}
+			\quad (\text{相对势阱底}),
+		\]
+		\[
+			q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}}
+			\quad (\text{相对基态}).
+		\]
+		其中 $\theta_{\mathrm{vib}}$ 的单位是 K；而 $h\nu_0$、$k\theta_{\mathrm{vib}}$、$hc\tilde\nu_0$ 是同一能级间隔的不同写法。做指数时只要保证分子分母同单位即可。
+		习题 9 和 18 明确会考这两个版本。
+	\end{keypoint}
+
+	\subsection{高低温判断}
+	振动能级间距就是 $h\nu_0$ 或 $k\theta_{\mathrm{vib}}$。通常分子振动频率较高，室温下常有
+	\[
+		\theta_{\mathrm{vib}}\gg T,
+	\]
+	故大多数振动模式接近“冻结”，只有基态显著占据，$q'_{\mathrm{vib}}$ 接近 1。只有在较高温或低频振动下，振动贡献才明显。
+
+	\begin{examplebox}
+		典型对应：
+		\begin{itemize}
+			\item Ex.~9：从几何级数求 $q_{\mathrm{vib}}$；
+			\item Ex.~10：Morse 振子与 SHO 近似比较；
+			\item Ex.~18/19：由 $q_{\mathrm{vib}}$ 求 $U,C_V$，分析高低温极限。
+		\end{itemize}
+	\end{examplebox}
+
+	\section{本讲解题模板}
+
+	\subsection{平动题}
+	\begin{enumerate}
+		\item 写粒子在箱中能级；
+		\item 估计 $n_{\max}$，证明“很多项贡献”；
+		\item 用积分得 $q_{\mathrm{trans},1D}$；
+		\item 再乘到三维，写成 $V/\Lambda^3$。
+	\end{enumerate}
+
+	\subsection{转动题}
+	\begin{enumerate}
+		\item 先算 $\theta_{\mathrm{rot}}=B/k$；
+		\item 判断 $T\gg\theta_{\mathrm{rot}}$ 还是 $T\sim\theta_{\mathrm{rot}}$；
+		\item 高温就用 $T/(\sigma\theta_{\mathrm{rot}})$；
+		\item 低温则回到和式逐项累加。
+	\end{enumerate}
+
+	\subsection{振动题}
+	\begin{enumerate}
+		\item 先搞清楚能量零点是在势阱底还是基态；
+		\item 再写几何级数求和；
+		\item 最后用 $\theta_{\mathrm{vib}}=h\nu_0/k$ 判断是否冻结。
+	\end{enumerate}
+
+	\section{最后速记}
+
+	\begin{keypoint}
+		Lect.~4 高频公式：
+		\[
+			q=\sum_j g_j e^{-\varepsilon_j/kT},
+			\qquad
+			q_{\mathrm{trans},3D}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V=\frac{V}{\Lambda^3},
+		\]
+		\[
+			\Lambda=\left(\frac{h^2}{2\pi mkT}\right)^{1/2},
+			\qquad
+			q_{\mathrm{rot}}=\sum_{J=0}^{\infty}(2J+1)e^{-BJ(J+1)/kT},
+		\]
+		\[
+			q_{\mathrm{rot}}=\frac{T}{\sigma\theta_{\mathrm{rot}}}\ (T\gg\theta_{\mathrm{rot}}),
+			\qquad
+			\theta_{\mathrm{rot}}=\frac{B}{k},
+		\]
+		\[
+			q_{\mathrm{rot,nonlinear}}=\frac{\pi^{1/2}}{\sigma}
+			\left(\frac{T^3}{\theta_a\theta_b\theta_c}\right)^{1/2},
+		\]
+		\[
+			q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}},
+			\qquad
+			q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+		\]
+		\[
+			T\not\gg \theta_{\mathrm{rot}}\Rightarrow q_{\mathrm{rot}}\text{ 必须回到求和式逐项算，}
+			\qquad
+			\theta_{\mathrm{vib}}\gg T\Rightarrow q'_{\mathrm{vib}}\approx 1.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

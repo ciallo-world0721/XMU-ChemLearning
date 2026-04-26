@@ -1,0 +1,481 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{sectioncolor}}
+  {\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{subsectioncolor}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=keybg,
+  colframe=keycolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{derivation}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{推导：}}\par}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par
+\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize2-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 2 Collections - 配分函数基础（Lect.3）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+
+\scriptsize{\tableofcontents}
+
+\section{三系综总览：$\Omega$、$Q_N/Z$ 与 $\Xi$}
+
+统计热力学里最容易在后续章节中混乱的，不是公式本身，而是“到底在什么约束下讨论体系”。三套最常用框架是：
+\begin{itemize}
+  \item \textbf{微正则系综}：孤立系统，固定 $(E,V,N)$，核心对象是微观态数
+  \[
+  \Omega(E,V,N).
+  \]
+  \item \textbf{正则系综}：封闭系统，固定 $(T,V,N)$，核心对象是正则配分函数
+  \[
+  Q_N=Z=\sum_m e^{-E_m/kT}.
+  \]
+  \item \textbf{巨正则系综}：开放系统，固定 $(T,V,\mu)$，核心对象是巨配分函数
+  \[
+  \Xi=\sum_{N=0}^{\infty}\sum_m e^{-(E_{m,N}-\mu N)/kT}.
+  \]
+\end{itemize}
+
+\begin{keypoint}
+可以把这三个量理解成三种“归一化器”：
+\[
+\Omega \Rightarrow \text{等概率},
+\qquad
+Q_N \Rightarrow e^{-E_m/kT},
+\qquad
+\Xi \Rightarrow e^{-(E_m-\mu N)/kT}.
+\]
+之后所有热力学量，都是从这三个对象中的一个再经由对数和偏导得到。
+\end{keypoint}
+
+\subsection{它们之间的联系}
+若粒子数固定，巨正则系综对某个给定 $N$ 的那一层，内层求和就是该粒子数下的正则配分函数，因此
+\[
+\Xi=\sum_{N=0}^{\infty} e^{\mu N/kT} Q_N.
+\]
+而微正则中的 $\Omega$ 则通过
+\[
+S=k\ln\Omega
+\]
+给出熵，再由
+\[
+\left(\frac{\partial S}{\partial U}\right)_{V,N}=\frac{1}{T}
+\]
+自然导出正则分布中的温度参数。
+
+	\section{从正则分布到热力学函数}
+
+	Lect.~2 已得到正则分布
+	\[
+		P_m=\frac{e^{-E_m/kT}}{Q_N},
+		\qquad
+		Q_N=\sum_m e^{-E_m/kT}.
+	\]
+	Lect.~3 的任务是把这个“概率公式”变成真正可算的热力学量，并把体系问题化简成单分子问题。
+
+	\begin{keypoint}
+		本讲主线：
+		\[
+			P_m \longrightarrow Q_N \longrightarrow A,U,S \longrightarrow q
+		\]
+		一旦能写出 $q$，后续所有计算都只是在求导与代入。
+	\end{keypoint}
+
+	\subsection{内能是平均能量}
+	体系内能就是对所有微观态能量的概率平均：
+	\[
+		U=\sum_m P_mE_m.
+	\]
+	代入正则分布：
+	\[
+		U=\frac1{Q_N}\sum_m E_me^{-E_m/kT}.
+	\]
+	再注意
+	\[
+		\left(\frac{\partial Q_N}{\partial T}\right)_V
+		=\frac1{kT^2}\sum_m E_me^{-E_m/kT},
+	\]
+	得到
+	\[
+		U=kT^2\frac1{Q_N}\left(\frac{\partial Q_N}{\partial T}\right)_V
+		=kT^2\left(\frac{\partial\ln Q_N}{\partial T}\right)_V.
+	\]
+
+	\subsection{bridge relation}
+	讲义直接给出最重要桥梁关系：
+	\[
+		A=-kT\ln Q_N.
+	\]
+	它把统计量 $Q_N$ 和经典热力学势 $A$ 接上，因此后面的 $S,U$ 都可以只从它导出。
+
+	\begin{keypoint}
+		真正要记住的是
+		\[
+			A=-kT\ln Q_N.
+		\]
+		其余公式尽量从
+		\[
+			S=-\left(\frac{\partial A}{\partial T}\right)_V,
+			\qquad
+			A=U-TS
+		\]
+		现推，不要死记一长串。
+	\end{keypoint}
+
+	\subsection{熵与内能的标准结果}
+	由
+	\[
+		S=-\left(\frac{\partial A}{\partial T}\right)_V
+	\]
+	得
+	\[
+		S=k\ln Q_N+kT\left(\frac{\partial\ln Q_N}{\partial T}\right)_V.
+	\]
+	再用 $U=A+TS$，可再次得到
+	\[
+		U=kT^2\left(\frac{\partial\ln Q_N}{\partial T}\right)_V.
+	\]
+
+	\begin{keypoint}
+		配分函数版三联式：
+		\begin{align*}
+			A&=-kT\ln Q_N, \\
+			S&=k\ln Q_N+kT\left(\frac{\partial\ln Q_N}{\partial T}\right)_V, \\
+			U&=kT^2\left(\frac{\partial\ln Q_N}{\partial T}\right)_V.
+		\end{align*}
+	\end{keypoint}
+
+	\section{非相互作用粒子与单分子配分函数 $q$}
+
+	\subsection{为什么问题能化简}
+	若粒子之间近似不相互作用，则体系某微观态能量可写成各粒子能量之和：
+	\[
+		E_m=\varepsilon_i^{(A)}+\varepsilon_j^{(B)}+\varepsilon_k^{(C)}+\cdots
+	\]
+	于是指数自动因式分解，体系配分函数变成单粒子和式的乘积。
+
+	定义\textbf{单分子配分函数}
+	\[
+		q=\sum_i e^{-\varepsilon_i/kT}.
+	\]
+
+	若把粒子当作可分辨，则
+	\[
+		Q_N=q^N.
+	\]
+
+	\begin{examplebox}
+		物理意义：光谱和量子力学通常只能直接告诉我们\textbf{单个分子}的能级，因此先求 $q$ 再求 $Q_N$ 才是可操作路线。
+	\end{examplebox}
+
+	\subsection{可分辨与不可分辨}
+	若相同粒子不可分辨，直接写 $Q_N=q^N$ 会把“交换标签但物理上相同”的排布重复计算。经典极限理想气体近似下（等价地，平动可及态极多、可把粒子视为稀疏占据各能级），常用修正
+	\[
+		Q_N\approx \frac{q^N}{N!}.
+	\]
+	这里的 $N!$ 本质上是消除粒子标号交换造成的重复计数。
+
+	\begin{keypoint}
+		本课程常用规则：
+		\begin{itemize}
+			\item 可分辨：$Q_N=q^N$；
+			\item 不可分辨（经典极限）：$Q_N=q^N/N!$；
+			\item 对气体，通常把 $N!$ 修正看作与平动部分搭配。
+		\end{itemize}
+		同种分子/原子通常不可分辨；固体里因占据\textbf{可分辨晶格点}，常按可分辨处理。
+	\end{keypoint}
+
+	\subsection{把 $A,S,U$ 写成 $q$}
+	对可分辨粒子：
+	\[
+		A=-NkT\ln q,
+	\]
+	\[
+		S=Nk\ln q+NkT\left(\frac{\partial\ln q}{\partial T}\right)_V,
+	\]
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V.
+	\]
+
+	对不可分辨粒子，用 Stirling 公式
+	\[
+		\ln N!\approx N\ln N-N
+	\]
+	得
+	\[
+		A=-NkT\ln q+kT(N\ln N-N),
+	\]
+	\[
+		S=Nk\ln q-Nk\ln N+Nk+NkT\left(\frac{\partial\ln q}{\partial T}\right)_V,
+	\]
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V.
+	\]
+
+	\begin{keypoint}
+		结论：\textbf{$U$ 与是否可分辨无关，而 $A,S$ 会变。}
+		这正是习题 4--6 与 45 的核心背景。
+	\end{keypoint}
+
+	\section{能级分解与乘法分解}
+
+	单分子总能量通常写成
+	\[
+		\varepsilon_{\mathrm{tot}}=\varepsilon_{\mathrm{trans}}+\varepsilon_{\mathrm{rot}}+\varepsilon_{\mathrm{vib}}+\varepsilon_{\mathrm{elec}}.
+	\]
+	由于能量可加，配分函数可乘：
+	\[
+		q=q_{\mathrm{trans}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+	\]
+
+	\begin{keypoint}
+		之后所有具体计算几乎都按这个模板拆：
+		\[
+			\ln q=\ln q_{\mathrm{trans}}+\ln q_{\mathrm{rot}}+\ln q_{\mathrm{vib}}+\ln q_{\mathrm{elec}}.
+		\]
+		所以
+		\[
+			U=U_{\mathrm{trans}}+U_{\mathrm{rot}}+U_{\mathrm{vib}}+U_{\mathrm{elec}}.
+		\]
+	\end{keypoint}
+
+	\section{energy zero 的选取}
+
+	\subsection{为什么常取基态为零}
+	若某组能级最低态为 $\varepsilon_0$，常把它整体平移，使基态能量变成 0。此时记
+	\[
+		q'=1+e^{-\varepsilon_1/kT}+e^{-\varepsilon_2/kT}+\cdots
+	\]
+	而原始配分函数为
+	\[
+		q=e^{-\varepsilon_0/kT}q'.
+	\]
+
+	\subsection{对热力学函数的影响}
+	代回内能公式：
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V
+		=NkT^2\left(\frac{\partial\ln q'}{\partial T}\right)_V+N\varepsilon_0.
+	\]
+	同理
+	\[
+		A=-NkT\ln q'+kT(N\ln N-N)+N\varepsilon_0.
+	\]
+	熵则只需把表达式里的 $q$ 替换为 $q'$：
+	\[
+		S=Nk\ln q'-Nk\ln N+Nk+NkT\left(\frac{\partial\ln q'}{\partial T}\right)_V.
+	\]
+
+	\begin{keypoint}
+		基态平移规律：
+		\begin{itemize}
+			\item $q=e^{-\varepsilon_0/kT}q'$；
+			\item $U$ 增加 $N\varepsilon_0$；
+			\item $A$ 增加 $N\varepsilon_0$；
+			\item $S$ 只需改用 $q'$ 的形式。
+		\end{itemize}
+		平动、转动基态真的是 0；振动、电子通常不是，后面必须特别小心。
+	\end{keypoint}
+
+	\section{$kT$ 是判断能级是否重要的尺子}
+
+	写出配分函数前几项：
+	\[
+		q=e^{-\varepsilon_0/kT}+e^{-\varepsilon_1/kT}+e^{-\varepsilon_2/kT}+\cdots
+	\]
+	若已取基态为零，则
+	\[
+		q'=1+e^{-\varepsilon_1/kT}+e^{-\varepsilon_2/kT}+\cdots
+	\]
+	一旦某项满足 $\varepsilon_i\gg kT$，其 Boltzmann 因子几乎为零，因此几乎不贡献。
+
+	\begin{keypoint}
+		\textbf{只有能量与 $kT$ 同量级或更低的能级，才会显著贡献到 $q$。}
+		这同时也是 Boltzmann 分布下显著占据的能级，所以
+		\[
+			q \text{ 可视作“可及态数”的度量。}
+		\]
+	\end{keypoint}
+
+	若能级等间距为 $0,\Delta,2\Delta,\dots$，则
+	\[
+		q'=1+e^{-\Delta/kT}+e^{-2\Delta/kT}+\cdots
+	\]
+	有三种典型情形：
+	\begin{itemize}
+		\item $\Delta\gg kT$：除基态外几乎全灭，$q'\approx1$；
+		\item $\Delta\sim kT$：只有前几项重要；
+		\item $\Delta\ll kT$：很多项有贡献，$q'\gg1$。
+	\end{itemize}
+
+	\section{本讲最对应的题型}
+
+	\subsection{Ex.~4 / Ex.~5：两能级系统}
+	对单粒子两能级系统：
+	\[
+		q=1+e^{-\Delta/kT}
+	\]
+	或有简并时
+	\[
+		q=g_0+g_1e^{-\Delta/kT}.
+	\]
+	然后统一走
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V,
+		\qquad
+		C_V=\left(\frac{\partial U}{\partial T}\right)_V.
+	\]
+	常见极限：
+	\begin{itemize}
+		\item 非简并两能级：$U\to 0$（低温），$U\to N\Delta/2$（高温）；
+		\item $C_V$ 在高温、低温两端都趋于 0，中间有单峰；
+		\item 若有简并，则高温极限由 $g_0:g_1$ 决定，不再是简单的“一半一半”。
+	\end{itemize}
+
+	\subsection{Ex.~6：energy zero 不改变熵形式}
+	习题 6 的要点不是重新推熵，而是识别
+	\[
+		q=e^{-\varepsilon_0/kT}q'
+	\]
+	后，熵表达式可改写为只含 $q'$ 的形式，因此“整体平移能量零点”不会改变熵公式结构。
+
+	\subsection{Ex.~45：由 $A=-kT\ln Q_N$ 回到气体状态方程}
+	这题虽在后面才出现，但思路完全建立在 Lect.~3：
+	\[
+		A=-kT\ln Q_N
+		\quad\Rightarrow\quad
+		p=-\left(\frac{\partial A}{\partial V}\right)_T.
+	\]
+	一旦平动配分函数带出 $V$ 依赖，就能回到气体压强公式。
+
+	\begin{examplebox}
+		本讲最该形成的反射：
+		\begin{enumerate}
+			\item 先认清体系是否非相互作用；
+			\item 再写 $Q_N$ 还是 $q$；
+			\item 再判断是否要除以 $N!$；
+			\item 最后用 $A=-kT\ln Q_N$ 或 $U=NkT^2\partial\ln q/\partial T$ 出结果。
+		\end{enumerate}
+	\end{examplebox}
+
+	\section{最后速记}
+
+	\begin{keypoint}
+		Lect.~3 必背框架：
+		\[
+			\Omega(E,V,N),
+			\qquad
+			Q_N=Z=\sum_m e^{-E_m/kT},
+			\qquad
+			\Xi=\sum_{N,m} e^{-(E_{m,N}-\mu N)/kT},
+		\]
+		\[
+			A=-kT\ln Q_N,
+			\qquad
+			S=k\ln Q_N+kT\left(\frac{\partial\ln Q_N}{\partial T}\right)_V,
+		\]
+		\[
+			U=kT^2\left(\frac{\partial\ln Q_N}{\partial T}\right)_V,
+			\qquad
+			q=\sum_i e^{-\varepsilon_i/kT},
+		\]
+		\[
+			Q_N=q^N\ (\text{可分辨}),
+			\qquad
+			Q_N\approx\frac{q^N}{N!}\ (\text{不可分辨经典极限}),
+		\]
+		\[
+			q=q_{\mathrm{trans}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}},
+			\qquad
+			q=e^{-\varepsilon_0/kT}q'.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

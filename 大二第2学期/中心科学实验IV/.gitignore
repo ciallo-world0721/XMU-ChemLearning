@@ -2,3 +2,6 @@
 *.sg
 *.xps
 *.jws
+
+# Raw image files
+*.heic

@@ -1,0 +1,297 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize8-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 8 Collections - 化学势与平衡常数（Lect.9）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{multicols}{2}
+	\scriptsize{\tableofcontents}
+
+	\section{化学势}
+
+	混合物的 Gibbs 自由能写成
+	\[
+		G=\sum_i n_i\mu_i,
+	\]
+	其中 $n_i$ 是组分 $i$ 的物质的量，$\mu_i$ 是该组分的化学势。其热力学定义是
+	\[
+		\mu_i=\left(\frac{\partial G}{\partial n_i}\right)_{p,T,n_j}.
+	\]
+	也就是说：在恒温恒压、并保持其余组成固定时，向体系加入无穷小量组分 $i$，$G$ 的变化率就是 $\mu_i$。
+
+	对统计热力学更方便的定义是
+	\[
+		\mu_i=\left(\frac{\partial A}{\partial N_i}\right)_{V,T,N_j},
+	\]
+	这里 $N_i$ 是分子数而不是摩尔数。
+
+	对单一不可分辨粒子体系，有
+	\[
+		A=-NkT\ln q+kT(N\ln N-N),
+	\]
+	因此
+	\[
+		\mu=-kT\ln\frac{q}{N}.
+	\]
+	若是非相互作用理想混合物，则可推广为
+	\[
+		\mu_i=-kT\ln\frac{q_i}{N_i}.
+	\]
+
+	\begin{keypoint}
+		化学势可以理解为“再加一粒子进来对自由能的边际影响”。一旦引入化学势，混合物平衡与化学反应平衡都能写成非常紧凑的条件式。
+	\end{keypoint}
+
+	\section{共同能量零点}
+
+	做化学平衡问题时，所有物种必须采用同一个能量零点。否则不同物种的 $q$ 和 $\mu$ 不是在同一参照系下定义，直接相减会出错。
+
+	平动和转动的基态通常自然为零；振动部分则方便把能量相对势阱底定义，因此仍用
+	\[
+		q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+	电子基态能量则必须显式带入。记 species $i$ 的电子基态能相对共同零点为 $\varepsilon^{0,i}$，则化学势修正为
+	\[
+		\mu_i=-kT\ln\frac{q_i}{N_i}+\varepsilon^{0,i}.
+	\]
+	本课程对反应平衡最常用的共同零点，是“解离原子”的能量。
+
+	\begin{keypoint}
+		记住：在平衡常数推导里，最重要的不是某个绝对电子能量值，而是反应前后\textbf{基态电子能量差}
+		\[
+			\Delta\varepsilon_0.
+		\]
+		它就是绝对零度时的反应能量差。
+	\end{keypoint}
+
+	\section{体积无关配分函数 $f$}
+
+	前面已经知道，只有平动配分函数显含体积。因此把它拆出来很有用。写成
+	\[
+		q=fV,
+	\]
+	则 $f$ 为体积无关配分函数。实际上
+	\[
+		f=\frac{q}{V}=\frac{q_{\mathrm{trans}}}{V}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+	\]
+	由于
+	\[
+		\frac{q_{\mathrm{trans}}}{V}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2},
+	\]
+	所以
+	\[
+		f=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+	\]
+	把 $q_i=f_iV$ 代回化学势公式，并用浓度 $c_i=N_i/V$，得
+	\[
+		\mu_i=-kT\ln\frac{f_i}{c_i}+\varepsilon^{0,i}.
+	\]
+
+	\section{$K_c$ 的统计热力学表达}
+
+	考虑一般反应
+	\[
+		\nu_AA+\nu_BB\rightleftharpoons \nu_MM+\nu_NN.
+	\]
+	平衡时反应 Gibbs 自由能满足
+	\[
+		\Delta_rG=\nu_M\mu_M+\nu_N\mu_N-\nu_A\mu_A-\nu_B\mu_B=0.
+	\]
+	代入
+	\[
+		\mu_i=-kT\ln\frac{f_i}{c_i}+\varepsilon^{0,i},
+	\]
+	整理并指数化后得到
+	\[
+		\frac{c_M^{\nu_M}c_N^{\nu_N}}{c_A^{\nu_A}c_B^{\nu_B}}
+		=\frac{f_M^{\nu_M}f_N^{\nu_N}}{f_A^{\nu_A}f_B^{\nu_B}}
+		e^{-\Delta\varepsilon_0/kT},
+	\]
+	其中
+	\[
+		\Delta\varepsilon_0=\nu_M\varepsilon^{0,M}+\nu_N\varepsilon^{0,N}-\nu_A\varepsilon^{0,A}-\nu_B\varepsilon^{0,B}.
+	\]
+
+	为使平衡常数无量纲，要用标准浓度 $c^\circ$ 归一化，定义
+	\[
+		K_c=\left(\frac{c_M}{c^\circ}\right)^{\nu_M}\left(\frac{c_N}{c^\circ}\right)^{\nu_N}
+		\left(\frac{c_A}{c^\circ}\right)^{-\nu_A}
+		\left(\frac{c_B}{c^\circ}\right)^{-\nu_B}.
+	\]
+	因此
+	\[
+		K_c=\frac{f_M^{\nu_M}f_N^{\nu_N}}{f_A^{\nu_A}f_B^{\nu_B}}
+		\left(\frac1{c^\circ}\right)^{\Delta\nu}
+		e^{-\Delta\varepsilon_0/kT},
+	\]
+	其中
+	\[
+		\Delta\nu=\nu_M+\nu_N-\nu_A-\nu_B.
+	\]
+
+	\begin{keypoint}
+		这就是本课程最实用的 $K_c$ 公式：
+		\[
+			K_c=\frac{f_{\text{prod}}}{f_{\text{react}}}\times e^{-\Delta\varepsilon_0/kT}\times (c^\circ)^{-\Delta\nu}.
+		\]
+		可以把它理解成：\textbf{配分函数比给熵效应，$e^{-\Delta\varepsilon_0/kT}$ 给能量效应。}
+	\end{keypoint}
+
+	\section{$K_p$ 的统计热力学表达}
+
+	从热力学关系
+	\[
+		\Delta_rG^\circ=-RT\ln K_p
+	\]
+	出发，标准化学势是 1 mol、标准压强 $p^\circ$ 下的值。由于前面的 $\mu_i$ 是按单分子写的，所以要乘上 Avogadro 常数。定义标准态下的分子配分函数 $q_i^\circ$ 后，可得
+	\[
+		K_p=\frac{(q_M^\circ)^{\nu_M}(q_N^\circ)^{\nu_N}}{(q_A^\circ)^{\nu_A}(q_B^\circ)^{\nu_B}}(N_A)^{-\Delta\nu}e^{-\Delta\varepsilon_0/kT}.
+	\]
+	标准态唯一真正改变的是平动部分体积：
+	\[
+		V_m^\circ=\frac{RT}{p^\circ}.
+	\]
+
+	\section{物理解释：低温看能量，高温看态数}
+
+	把最简单平衡写成
+	\[
+		A\rightleftharpoons M,
+		\qquad
+		K_c=\frac{f_M}{f_A}e^{-\Delta\varepsilon_0/kT}.
+	\]
+	低温时，\textbf{内部激发态}几乎不再占据，因此振动、转动、电子对 $f_A,f_M$ 的热激发修正都趋于最小；此时平衡最主要地受
+	\[
+		e^{-\Delta\varepsilon_0/kT}
+	\]
+	决定，能量较低的一边占优。随着温度升高，内部能级开始显著参与，配分函数比中的熵效应才逐渐增强。
+
+	温度升高后，更高能级开始可及，若产物的能级更稠密，则
+	\[
+		f_M>f_A,
+	\]
+	这会通过熵效应抬高平衡常数。因此高温时平衡可能不再由最低能量一项控制，而由“有多少态可供占据”控制。
+
+	\begin{examplebox}
+		一句话总结：
+		\[
+			\text{低温：能量差 }\Delta\varepsilon_0\text{ 主导；}
+			\qquad
+			\text{高温：配分函数比 }f_M/f_A\text{ 的熵效应越来越重要。}
+		\]
+	\end{examplebox}
+
+	\section{双原子分子解离：经典例子}
+
+	对
+	\[
+		A_2\rightleftharpoons 2A,
+	\]
+	有
+	\[
+		\Delta\nu=1.
+	\]
+	若共同零点取解离原子能量，则分子基态位于势阱底，低于原子能量 $D_e$，所以
+	\[
+		\Delta\varepsilon_0=2\varepsilon_0^{(A)}-\varepsilon_0^{(A_2)}=D_e.
+	\]
+	于是
+	\[
+		K_c=\frac{f_A^2}{f_{A_2}}\frac1{c^\circ}e^{-D_e/kT}.
+	\]
+	符号检查很重要：若 $D_e$ 越大，分子越稳定，平衡常数应越小；而上式正满足这一点。
+
+	\begin{examplebox}
+		Ex.~30/31/34 一类平衡题，标准解法是：
+		\begin{enumerate}
+			\item 先写共同零点下的 $\Delta\varepsilon_0$；
+			\item 再分别写每个物种的 $f$ 或 $q^\circ$；
+			\item 最后组装 $K_c$ 或 $K_p$，特别注意单位：$\Delta\varepsilon_0$ 必须是\textbf{每个分子}的能量，不是每摩尔。
+		\end{enumerate}
+		若题目再追问 ortho-/para-H$_2$ 比例，则要把 lect8 的核自旋统计权重一并带入；高温极限下该比值趋于
+		\[
+			3:1.
+		\]
+	\end{examplebox}
+
+	\section{最后速记}
+	\begin{keypoint}
+		Lect.~9 高频公式：
+		\[
+			G=\sum_i n_i\mu_i,
+			\qquad
+			\mu_i=\left(\frac{\partial G}{\partial n_i}\right)_{p,T,n_j},
+			\qquad
+			\mu_i=\left(\frac{\partial A}{\partial N_i}\right)_{V,T,N_j},
+		\]
+		\[
+			\begin{aligned}
+				\mu_i & =-kT\ln\frac{q_i}{N_i}+\varepsilon^{0,i},                                                  \\
+				q_i   & =f_iV,                                                                                     \\
+				f_i   & =\left(\frac{2\pi mkT}{h^2}\right)^{3/2}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+			\end{aligned}
+		\]
+		\[
+			K_c=\frac{f_M^{\nu_M}f_N^{\nu_N}}{f_A^{\nu_A}f_B^{\nu_B}}\left(\frac1{c^\circ}\right)^{\Delta\nu}e^{-\Delta\varepsilon_0/kT},
+		\]
+		\[
+			K_p=\frac{(q_M^\circ)^{\nu_M}(q_N^\circ)^{\nu_N}}{(q_A^\circ)^{\nu_A}(q_B^\circ)^{\nu_B}}(N_A)^{-\Delta\nu}e^{-\Delta\varepsilon_0/kT},
+		\]
+		\[
+			\Delta_rG^\circ=-RT\ln K_p,
+			\qquad
+			A_2\rightleftharpoons 2A:\quad K_c=\frac{f_A^2}{f_{A_2}}\frac1{c^\circ}e^{-D_e/kT}.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

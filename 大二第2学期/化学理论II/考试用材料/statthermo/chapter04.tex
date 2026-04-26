@@ -1,0 +1,294 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize4-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 4 Collections - 振动、电子与同位素效应（Lect.5）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{multicols}{2}
+	\scriptsize{\tableofcontents}
+
+	\section{振动配分函数}
+
+	\subsection{简谐振子模型}
+	振动自由度用简谐振子近似，能级为
+	\[
+		E_v=\left(v+\frac12\right)h\nu_0,
+		\qquad v=0,1,2,\dots
+	\]
+	若相对基态取零点，则
+	\[
+		E_v=vh\nu_0.
+	\]
+	因此振动配分函数写成
+	\[
+		q'_{\mathrm{vib}}=\sum_{v=0}^{\infty} e^{-vh\nu_0/kT}
+		=1+e^{-h\nu_0/kT}+e^{-2h\nu_0/kT}+\cdots.
+	\]
+
+	\begin{keypoint}
+		振动与平动/高温转动不同：典型振动频率常在 $200\sim 4000\ \mathrm{cm^{-1}}$，室温下很多分子的振动能级间隔都大于 $kT\approx 200\ \mathrm{cm^{-1}}$，所以通常不能用积分近似，只能直接求和或利用级数闭式。
+	\end{keypoint}
+
+	\subsection{几何级数求和与 $\theta_{\mathrm{vib}}$}
+	上式是公比为
+	\[
+		r=e^{-h\nu_0/kT}
+	\]
+	的几何级数，因此
+	\[
+		q'_{\mathrm{vib}}=\frac{1}{1-e^{-h\nu_0/kT}}.
+	\]
+	定义振动温度
+	\[
+		\theta_{\mathrm{vib}}=\frac{h\nu_0}{k}
+	\]
+	后，可写成
+	\[
+		q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+
+	\begin{keypoint}
+		这里最好固定一种单位语言：若 $\nu_0$ 用 Hz，则
+		\[
+			\theta_{\mathrm{vib}}=\frac{h\nu_0}{k};
+		\]
+		若实验给的是波数 $\tilde\nu$（$\mathrm{cm^{-1}}$），则应写成
+		\[
+			\theta_{\mathrm{vib}}=\frac{hc\tilde\nu}{k},
+		\]
+		数值上常直接用
+		\[
+			\theta_{\mathrm{vib}}(\mathrm K)=\frac{\tilde\nu(\mathrm{cm^{-1}})}{0.6950}.
+		\]
+	\end{keypoint}
+
+	若能量零点取在势阱底而非基态，则需乘上零点能修正：
+	\[
+		q_{\mathrm{vib}}=q'_{\mathrm{vib}}e^{-\varepsilon_0/kT},
+		\qquad \varepsilon_0=\frac12 h\nu_0,
+	\]
+	故
+	\[
+		q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+	\]
+
+	\begin{examplebox}
+		Ex.~9 的标准结果就是这两个版本：
+		\[
+			q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}},
+			\qquad
+			q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}}.
+		\]
+		题目若说“以势阱底为零点”，就必须用后者；若说“以最低振动态为零点”，就用前者。
+	\end{examplebox}
+
+	\subsection{室温判断}
+	当
+	\[
+		T\ll\theta_{\mathrm{vib}},
+	\]
+	只有基态显著占据，故
+	\[
+		q'_{\mathrm{vib}}\approx 1.
+	\]
+	例如 CO 的振动频率约 $2157\ \mathrm{cm^{-1}}$，所以
+	\[
+		\theta_{\mathrm{vib}}\approx \frac{2157}{0.6950}=3079\ \mathrm K,
+	\]
+	在 298 K 时几乎只有第一项起作用；但 I$_2$ 的振动频率较低，$\theta_{\mathrm{vib}}$ 与室温同量级，因此 $q'_{\mathrm{vib}}$ 会明显大于 1。
+
+	\section{更复杂分子的振动}
+
+	复杂分子的振动由\textbf{normal modes} 描述。若分子有 $N$ 个原子，则正常模数为
+	\[
+		3N-6\quad (\text{非线性}),
+		\qquad
+		3N-5\quad (\text{线性}).
+	\]
+	每个正常模都可看成独立简谐振子，第 $i$ 个模的配分函数为
+	\[
+		q_{\mathrm{vib},i}=\frac{e^{-\theta_{\mathrm{vib},i}/(2T)}}{1-e^{-\theta_{\mathrm{vib},i}/T}}.
+	\]
+	总振动配分函数为各模乘积：
+	\[
+		q_{\mathrm{vib}}=q_{\mathrm{vib},1}q_{\mathrm{vib},2}q_{\mathrm{vib},3}\cdots
+	\]
+	若某模有 $n$ 重简并，则同一因子出现 $n$ 次。
+
+	\begin{examplebox}
+		Ex.~11 的关键不是死套公式，而是先数正常模，再决定哪些模重复。比如 CO$_2$ 的弯曲模二重简并，因此总振动配分函数里弯曲模因子要平方。
+	\end{examplebox}
+
+	\section{电子配分函数}
+
+	除氢原子外，电子能级一般没有简单量子力学模型可直接求出，通常要借助实验光谱数据。若电子能级有简并，则应写成
+	\[
+		q_{\mathrm{elec}}=\sum_j g_j e^{-\varepsilon_{\mathrm{elec},j}/kT}.
+	\]
+	若以电子基态为零点，
+	\[
+		q'_{\mathrm{elec}}=g_0+g_1 e^{-\varepsilon_{1}/kT}+g_2 e^{-\varepsilon_{2}/kT}+\cdots.
+	\]
+	大多数情况下，激发电子态远高于 $kT$，故
+	\[
+		q'_{\mathrm{elec}}\approx g_0.
+	\]
+
+	原子常用项符号 $^{2S+1}L_J$，该能级的简并度为
+	\[
+		g=2J+1.
+	\]
+	例如 Na 原子基态为 $^2S_{1/2}$，故 $g_0=2$；多数闭壳层分子电子基态不简并，因此常有 $q'_{\mathrm{elec}}=1$。O$_2$ 是例外，其基态为 $^3\Sigma_g^-$，故 $q'_{\mathrm{elec}}=3$。
+
+	\begin{keypoint}
+		电子配分函数通常数值不大，但电子基态能量本身在后面计算化学平衡常数时非常重要。因此要区分：
+		\begin{itemize}
+			\item 热激发部分常只看 $q'_{\mathrm{elec}}$；
+			\item 绝对基态电子能量会进入反应的 $\Delta\varepsilon_0$。
+		\end{itemize}
+	\end{keypoint}
+
+	\section{同位素取代}
+
+	把分子中的某个原子换成其同位素，不改变核电荷数与电子数，因此通常可认为键长和力常数基本不变。于是转动与振动只通过约化质量 $\mu$ 改变：
+	\[
+		I=\mu R^2,
+		\qquad
+		B\propto \frac1I,
+	\]
+	所以
+	\[
+		\frac{B_A}{B_B}=\frac{\mu_B}{\mu_A}.
+	\]
+	振动频率满足
+	\[
+		\nu_0\propto \sqrt{\frac{k_{\mathrm{force}}}{\mu}},
+	\]
+	因此
+	\[
+		\frac{\nu_{0,A}}{\nu_{0,B}}=\sqrt{\frac{\mu_B}{\mu_A}}.
+	\]
+
+	\begin{keypoint}
+		同位素比值题里，$B$ 可以是能量形式的转动常数，也可以是波数形式的转动常数；$\nu_0$ 也可以换成波数 $\tilde\nu$。但前后必须保持\textbf{同一种定义}，这样常数因子才会自动约掉。
+	\end{keypoint}
+
+	\begin{examplebox}
+		Ex.~33/34 一类同位素交换平衡题，最核心的物理事实就是：同位素主要改动 $\mu$，进而改动 $\theta_{\mathrm{rot}}$ 和 $\theta_{\mathrm{vib}}$，而不会大幅改变势能曲线本身。
+	\end{examplebox}
+
+	\section{热力学函数可分离的起点}
+
+	由于单分子配分函数可以分解为
+	\[
+		q=q_{\mathrm{trans}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}},
+	\]
+	于是对不可分辨粒子体系
+	\[
+		A=-kT\ln\frac{q^N}{N!}
+	\]
+	可写成各部分和：
+	\[
+		A=A_{\mathrm{trans}}+A_{\mathrm{rot}}+A_{\mathrm{vib}}+A_{\mathrm{elec}}.
+	\]
+	通常把唯一的 $N!$ 因子归到平动部分，因此
+	\[
+		A_{\mathrm{trans}}=-NkT\ln q_{\mathrm{trans}}+kT(N\ln N-N),
+	\]
+	而其余部分都只是
+	\[
+		A_x=-NkT\ln q_x.
+	\]
+
+	同理，内能通式是
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V,
+	\]
+	因此后面每一部分都能单独计算。
+
+	\begin{keypoint}
+		从这一讲开始，思路就固定了：
+		\[
+			q_x \longrightarrow \ln q_x \longrightarrow U_x,S_x,C_{V,x}.
+		\]
+		后面 lect6--9 的大多数题目，本质上都是这条链在不同物理自由度上的重复。
+	\end{keypoint}
+
+	\section{最后速记}
+	\begin{keypoint}
+		Lect.~5 高频公式：
+		\[
+			q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}},
+			\qquad
+			q_{\mathrm{vib}}=\frac{e^{-\theta_{\mathrm{vib}}/(2T)}}{1-e^{-\theta_{\mathrm{vib}}/T}},
+		\]
+		\[
+			q_{\mathrm{vib}}=\prod_i q_{\mathrm{vib},i},
+			\qquad
+			q_{\mathrm{elec}}=\sum_j g_j e^{-\varepsilon_j/kT},
+			\qquad
+			q'_{\mathrm{elec}}\approx g_0,
+		\]
+		\[
+			\frac{B_A}{B_B}=\frac{\mu_B}{\mu_A},
+			\qquad
+			\frac{\nu_{0,A}}{\nu_{0,B}}=\sqrt{\frac{\mu_B}{\mu_A}},
+			\qquad
+			q=q_{\mathrm{trans}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

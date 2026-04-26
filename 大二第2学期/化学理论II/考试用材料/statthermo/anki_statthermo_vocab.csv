@@ -1,0 +1,71 @@
+﻿Front,Back,Tags
+adsorption,吸附；粒子从气相或液相附着到固体/液体表面位点的过程。,statthermo surface kinetics
+anharmonicity,非谐性；实际分子振动偏离理想简谐振子模型的程度。,statthermo vibration quantum
+Arrhenius equation,阿伦尼乌斯方程；用 k = A exp(-Ea/RT) 描述速率常数随温度变化的经验关系。,statthermo kinetics
+Boltzmann distribution,玻尔兹曼分布；平衡时各能级布居按 exp(-E/kT) 权重分配。,statthermo core distribution
+Bose-Einstein statistics,玻色-爱因斯坦统计；适用于整数自旋粒子，允许多个粒子占据同一量子态。,statthermo quantum_statistics
+canonical distribution,正则分布；与热浴接触时体系各微观态的平衡概率分布。,statthermo ensemble distribution
+canonical ensemble,正则系综；粒子数 N、体积 V、温度 T 固定的系综。,statthermo ensemble
+chemical potential,化学势；自由能对粒子数的偏导，表征体系增加一个粒子的代价。,statthermo thermodynamics
+degeneracy,简并度；具有相同能量的不同状态数。,statthermo quantum counting
+degenerate,简并的；不同量子态对应相同能量时，用 degenerate 描述这些态。,statthermo quantum
+density of states,态密度；单位能量区间内可用量子态的数目。,statthermo quantum
+desorption,脱附；吸附在表面的粒子返回气相或液相的过程。,statthermo surface kinetics
+distinguishable,可分辨的；交换两个粒子会得到新的微观态。,statthermo core counting
+electronic ground state,电子基态；电子能级中的最低能量状态。,statthermo electronic quantum
+electronic partition function,电子配分函数；电子能级对总配分函数的贡献。,statthermo partition_function electronic
+electronic states,电子态；由电子构型和自旋等决定的离散能态。,statthermo electronic quantum
+energy levels,能级；体系可取的离散能量值。,statthermo quantum
+ensemble,系综；满足同样宏观约束的一大组可能体系的集合。,statthermo ensemble
+enthalpy,焓；H = U + pV，在定压过程中特别常用的热力学函数。,statthermo thermodynamics
+entropy,熵；衡量可达微观态多少或能量分散程度的状态函数。,statthermo thermodynamics
+equilibrium constant,平衡常数；表征化学平衡位置、由平衡组成决定的常数。,statthermo equilibrium kinetics
+equipartition theorem,能量均分定理；经典极限下每个二次型自由度平均贡献 1/2 kT。,statthermo classical
+excited state,激发态；能量高于基态的量子态。,statthermo quantum
+Fermi-Dirac statistics,费米-狄拉克统计；适用于半整数自旋并受泡利不相容原理约束的粒子。,statthermo quantum_statistics
+fluctuation,涨落；宏观量围绕平均值的瞬时偏离。,statthermo ensemble
+Gibbs energy,吉布斯自由能；G = H - TS，定温定压下判断过程自发性最常用。,statthermo thermodynamics
+grand canonical ensemble,巨正则系综；T、V、化学势 μ 固定而粒子数可变的系综。,statthermo ensemble
+ground state,基态；最低能量状态。,statthermo quantum
+harmonic oscillator,简谐振子；势能可近似为二次函数时的标准振动模型。,statthermo vibration model
+heat bath,热浴；温度固定、可与体系交换能量的巨大环境。,statthermo ensemble
+heat capacity,热容；体系温度升高 1 K 所需的热量。,statthermo thermodynamics
+Helmholtz energy,亥姆霍兹自由能；A = U - TS，定温定容下的重要热力学势。,statthermo thermodynamics
+heteronuclear,异核的；由不同原子组成的分子。,statthermo molecular quantum
+homonuclear,同核的；由相同原子组成的分子。,statthermo molecular quantum
+indistinguishable,不可分辨的；交换两个粒子不会产生新的微观态。,statthermo core counting
+internal energy,内能；体系内部各种微观能量的总和。,statthermo thermodynamics
+isotherm,等温线；在固定温度下描述某个量随压力、覆盖度等变化的关系。,statthermo surface equilibrium
+Langmuir isotherm,朗缪尔等温式；单层、独立位点吸附模型给出的等温关系。,statthermo surface equilibrium
+macrostate,宏观态；只由 E、V、N 等宏观约束确定、不区分具体分配的状态。,statthermo core states
+Maxwell-Boltzmann statistics,麦克斯韦-玻尔兹曼统计；经典极限下可分辨粒子的统计规律。,statthermo quantum_statistics classical
+microcanonical ensemble,微正则系综；E、V、N 固定且与外界不交换能量和粒子的系综。,statthermo ensemble
+microstate,微观态；指定每个粒子或自由度具体占据情况的单个状态。,statthermo core states
+molar heat capacity,摩尔热容；每摩尔物质升高 1 K 所需的热量。,statthermo thermodynamics
+molecular partition function,分子配分函数；单个分子的平动、转动、振动、电子贡献之积。,statthermo partition_function
+nuclear spin,核自旋；原子核固有角动量，会影响统计权重和能级选择规则。,statthermo spin quantum
+nuclear spin statistics,核自旋统计；核自旋与波函数交换对称性共同决定的统计权重。,statthermo spin quantum_statistics
+ortho-hydrogen,邻氢；氢分子中核自旋平行的同位旋修饰体。,statthermo spin molecular
+para-hydrogen,对氢；氢分子中核自旋反平行的同位旋修饰体。,statthermo spin molecular
+partition function,配分函数；对所有可达状态的 Boltzmann 权重求和，是统计热力学的核心量。,statthermo partition_function core
+population,布居；某能级或某状态上的粒子占据数或占据比例。,statthermo distribution
+rate constant,速率常数；出现在反应速率式中的比例常数。,statthermo kinetics
+reaction coordinate,反应坐标；描述体系从反应物走向产物的进程坐标。,statthermo kinetics
+residual entropy,残余熵；绝对零度下仍因取向或排布无序而保留的熵。,statthermo thermodynamics
+rigid rotor,刚性转子；键长固定、不考虑振动耦合时的分子转动模型。,statthermo rotation model
+rotational partition function,转动配分函数；转动能级对总配分函数的贡献。,statthermo partition_function rotation
+rotational temperature,转动特征温度；表征转动能级间距大小的温度尺度。,statthermo rotation
+second law,热力学第二定律；孤立体系的总熵不会自发减小。,statthermo thermodynamics
+spin states,自旋态；由自旋量子数和耦合方式决定的不同状态。,statthermo spin quantum
+spin statistics,自旋统计；粒子自旋与交换对称性对应的统计规律。,statthermo spin quantum_statistics
+standard state,标准态；定义热力学函数和化学平衡常数时采用的参考状态。,statthermo thermodynamics equilibrium
+Stirling approximation,斯特林近似；常用 ln N! ≈ N ln N - N 近似处理大数阶乘。,statthermo math counting
+symmetry number,对称数；分子等价取向带来的计数修正因子，常出现在转动配分函数中。,statthermo rotation molecular
+thermodynamic functions,热力学函数；如 U、H、S、A、G 等描述体系状态的函数。,statthermo thermodynamics
+transition state,过渡态；沿反应坐标越过势垒顶附近的关键构型。,statthermo kinetics
+transition state theory,过渡态理论；用反应物与过渡态之间的平衡近似估算速率常数。,statthermo kinetics theory
+translational partition function,平动配分函数；平动自由度对总配分函数的贡献。,statthermo partition_function translation
+vibrational partition function,振动配分函数；振动能级对总配分函数的贡献。,statthermo partition_function vibration
+vibrational temperature,振动特征温度；表征振动能级间距大小的温度尺度。,statthermo vibration
+wavefunction,波函数；描述量子态并给出概率幅的函数。,statthermo quantum
+zero point energy,零点能；即使在基态，振动仍保留的最低非零能量。,statthermo vibration quantum

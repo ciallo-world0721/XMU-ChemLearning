@@ -1,0 +1,274 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize9-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 9 Collections - 表面吸附、势能面与过渡态（Lect.10）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+\scriptsize{\tableofcontents}
+
+\section{气体在表面的吸附}
+
+\subsection{Langmuir 模型假设}
+设表面共有 $M$ 个\textbf{等价吸附位点}，其中有 $N$ 个被占据，覆盖度定义为
+\[
+\theta=\frac{N}{M}.
+\]
+Langmuir 模型的基本假设是：
+\begin{itemize}
+  \item 每个位点至多吸附 1 个分子；
+  \item 各位点彼此等价；
+  \item 分子是否吸附在某位点，不受邻位占据情况影响。
+\end{itemize}
+
+\begin{keypoint}
+这是一个\textbf{单层吸附 + 位点独立}模型，因此其成功与否取决于真实表面是否足够接近“均匀、无相互作用位点”的理想情况。
+\end{keypoint}
+
+\subsection{Langmuir 等温式}
+在该模型下，表面覆盖度满足
+\[
+\theta=\frac{K_{\mathrm{ads}}p}{1+K_{\mathrm{ads}}p}.
+\]
+低压极限 $K_{\mathrm{ads}}p\ll 1$ 时，
+\[
+\theta\approx K_{\mathrm{ads}}p,
+\]
+高压极限 $K_{\mathrm{ads}}p\gg 1$ 时，
+\[
+\theta\to 1.
+\]
+其线性化形式为
+\[
+\frac{p}{\theta}=p+\frac{1}{K_{\mathrm{ads}}},
+\]
+因此作图 $p/\theta$ 对 $p$ 应为直线，斜率为 1，截距为 $1/K_{\mathrm{ads}}$。
+
+\begin{examplebox}
+Ex.~35 的动力学推导：设吸附速率为
+\[
+r_{\mathrm{ads}}=k_a(M-N)p,
+\]
+脱附速率为
+\[
+r_{\mathrm{des}}=k_dN.
+\]
+平衡时二者相等，得
+\[
+K_{\mathrm{ads}}=\frac{k_a}{k_d}=\frac{\theta}{(1-\theta)p},
+\]
+于是直接整理成 Langmuir 等温式；若题目要求实验判据，则继续化成
+\[
+\frac{p}{\theta}=p+\frac{1}{K_{\mathrm{ads}}}.
+\]
+\end{examplebox}
+
+\section{Langmuir 式的统计热力学推导}
+
+\subsection{从排列数到系统配分函数}
+把 $N$ 个\textbf{不可分辨}分子放到 $M$ 个\textbf{可区分}位点上的方法数是
+\[
+\Omega=\frac{M!}{N!(M-N)!}.
+\]
+若单个吸附分子的内部配分函数为 $q$，则整体系统配分函数可写成
+\[
+Q_N=q^N\frac{M!}{N!(M-N)!}.
+\]
+于是 Helmholtz 自由能为
+\[
+A=-kT\ln Q_N.
+\]
+
+对阶乘用 Stirling 近似，得到
+\[
+A=kT\left[-N\ln q-M\ln M+N\ln N+(M-N)\ln(M-N)\right].
+\]
+
+\subsection{吸附态化学势}
+吸附相化学势由
+\[
+\mu_{\mathrm{ads}}=\left(\frac{\partial A}{\partial N}\right)_{T,M}
+\]
+给出，因此
+\[
+\mu_{\mathrm{ads}}=-kT\ln q+kT\ln\left(\frac{N}{M-N}\right)
+=-kT\ln q+kT\ln\left(\frac{\theta}{1-\theta}\right).
+\]
+
+而气相分子的化学势写成
+\[
+\mu_g=\mu^\circ+kT\ln\frac{p}{p^\circ}.
+\]
+平衡条件是
+\[
+\mu_{\mathrm{ads}}=\mu_g.
+\]
+整理后可得
+\[
+b\frac{p}{p^\circ}=\frac{\theta}{1-\theta},
+\qquad
+b=q\exp\left(\frac{\mu^\circ}{kT}\right),
+\]
+于是
+\[
+	\theta=\frac{K_{\mathrm{ads}}p}{1+K_{\mathrm{ads}}p}.
+\]
+
+\begin{keypoint}
+	这一段有两套等价但量纲处理不同的写法：
+	\begin{itemize}
+		\item 若从 $\mu_g=\mu^\circ+kT\ln(p/p^\circ)$ 出发，则对数里的 $p/p^\circ$ 必须无量纲，此时 $b=q\exp(\mu^\circ/kT)$ 也是无量纲；
+		\item 若改写成
+		\[
+			\theta=\frac{K_{\mathrm{ads}}p}{1+K_{\mathrm{ads}}p},
+		\]
+		则 $K_{\mathrm{ads}}$ 必须带 $1/\text{pressure}$ 单位（如 $\mathrm{bar^{-1}}$、$\mathrm{Pa^{-1}}$）。
+	\end{itemize}
+	因此做题时不要把“无量纲的 $b$”和“有压强倒数量纲的 $K_{\mathrm{ads}}$”混成同一个常数。
+\end{keypoint}
+
+\begin{keypoint}
+	Ex.~36 的本质是：\textbf{位点组合数}决定 $Q_N$，$Q_N$ 决定 $A$，$A$ 对 $N$ 的偏导给出吸附相化学势，最后由化学势平衡导出等温式。
+\end{keypoint}
+
+\section{速率常数的概念铺垫}
+
+统计热力学既然能从微观能级推平衡常数，下一步自然会问：能否同样处理\textbf{速率常数}？lect10 的回答是：可以，但必须先引入\textbf{势能面}和\textbf{过渡态}。
+
+\section{势能面（PES）}
+
+\subsection{PES 是什么}
+势能面是电子能量对核坐标的函数。对任一原子排布，只要给定核位置，就可由量子化学原理上求得其电子能量。因此反应从反应物到产物的全过程，都对应 PES 上的一条路径。
+
+PES 上的\textbf{极小值}对应稳定分子：当几何略微扰动时，势能升高，系统有恢复力把分子拉回平衡结构。
+
+\subsection{$A+BC\to AB+C$ 的简化图像}
+若把最简单反应限制为线型，体系只需两个坐标：
+\[
+r_{AB},\qquad r_{BC}.
+\]
+于是 PES 可以画成两变量函数。反应物位于一条谷中，产物位于另一条谷中；两条谷在中部相连，形成一个“山口”。
+
+\begin{keypoint}
+对真实多原子体系，反应坐标通常是许多核运动的复合，不是某一根键长单独变化；但这个二维模型足够建立考试中最重要的图像。
+\end{keypoint}
+
+\section{反应路径、过渡态与活化能}
+
+\subsection{最小能量路径}
+在 PES 上从反应物到产物可以走很多路线，但绝大多数成功反应都沿着\textbf{最低山口}通过，也就是\textbf{最小能量路径}（minimum energy pathway）。因为若某条路径需要更高能量，能达到它的分子只会更少。
+
+\subsection{过渡态与中间体}
+最小能量路径上的最高点就是\textbf{过渡态}（transition state, TS）。它满足：
+\begin{itemize}
+  \item 沿反应坐标方向是势能极大值；
+  \item 在其余方向上是极小值。
+\end{itemize}
+因此 TS 不是普通稳定分子，而是只有极短寿命的瞬态，大约只有一个分子振动周期量级（$\sim 10^{-13}\,\mathrm s$）。
+
+这与\textbf{中间体}不同：中间体位于 PES 极小值，是真正稳定到可定义、可探测的分子种类。
+
+\begin{keypoint}
+一句话区分：\textbf{中间体在谷底，过渡态在山口。}
+中间体可存在，过渡态只能“经过”。
+\end{keypoint}
+
+\subsection{反应坐标与活化能}
+最小能量路径本身就叫\textbf{反应坐标}。若把能量沿这条路径投影出来，就得到熟悉的反应剖面图。过渡态相对反应物的能量差定义为活化能：
+\[
+E_a=E_{\mathrm{TS}}-E_{\mathrm{reactants}}.
+\]
+
+\begin{examplebox}
+PES 部分最常见的题不是计算，而是概念判断：
+\begin{itemize}
+  \item 哪个点是 reactants / products / TS / intermediate；
+  \item 为什么反应走 minimum-energy path；
+  \item 为什么 TS 沿一方向不稳定、而其余方向稳定；
+  \item 如何从反应剖面图上读出 $E_a$。
+\end{itemize}
+\end{examplebox}
+
+\section{最后速记}
+
+\begin{keypoint}
+lect10 高频公式与结论：
+\[
+\theta=\frac{K_{\mathrm{ads}}p}{1+K_{\mathrm{ads}}p},
+\qquad
+\theta\approx K_{\mathrm{ads}}p\ (\text{低压}),
+\qquad
+\theta\to 1\ (\text{高压}),
+\]
+\[
+\begin{aligned}
+Q_N&=q^N\frac{M!}{N!(M-N)!},\\
+A&=-kT\ln Q_N,\\
+\mu_{\mathrm{ads}}&=-kT\ln q+kT\ln\frac{\theta}{1-\theta}.
+\end{aligned}
+\]
+\[
+\mu_{\mathrm{ads}}=\mu_g,
+\qquad
+\mu_g=\mu^\circ+kT\ln\frac{p}{p^\circ},
+\]
+\[
+\text{TS = 最小能量路径最高点},
+\qquad
+E_a=E_{\mathrm{TS}}-E_{\mathrm{reactants}}.
+\]
+\end{keypoint}
+
+\end{multicols}
+\end{document}

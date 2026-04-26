@@ -1,0 +1,267 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{derivation}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{推导：}}\par}
+{\end{tcolorbox}\par\vspace{0.3em}}
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize6-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 6 Collections - 熵与残余熵（Lect.7）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\begin{multicols}{2}
+	\scriptsize{\tableofcontents}
+
+	\section{统计热力学中的熵}
+
+	经典热力学中，熵通常由实验热容积分求得：
+	\[
+		S(T^*)=\int_0^{T^*}\frac{C_p(T)}{T}\,dT.
+	\]
+	而统计热力学允许我们直接从能级与配分函数计算熵，这对气体尤其有优势。
+
+	不同自由度的熵分项为
+	\[
+		S_{\mathrm{trans}}=Nk\ln q_{\mathrm{trans}}-Nk\ln N+Nk+NkT\left(\frac{\partial\ln q_{\mathrm{trans}}}{\partial T}\right)_V,
+	\]
+	\[
+		S_{\mathrm{rot}}=Nk\ln q_{\mathrm{rot}}+NkT\left(\frac{\partial\ln q_{\mathrm{rot}}}{\partial T}\right)_V.
+	\]
+	若利用
+	\[
+		U_x=NkT^2\left(\frac{\partial\ln q_x}{\partial T}\right)_V,
+	\]
+	则可改写为更方便的形式：
+	\[
+		S_{\mathrm{trans}}=Nk\ln q_{\mathrm{trans}}-Nk\ln N+Nk+\frac{U_{\mathrm{trans}}}{T},
+	\]
+	\[
+		S_{\mathrm{rot}}=Nk\ln q_{\mathrm{rot}}+\frac{U_{\mathrm{rot}}}{T},
+		\qquad
+		S_{\mathrm{vib}}=Nk\ln q_{\mathrm{vib}}+\frac{U_{\mathrm{vib}}}{T}.
+	\]
+
+	\begin{keypoint}
+		熵的计算里最容易犯错的地方是能量零点不一致。特别是振动熵：计算 $q_{\mathrm{vib}}$ 和 $U_{\mathrm{vib}}$ 时，必须使用同一个能量零点。
+	\end{keypoint}
+
+	\section{平动、转动、振动与电子熵}
+
+	\subsection{平动熵：Sackur--Tetrode 形式}
+	三维平动配分函数
+	\[
+		q_{\mathrm{trans}}=\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V
+	\]
+	且
+	\[
+		U_{\mathrm{trans}}=\frac32NkT,
+	\]
+	于是
+	\[
+		S_{\mathrm{trans}}=Nk\left[\ln\left\{\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V\right\}-\ln N+\frac52\right].
+	\]
+	对一摩尔体系
+	\[
+		S_{\mathrm{trans},m}=R\left[\ln\left\{\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V_m\right\}-\ln N_A+\frac52\right],
+	\]
+	其中
+	\[
+		pV_m=RT.
+	\]
+
+	\begin{keypoint}
+		本讲最容易混的是“每粒子 / 体系总量 / 每摩尔”三套单位：含 $k$ 的式子对应单粒子常数，配 $N$ 后给出体系总量；把 $Nk$ 改写成 $R$ 后才得到摩尔量。故熵常见单位分别是 $\mathrm{J\,K^{-1}}$（体系总量）与 $\mathrm{J\,mol^{-1}\,K^{-1}}$（摩尔量），内能则对应 $\mathrm J$ 与 $\mathrm{J\,mol^{-1}}$。
+		另外 $\theta_{\mathrm{rot}}$、$\theta_{\mathrm{vib}}$ 都是\textbf{温度}，单位是 K，不是能量本身。
+	\end{keypoint}
+
+	\subsection{转动熵}
+	高温下线性分子有
+	\[
+		q_{\mathrm{rot}}=\frac{T}{\sigma\theta_{\mathrm{rot}}},
+		\qquad U_{\mathrm{rot}}=NkT,
+	\]
+	因此
+	\[
+		S_{\mathrm{rot}}=Nk\left[\ln\left(\frac{T}{\sigma\theta_{\mathrm{rot}}}\right)+1\right].
+	\]
+	非线性分子高温极限下，因有三个转动自由度，
+	\[
+		U_{\mathrm{rot}}=\frac32NkT,
+	\]
+	并结合 lect4 的非线性 $q_{\mathrm{rot}}$ 公式求熵。
+
+	\subsection{振动与电子熵}
+	简谐振子（基态为零点）有
+	\[
+		q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}},
+		\qquad
+		U'_{\mathrm{vib}}=\frac{Nk\theta_{\mathrm{vib}}}{e^{\theta_{\mathrm{vib}}/T}-1},
+	\]
+	故
+	\[
+		S_{\mathrm{vib}}=Nk\ln q'_{\mathrm{vib}}+\frac{U'_{\mathrm{vib}}}{T}.
+	\]
+	若 $\theta_{\mathrm{vib}}\gg T$，通常
+	\[
+		q'_{\mathrm{vib}}\approx 1,
+		\qquad U'_{\mathrm{vib}}\approx 0,
+		\qquad S_{\mathrm{vib}}\approx 0.
+	\]
+
+	电子基态若简并度为 $g_0$，则
+	\[
+		q'_{\mathrm{elec}}=g_0,
+		\qquad U'_{\mathrm{elec}}=0,
+		\qquad S_{\mathrm{elec}}=Nk\ln g_0.
+	\]
+
+	\begin{examplebox}
+		Ex.~23/24 一类熵题的标准分解是：
+		\[
+			S=S_{\mathrm{trans}}+S_{\mathrm{rot}}+S_{\mathrm{vib}}+S_{\mathrm{elec}}.
+		\]
+		室温下多数分子振动贡献可忽略，但平动和转动几乎不能忽略；电子熵通常只在基态有简并时才留下 $Nk\ln g_0$。
+	\end{examplebox}
+
+	\section{量热法与统计法的比较}
+
+	量热法求熵的完整表达式是
+	\[
+		S(T^*)=\int_0^{T^*}\frac{C_p(T)}{T}\,dT+\sum_{\text{phase changes}}\frac{\Delta H_{\mathrm{pc}}}{T_{\mathrm{pc}}}.
+	\]
+	实际实验无法真正做到绝对零度，因此低温常借助 Debye 定律
+	\[
+		C_p(T)=aT^3
+	\]
+	外推至 0 K。
+
+	对简单气体，统计热力学计算熵与热化学测量通常符合得很好，但有一类经典例外：\textbf{残余熵}。
+
+	\subsection{残余熵的一般统计定义}
+	若体系在极低温下仍保留 $\Omega_{\mathrm{res}}$ 个近乎等能、且在实验时间尺度上无法完全解除的微观构型，则即使 $T\to 0$ 也有
+	\[
+		S_{\mathrm{res}}=k\ln \Omega_{\mathrm{res}}.
+	\]
+	对一摩尔体系可写为
+	\[
+		S_{m,\mathrm{res}}=R\ln \Omega_{\mathrm{res}}^{1/N}.
+	\]
+
+	\begin{derivation}
+		残余熵并不是新的定义，而只是 Boltzmann 熵公式在“冻结无序”情况下的直接应用：
+		\[
+			S=k\ln\Omega.
+		\]
+		若在极低温仍不是唯一基态，而是有 $\Omega_{\mathrm{res}}>1$ 个等效排布被冻结下来，则熵不会降到 0，而是停在
+		\[
+			S_{\mathrm{res}}=k\ln\Omega_{\mathrm{res}}.
+		\]
+		这并不意味着统计热力学与第三定律冲突；它只说明实验上体系没有在可达时间内完成完全有序化。
+	\end{derivation}
+
+	\subsection{残余熵：CO 的例子}
+	在固态 CO 中，若分子有两种近乎等能的取向（C--O 或 O--C）被冻结下来，则 $N$ 个分子的微观态数近似为
+	\[
+		\Omega=2^N.
+	\]
+	故残余熵为
+	\[
+		S=k\ln\Omega=Nk\ln 2,
+		\qquad
+		S_m=R\ln 2.
+	\]
+	这就解释了为什么统计法算出来的熵有时比量热法更高：量热法可能漏掉了某个极低温、极缓慢的有序化相变。
+
+	\begin{keypoint}
+		残余熵并不是“理论算错了”，而是体系在实验可达时间尺度上没有完成完全有序化。统计热力学看到的是仍被冻结在晶体里的微观无序。
+	\end{keypoint}
+
+	\subsection{同位素混合与熵}
+	例如 Cl$_2$ 气体实际上是多种 isotopomer 的混合。若固化后这种同位素混合也被冻结，就会带来额外熵。但在实际平衡或反应计算中，这种贡献往往在反应物与产物两边抵消，因此通常不必单独处理。
+	从一般规则看，只要每个独立单元有 $g$ 种被冻结的等效选择，就有
+	\[
+		\Omega=g^N,
+		\qquad
+		S_{m,\mathrm{res}}=R\ln g.
+	\]
+
+	\begin{examplebox}
+		Ex.~25 的判断思路：CO 会因取向冻结而出现明显残余熵；而 OCS 这类不具近对称双取向的分子不会有同样大小的冻结无序。像 CH$_3$D 这类分子，若统计熵高于热化学熵，也通常意味着某种低温下未完全解除的构型/取向无序被“冻结”了下来。
+	\end{examplebox}
+
+	\section{最后速记}
+	\begin{keypoint}
+		Lect.~7 高频公式：
+		\[
+			S_{\mathrm{trans}}=Nk\ln q_{\mathrm{trans}}-Nk\ln N+Nk+\frac{U_{\mathrm{trans}}}{T},
+		\]
+		\[
+			S_{\mathrm{rot}}=Nk\ln q_{\mathrm{rot}}+\frac{U_{\mathrm{rot}}}{T},
+			\qquad
+			S_{\mathrm{vib}}=Nk\ln q_{\mathrm{vib}}+\frac{U_{\mathrm{vib}}}{T},
+		\]
+		\[
+			S_{\mathrm{trans},m}=R\left[\ln\left\{\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V_m\right\}-\ln N_A+\frac52\right],
+		\]
+		\[
+			S_{\mathrm{rot}}=Nk\left[\ln\left(\frac{T}{\sigma\theta_{\mathrm{rot}}}\right)+1\right],
+			\qquad
+			S_{\mathrm{elec}}=Nk\ln g_0,
+		\]
+		\[
+			\begin{aligned}
+				S(T^*)           & =\int_0^{T^*}\frac{C_p(T)}{T}\,dT+\sum\frac{\Delta H_{\mathrm{pc}}}{T_{\mathrm{pc}}}, \\
+				S_{\mathrm{res}} & =R\ln 2\quad (\text{典型 CO 取向无序模型}).
+			\end{aligned}
+		\]
+	\end{keypoint}
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,399 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{sectioncolor}}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{subsectioncolor}}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+\setcounter{secnumdepth}{4}\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=keybg,colframe=keycolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[colback=boxbg,colframe=derivcolor,boxrule=0.5pt,arc=2pt,left=2pt,right=2pt,top=2pt,bottom=2pt,boxsep=0pt]\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize11-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 11 Collections - Eyring方程、活化参量与Boltzmann分布（Lect.12）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+\scriptsize{\tableofcontents}
+
+\section{过渡态理论的热力学表述}
+
+由 lect11 的结果
+\[
+k_{2\mathrm{nd}}=\left(\frac{1}{c^\circ}\right)\frac{kT}{h}K^{\ddagger}
+\]
+出发，再用
+\[
+\Delta_rG^{\circ,\ddagger}=-RT\ln K^{\ddagger},
+\qquad
+\Delta_rG^{\circ,\ddagger}=\Delta_rH^{\circ,\ddagger}-T\Delta_rS^{\circ,\ddagger},
+\]
+即可把速率常数写成热力学活化参数的形式。对溶液中反应：
+\[
+k_{2\mathrm{nd}}=\frac{1}{[\ ]^\circ}\frac{kT}{h}
+\exp\left(\frac{\Delta_rS^{\circ,\ddagger}}{R}\right)
+\exp\left(-\frac{\Delta_rH^{\circ,\ddagger}}{RT}\right).
+\]
+
+对气相，则需要改用以标准压强为基准的表达式，标准态不同，单位也不同。
+
+\begin{keypoint}
+Eyring 方程的价值不在“更容易算”，而在于它把速率常数拆成了\textbf{活化焓项}和\textbf{活化熵项}，因此非常适合解释机理与环境效应。
+同时要记住：
+\[
+\Delta_rG^{\circ,\ddagger}=-RT\ln K^{\ddagger}
+\]
+只有在 $K^{\ddagger}$ 与 $\Delta_rG^{\circ,\ddagger}$ 使用\textbf{同一个标准态}时才能直接成立。
+\end{keypoint}
+
+\begin{keypoint}
+	本讲建议固定下面这套单位习惯：$\Delta_rG^{\circ,\ddagger}$、$\Delta_rH^{\circ,\ddagger}$、$E_a$ 用 $\mathrm{kJ\,mol^{-1}}$ 或 $\mathrm{J\,mol^{-1}}$，并始终与 $R=8.314\ \mathrm{J\,mol^{-1}\,K^{-1}}$ 保持一致；$\Delta_rS^{\circ,\ddagger}$ 用 $\mathrm{J\,mol^{-1}\,K^{-1}}$。若把焓写成 kJ/mol 而仍直接代入以 J 为单位的 $R$，数值会差 1000 倍。
+\end{keypoint}
+
+\section{与 Arrhenius 方程的关系}
+
+Arrhenius 方程为
+\[
+k=A\exp\left(-\frac{E_a}{RT}\right).
+\]
+但不能简单把 $E_a$ 认成 $\Delta_rH^{\circ,\ddagger}$，因为活化能的正式定义是
+\[
+\left(\frac{\partial \ln k}{\partial (1/T)}\right)_V=-\frac{E_a}{R},
+\]
+或等价地
+\[
+\left(\frac{\partial \ln k}{\partial T}\right)_V=\frac{E_a}{RT^2}.
+\]
+
+对溶液反应，结合 van't Hoff isochore 得
+\[
+E_a=\Delta_rH^{\circ,\ddagger}+RT.
+\]
+对\textbf{双分子气相反应}，因 $K_p$ 和 $K_c$ 的关系中多出体积/压强项，结果是
+\[
+E_a=\Delta_rH^{\circ,\ddagger}+2RT.
+\]
+
+\begin{keypoint}
+\textbf{考试最容易错的点之一}：
+\[
+E_a \neq \Delta_rH^{\circ,\ddagger}
+\]
+且修正项依赖于所讨论的是溶液反应还是双分子气相反应。
+\end{keypoint}
+
+\section{Eyring plot 与活化参量实验求取}
+
+把 Eyring 方程改写为
+\[
+\ln\left(\frac{k_{2\mathrm{nd}}}{T}\right)
+=\ln\left(\frac{k}{h[\ ]^\circ}\right)
++\frac{\Delta_rS^{\circ,\ddagger}}{R}
+-\frac{\Delta_rH^{\circ,\ddagger}}{R}\frac{1}{T}.
+\]
+故作图 $\ln(k/T)$ 对 $1/T$ 会得到直线：
+\begin{itemize}
+  \item 斜率 $=-\Delta_rH^{\circ,\ddagger}/R$；
+  \item 截距 $=\ln(k/h[\ ]^\circ)+\Delta_rS^{\circ,\ddagger}/R$。
+\end{itemize}
+这里隐含的实验拟合假设是：在所测温区内，$\Delta_rH^{\circ,\ddagger}$ 和 $\Delta_rS^{\circ,\ddagger}$ 可近似视为与温度无关。
+
+也可以先做 Arrhenius plot 求 $E_a$ 与 $A$，再回算活化焓与活化熵，但由于实验常只覆盖有限温区，截距外推会带来较大误差，因此活化熵往往不如活化焓稳健。
+
+\section{活化体积与机理判断}
+
+由主方程
+\[
+dG=Vdp-SdT
+\]
+在恒温下得
+\[
+\left(\frac{\partial G}{\partial p}\right)_T=V.
+\]
+因此
+\[
+\Delta_rV^{\circ,\ddagger}=\left(\frac{\partial \Delta_rG^{\circ,\ddagger}}{\partial p}\right)_T,
+\]
+并且
+\[
+\left(\frac{\partial \ln k_{2\mathrm{nd}}}{\partial p}\right)_T
+=-\frac{\Delta_rV^{\circ,\ddagger}}{RT}.
+\]
+这一套讨论主要是针对\textbf{溶液反应}在高压下的速率常数变化；普通气相反应的压强效应往往先体现为浓度变化，而不是这里讨论的活化体积效应。
+
+若 $\Delta_rV^{\circ,\ddagger}$ 与压强近似无关，则
+\[
+\ln\frac{k_{2\mathrm{nd}}(p)}{k_{2\mathrm{nd}}(p^\circ)}
+=-\frac{\Delta_rV^{\circ,\ddagger}}{RT}(p-p^\circ).
+\]
+
+\begin{keypoint}
+	活化体积公式里，$\Delta_rV^{\circ,\ddagger}(p-p^\circ)$ 必须先组成“每摩尔能量”再去除以 $RT$。最稳妥的做法是统一到 SI：$\Delta_rV^{\circ,\ddagger}$ 用 $\mathrm{m^3\,mol^{-1}}$，$p$ 用 Pa；因为 $\mathrm{Pa\cdot m^3=J}$，这样就能直接与 $RT$ 的 $\mathrm{J\,mol^{-1}}$ 对上。
+\end{keypoint}
+
+\begin{examplebox}
+机理判断的经验规则：
+\begin{itemize}
+  \item 缔合型机理：$\Delta_rS^{\circ,\ddagger}$、$\Delta_rV^{\circ,\ddagger}$ 常偏负；
+  \item 解离型机理：二者常偏正；
+  \item 互换型机理：$\Delta_rS^{\circ,\ddagger}$ 往往接近 0，$\Delta_rV^{\circ,\ddagger}$ 可正可负。
+\end{itemize}
+lect12 特别强调：\textbf{活化体积通常比活化熵更适合判机理。}
+\end{examplebox}
+
+\begin{examplebox}
+电致收缩（electrostriction）是 lect12 解释溶液机理的核心词：离子被极性溶剂强烈配位时，溶剂熵与体积都会下降。若过渡态中\textbf{电荷分散}，电致收缩减弱，则常有
+\[
+\Delta_rS^{\circ,\ddagger}>0,\qquad \Delta_rV^{\circ,\ddagger}>0.
+\]
+若过渡态中\textbf{电荷分离}增强，则更可能出现
+\[
+\Delta_rV^{\circ,\ddagger}<0.
+\]
+这正是为什么这两类活化参量可以拿来区分缔合、解离和电荷重排机理。
+\end{examplebox}
+
+\section{Boltzmann 分布的重新推导}
+
+对非相互作用粒子，单粒子配分函数为
+\[
+q=\sum_i e^{-\varepsilon_i/kT}.
+\]
+内能可由配分函数写成
+\[
+U=NkT^2\left(\frac{\partial \ln q}{\partial T}\right)_V.
+\]
+而
+\[
+\left(\frac{\partial q}{\partial T}\right)_V=\frac{1}{kT^2}\sum_i \varepsilon_i e^{-\varepsilon_i/kT},
+\]
+故
+\[
+U=\frac{N}{q}\sum_i \varepsilon_i e^{-\varepsilon_i/kT}.
+\]
+另一方面，若按各态布居数求和，
+\[
+U=\sum_i n_i\varepsilon_i.
+\]
+逐项比较得到
+\[
+n_i=\frac{N}{q}e^{-\varepsilon_i/kT}.
+\]
+若按能级求和且有简并度 $g_j$，则
+\[
+n_j=\frac{Ng_j}{q}e^{-\varepsilon_j/kT}.
+\]
+
+\begin{keypoint}
+lect12 给出的一个很实用解释是：若基态取零点，则
+\[
+n_0=\frac{N}{q},
+\qquad q=\frac{N}{n_0}.
+\]
+所以 $q$ 可看成“离开基态的程度”的量度；越多粒子爬离基态，$q$ 越大。
+\end{keypoint}
+
+\section{Boltzmann 分布的应用}
+
+\subsection{振动布居}
+若简谐振子能级取为
+\[
+E_v=vh\nu_0,
+\qquad
+q'_{\mathrm{vib}}=\frac{1}{1-e^{-\theta_{\mathrm{vib}}/T}},
+\]
+则振动态布居为
+\[
+n_v=N\left[1-e^{-\theta_{\mathrm{vib}}/T}\right]e^{-v\theta_{\mathrm{vib}}/T}.
+\]
+
+\subsection{转动布居与 $J_{\max}$}
+刚性转子中
+\[
+E_J=BJ(J+1),
+\qquad
+n_J=\frac{N(2J+1)}{q_{\mathrm{rot}}}e^{-BJ(J+1)/kT}.
+\]
+当 $B\ll kT$ 时，
+\[
+q_{\mathrm{rot}}=\frac{T}{\sigma\theta_{\mathrm{rot}}},
+\qquad
+\theta_{\mathrm{rot}}=\frac{B}{k},
+\]
+故
+\[
+\frac{n_J}{N}=\frac{\sigma\theta_{\mathrm{rot}}}{T}(2J+1)
+e^{-\theta_{\mathrm{rot}}J(J+1)/T}.
+\]
+对 $J$ 求导并令其为 0，得最可几转动量子数：
+\[
+J_{\max}=\sqrt{\frac{T}{2\theta_{\mathrm{rot}}}}-\frac{1}{2}.
+\]
+
+\begin{examplebox}
+CO 在 298 K 的课件例子中，$J_{\max}\approx 6.8$，所以真正整数最大值在
+\[
+J=7.
+\]
+这也是解释双原子分子红外光谱 P/R 支强度分布的关键。
+\end{examplebox}
+
+\section{非平衡态与负温度}
+
+平衡时，作图 $\ln n_i$ 对 $\varepsilon_i$ 应为直线，斜率
+\[
+\text{slope}=-\frac{1}{kT}.
+\]
+若体系被强辐射或快速反应扰乱后偏离平衡，则这一斜率定义的“有效温度”也会改变。对两能级体系，
+\[
+\frac{n_1}{n_0}=\exp\left(-\frac{\Delta\varepsilon}{kT}\right).
+\]
+热平衡时总有 $n_0>n_1$。若人为造成
+\[
+n_1>n_0,
+\]
+则形式上对应
+\[
+T<0,
+\]
+这就是\textbf{population inversion}，也就是负温度态。
+
+\section{Bose--Einstein 与 Fermi--Dirac 统计简介}
+
+前面整套笔记主要默认的是不发生量子简并的 Maxwell--Boltzmann 统计。若粒子不可分辨且量子态占据受量子规则限制，则平均占据数需要改写成
+\[
+\bar n_i^{\mathrm{BE}}=\frac{g_i}{\exp[(\varepsilon_i-\mu)/kT]-1},
+\]
+\[
+\bar n_i^{\mathrm{FD}}=\frac{g_i}{\exp[(\varepsilon_i-\mu)/kT]+1}.
+\]
+前者适用于 boson，可多个粒子占据同一态；后者适用于 fermion，每个单粒子态最多占 1 个粒子。
+
+\begin{keypoint}
+当
+\[
+\exp[(\varepsilon_i-\mu)/kT]\gg 1,
+\]
+两式都退化为 Maxwell--Boltzmann 形式
+\[
+\bar n_i\approx g_i e^{-(\varepsilon_i-\mu)/kT}.
+\]
+这就是为什么常温常压下的大多数分子气体仍然可以安全使用 Boltzmann 分布。
+\end{keypoint}
+
+\section{态密度}
+
+态密度定义为
+\[
+D(\varepsilon)d\varepsilon=W(\varepsilon+d\varepsilon)-W(\varepsilon),
+\qquad
+D(\varepsilon)=\frac{dW(\varepsilon)}{d\varepsilon},
+\]
+其中 $W(\varepsilon)$ 是能量不超过 $\varepsilon$ 的状态总数。
+
+对三维立方箱中粒子，能级为
+\[
+E_{n_x,n_y,n_z}=(n_x^2+n_y^2+n_z^2)\frac{h^2}{8ma^2}.
+\]
+把每个态看成量子数空间中的一个格点，则满足 $E\le \varepsilon$ 的态都落在半径 $n_{\max}$ 的球内，其中
+\[
+n_{\max}=\left(\frac{8ma^2\varepsilon}{h^2}\right)^{1/2}.
+\]
+由于 $n_x,n_y,n_z$ 都是正整数，只需取球的正八分体体积，因此
+\[
+W(\varepsilon)=\frac{\pi}{6}\left(\frac{8m\varepsilon}{h^2}\right)^{3/2}V.
+\]
+进一步微分得
+\[
+D(\varepsilon)=\frac{\pi}{4}\left(\frac{8m}{h^2}\right)^{3/2}\varepsilon^{1/2}V.
+\]
+
+\begin{keypoint}
+态密度的本质作用是把“极密的平动能级”由离散求和转换成近似连续描述。对理想气体平动来说，正是因为 $D(\varepsilon)$ 很大，常温下才会显得近乎经典。
+\end{keypoint}
+
+\section{最后速记}
+
+\begin{keypoint}
+lect12 高频公式：
+\[
+k_{2\mathrm{nd}}=\left(\frac{1}{c^\circ}\right)\frac{kT}{h}K^{\ddagger},
+\qquad
+\Delta_rG^{\circ,\ddagger}=\Delta_rH^{\circ,\ddagger}-T\Delta_rS^{\circ,\ddagger},
+\]
+\[
+k_{2\mathrm{nd}}=\frac{1}{[\ ]^\circ}\frac{kT}{h}
+\exp\left(\frac{\Delta_rS^{\circ,\ddagger}}{R}\right)
+\exp\left(-\frac{\Delta_rH^{\circ,\ddagger}}{RT}\right),
+\]
+\[
+\begin{aligned}
+E_a&=\Delta_rH^{\circ,\ddagger}+RT && (\text{solution}),\\
+E_a&=\Delta_rH^{\circ,\ddagger}+2RT && (\text{bimolecular gas phase}).
+\end{aligned}
+\]
+\[
+\left(\frac{\partial \ln k}{\partial p}\right)_T=-\frac{\Delta_rV^{\circ,\ddagger}}{RT},
+\qquad
+n_i=\frac{N}{q}e^{-\varepsilon_i/kT},
+\qquad
+n_j=\frac{Ng_j}{q}e^{-\varepsilon_j/kT},
+\]
+\[
+\begin{aligned}
+J_{\max}&=\sqrt{\frac{T}{2\theta_{\mathrm{rot}}}}-\frac{1}{2},\\
+\bar n_i^{\mathrm{BE}}&=\frac{g_i}{e^{(\varepsilon_i-\mu)/kT}-1},\\
+\bar n_i^{\mathrm{FD}}&=\frac{g_i}{e^{(\varepsilon_i-\mu)/kT}+1}.
+\end{aligned}
+\]
+\[
+D(\varepsilon)=\frac{dW}{d\varepsilon},
+\qquad
+W(\varepsilon)=\frac{\pi}{6}\left(\frac{8m\varepsilon}{h^2}\right)^{3/2}V.
+\]
+\end{keypoint}
+
+\end{multicols}
+\end{document}

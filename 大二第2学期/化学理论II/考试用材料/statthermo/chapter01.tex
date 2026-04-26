@@ -1,0 +1,704 @@
+% 编译提示：使用 XeLaTeX 编译
+% 需要 ctex 宏包支持中文
+
+\documentclass[a4paper,9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{ctex}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage[version=4]{mhchem}
+
+\geometry{left=1cm,right=1cm,top=1cm,bottom=1.8cm}
+
+\setlength{\columnsep}{0.8cm}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{gray!50}}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{subsectioncolor}{RGB}{0,153,153}
+\definecolor{keycolor}{RGB}{204,102,0}
+\definecolor{derivcolor}{RGB}{100,149,237}
+\definecolor{boxbg}{RGB}{240,248,255}
+\definecolor{keybg}{RGB}{255,248,240}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{sectioncolor}}
+  {\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{subsectioncolor}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{0.8ex plus 0.3ex minus 0.1ex}{0.5ex plus 0.1ex}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\newenvironment{keypoint}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=keybg,
+  colframe=keycolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\noindent\textcolor{keycolor}{\textbf{关键点：}}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{derivation}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{推导：}}\par}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\newenvironment{examplebox}
+{\par\vspace{0.3em}\noindent\begin{tcolorbox}[
+  colback=boxbg,
+  colframe=derivcolor,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  boxsep=0pt,
+  ]
+\scriptsize\noindent\textcolor{derivcolor}{\textbf{示例：}}\par
+\setlength{\parskip}{0.1ex}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+{\end{tcolorbox}\par\vspace{0.3em}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\scriptsize1-\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{gray!50}\leaders\hrule height \footrulewidth\hfill}}
+
+\title{\vspace{-2em}\Large\bfseries\color{sectioncolor} Chapter 1 Collections - 统计热力学基础（Lect.1--2）\vspace{-1em}}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{multicols}{2}
+
+	\scriptsize{\tableofcontents}
+
+	\section{课程主线与热力学接口}
+
+	\subsection{统计热力学要做什么}
+	统计热力学的核心任务是：从\textbf{单分子能级}推出\textbf{宏观热力学量}。光谱学与量子力学告诉我们允许能级和能级差，热力学告诉我们自发性、平衡与状态函数，而统计热力学负责把二者接起来。
+
+	若两能级差满足
+	\[
+		E_2-E_1=h\nu,
+	\]
+	则频率为 $\nu$ 的光子可以被吸收。对单个分子，关心的是能级；对一大群分子，真正能测到的是\textbf{布居}，即多少粒子在某个能级上。
+
+	Lect.~1 一开头就先给出 Boltzmann 分布：
+	\[
+		n_i=\frac{N}{q}\exp\!\left(-\frac{\varepsilon_i}{kT}\right),
+		\qquad
+		n_j=\frac{N}{q}g_j\exp\!\left(-\frac{\varepsilon_j}{kT}\right).
+	\]
+	这里 $q$ 是\textbf{单分子配分函数}，$g_j$ 是第 $j$ 个能级的简并度。
+
+	\begin{keypoint}
+		这一章真正的主线是：
+		\[
+			\text{能级} \longrightarrow \text{微观态与概率} \longrightarrow Q_N,q \longrightarrow \text{宏观量}
+		\]
+		其中 Lect.~1 主要补热力学接口，Lect.~2 则正式建立微观态、熵、正则分布和配分函数的出发点。
+	\end{keypoint}
+
+	\subsection{基态、相对布居与 $kT$}
+	若取基态能量 $\varepsilon_0=0$，则
+	\[
+		n_0=\frac{N}{q},
+		\qquad
+		n_i=n_0\exp\!\left(-\frac{\varepsilon_i}{kT}\right).
+	\]
+	所以真正控制布居的是无量纲比值 $\varepsilon/kT$：当 $\varepsilon\gg kT$ 时，指数项极小，该能级几乎不被占据；当 $\varepsilon\lesssim kT$ 时，该能级才有显著布居。
+
+	\begin{keypoint}
+		这个 $kT$ 标尺在 Lect.~2 以后会反复出现：它既决定哪些能级有显著布居，也决定哪些能级在配分函数求和时真正重要。
+	\end{keypoint}
+
+	\section{热力学工具箱（Lect.1）}
+
+	\subsection{第二定律、状态函数与路径函数}
+	第二定律最常用的两种表达是：
+	\[
+		\Delta S_{\mathrm{univ}}>0 \quad (\text{自发过程}),
+		\qquad
+		S_{\mathrm{isolated}}\uparrow.
+	\]
+	平衡时，宇宙熵达到极大。对无穷小可逆过程，熵定义为
+	\[
+		dS=\frac{\delta q_{\mathrm{rev}}}{T}.
+	\]
+	其中必须强调 ``rev''，因为热 $q$ 和功 $w$ 是\textbf{路径函数}；而 $S,U,H,A,G$ 都是\textbf{状态函数}，只由状态决定，与走哪条路径无关。
+
+	\begin{keypoint}
+		最容易混淆的点：
+		\begin{itemize}
+			\item $dU,dS,dH,dA,dG$ 是全微分；
+			\item $\delta q,\delta w$ 不是全微分；
+			\item $dS=\delta q_{\mathrm{rev}}/T$ 只对\textbf{可逆}过程成立，但因 $S$ 是状态函数，所以常借可逆路径计算不可逆过程的熵变。
+		\end{itemize}
+	\end{keypoint}
+
+	\subsection{第一定律、热容与基本定义}
+	第一定律写成
+	\[
+		dU=\delta q+\delta w,
+		\qquad
+		\delta w=-p_{\mathrm{ext}}dV.
+	\]
+	若只考虑体积功并在可逆条件下，有
+	\[
+		\delta q_{\mathrm{rev}}=TdS,
+		\qquad
+		dU=TdS-pdV.
+	\]
+	这就是第一条热力学基本方程（master equation）。
+
+	热容定义：
+	\[
+		C_V=\left(\frac{\partial U}{\partial T}\right)_V,
+		\qquad
+		C_p=\left(\frac{\partial H}{\partial T}\right)_p.
+	\]
+	其中 $C_V$ 在统计热力学中特别重要，因为配分函数通常在定容条件下最容易处理。
+
+	\begin{keypoint}
+		由
+		\[
+			dU=TdS-pdV
+		\]
+		立刻可读出两个后面要用的偏导：
+		\[
+			\left(\frac{\partial S}{\partial U}\right)_V=\frac1T,
+			\qquad
+			\left(\frac{\partial S}{\partial V}\right)_U=\frac pT.
+		\]
+		其中前者正是 Lect.~2 推导正则分布时接到热浴熵的关键接口。
+	\end{keypoint}
+
+	\begin{derivation}
+		若把两个子系统 1 和 2 放在一起，并允许它们只交换能量，则总熵为
+		\[
+			S_{\mathrm{tot}}=S_1+S_2,
+			\qquad dU_1=-dU_2.
+		\]
+		平衡时总熵在总能量约束下取极大，因此
+		\[
+			dS_{\mathrm{tot}}=\left(\frac{\partial S_1}{\partial U_1}\right)_{V_1,N_1}dU_1+
+			\left(\frac{\partial S_2}{\partial U_2}\right)_{V_2,N_2}dU_2=0.
+		\]
+		利用 $dU_2=-dU_1$ 得
+		\[
+			\left(\frac{\partial S_1}{\partial U_1}\right)_{V_1,N_1}=
+			\left(\frac{\partial S_2}{\partial U_2}\right)_{V_2,N_2}.
+		\]
+		这说明该偏导在热平衡时必须对所有子系统相同，于是定义
+		\[
+			\left(\frac{\partial S}{\partial U}\right)_{V,N}=\frac{1}{T}.
+		\]
+		若再允许交换粒子并满足 $dN_1=-dN_2$，同样的总熵极大条件会给出
+		\[
+			\left(\frac{\partial S_1}{\partial N_1}\right)_{U_1,V_1}=
+			\left(\frac{\partial S_2}{\partial N_2}\right)_{U_2,V_2}.
+		\]
+		再结合
+		\[
+			dU=TdS-pdV+\mu dN
+		\]
+		便得到
+		\[
+			\mu=-T\left(\frac{\partial S}{\partial N}\right)_{U,V}.
+		\]
+		所以温度与化学势都可看成“让总熵在约束下达到极大时，各子系统必须相等的量”。
+	\end{derivation}
+
+	\subsection{四个热力学势与 Legendre 变换}
+	以 $U(S,V)$ 为起点，通过对共轭变量对 $(T,S)$、$(p,V)$ 做 Legendre 变换，可定义：
+	\[
+		H=U+pV,
+		\qquad
+		A=U-TS,
+		\qquad
+		G=U+pV-TS.
+	\]
+	它们的微分式分别为
+	\[
+		dU=TdS-pdV,
+	\]
+	\[
+		dH=TdS+Vdp,
+	\]
+	\[
+		dA=-pdV-SdT,
+	\]
+	\[
+		dG=Vdp-SdT.
+	\]
+
+	\begin{keypoint}
+		Legendre 变换并没有引入新物理，只是把 ``哪个变量最方便控制'' 这件事编码进不同热力学势：
+		\begin{itemize}
+			\item $U(S,V)$：自然变量是 $S,V$；
+			\item $H(S,p)$：自然变量是 $S,p$；
+			\item $A(T,V)$：自然变量是 $T,V$；
+			\item $G(T,p)$：自然变量是 $T,p$。
+		\end{itemize}
+		因此如果已知某个热力学势关于其自然变量的函数形式，其他物理量都能由偏导得到。
+	\end{keypoint}
+
+	\subsection{自发判据与 Maxwell 关系}
+	由热力学势的定义可得：
+	\[
+		\left(\frac{\partial A}{\partial T}\right)_V=-S,
+		\qquad
+		\left(\frac{\partial A}{\partial V}\right)_T=-p,
+	\]
+	\[
+		\left(\frac{\partial G}{\partial T}\right)_p=-S,
+		\qquad
+		\left(\frac{\partial G}{\partial p}\right)_T=V.
+	\]
+	故自发过程的实用判据为：
+	\begin{itemize}
+		\item 恒温恒压：$dG<0$；
+		\item 恒温恒容：$dA<0$。
+	\end{itemize}
+
+	此外，四条 master equations 还能给出四条 Maxwell 关系：
+
+	\begin{examplebox}
+		\begin{tabular}{@{}p{0.19\linewidth}p{0.74\linewidth}@{}}
+			$dU$ & $dU=TdS-pdV$,\ $\left(\frac{\partial T}{\partial V}\right)_S=-\left(\frac{\partial p}{\partial S}\right)_V$ \\
+			$dH$ & $dH=TdS+Vdp$,\ $\left(\frac{\partial T}{\partial p}\right)_S=\left(\frac{\partial V}{\partial S}\right)_p$  \\
+			$dA$ & $dA=-pdV-SdT$,\ $\left(\frac{\partial p}{\partial T}\right)_V=\left(\frac{\partial S}{\partial V}\right)_T$ \\
+			$dG$ & $dG=Vdp-SdT$,\ $\left(\frac{\partial V}{\partial T}\right)_p=-\left(\frac{\partial S}{\partial p}\right)_T$
+		\end{tabular}
+	\end{examplebox}
+
+	\begin{keypoint}
+		开卷考试里这几条关系不一定都要死记，但至少要知道：\textbf{哪条 Maxwell 关系来自哪一个热力学势}。最常见的用法是把难测的熵偏导换成可由状态方程求的 $p,V,T$ 偏导。
+	\end{keypoint}
+
+	\section{宏观态、微观态与微观态数 $\Omega$（Lect.2）}
+
+	\subsection{macrostate vs. microstate}
+	对孤立体系，只要指定
+	\[
+		U,\ V,\ N
+	\]
+	就确定了一个\textbf{宏观态}。但这并没有告诉我们：粒子具体怎样分布在能级上。每一种具体排布就是一个\textbf{微观态}，同一宏观态通常对应大量微观态，其总数记为
+	\[
+		\Omega.
+	\]
+
+	\begin{keypoint}
+		宏观态给约束条件，微观态给具体实现方式。统计热力学的熵和概率之所以成立，本质上都是在讨论：\textbf{一个宏观态到底有多少种微观实现方式。}
+	\end{keypoint}
+
+	\subsection{计数例子：Exercise 1}
+	考虑 4 个\textbf{可分辨}粒子，其可取能级为 $0,1,2,3,4,5,6$，总能量固定为 6。若粒子能量分别为 $e_1,e_2,e_3,e_4$，则
+	\[
+		e_1+e_2+e_3+e_4=6,
+		\qquad e_i\ge 0.
+	\]
+	因为总能量只有 6，这就是非负整数解计数问题。由插板法：
+	\[
+		\Omega=\binom{6+4-1}{4-1}=\binom93=84.
+	\]
+
+	若能级间隔加倍，能级只剩
+	\[
+		0,2,4,6,
+	\]
+	令 $e_i=2n_i$，则总能量条件变成
+	\[
+		n_1+n_2+n_3+n_4=3,
+		\qquad n_i\ge 0.
+	\]
+	故
+	\[
+		\Omega=\binom{3+4-1}{4-1}=\binom63=20.
+	\]
+
+	\begin{examplebox}
+		Ex.~1 的标准做法不是“凭感觉数图”，而是先把题目翻译成\textbf{整数和约束}。能级间隔若变化，先做变量代换，再数非负整数解。
+	\end{examplebox}
+
+	\section{等概率原理、Boltzmann 熵与不可逆性}
+
+	\subsection{Postulate 1：等概率原理}
+	对孤立体系，每个\textbf{可及微观态}都同样可能，因此任一微观态的概率为
+	\[
+		P=\frac1\Omega.
+	\]
+	这里的“可及”指满足当前宏观约束（尤其是总能量和粒子数）的微观态。
+
+	\begin{keypoint}
+		等概率的是\textbf{微观态}，不是能级。后面必须始终区分：
+		\begin{itemize}
+			\item 微观态概率 $P_m$；
+			\item 单能级布居 $n_i$ 或 $n_j$；
+			\item 配分函数中的求和对象到底是态还是能级。
+		\end{itemize}
+	\end{keypoint}
+
+	\subsection{Postulate 2：Boltzmann 熵公式}
+	Boltzmann 的第二条公设给出
+	\[
+		S=k\ln\Omega.
+	\]
+	它和熵的可加性是一致的。若 A、B 两子系统独立，则
+	\[
+		\Omega_{\mathrm{tot}}=\Omega_A\Omega_B,
+	\]
+	于是
+	\[
+		S_{\mathrm{tot}}=k\ln(\Omega_A\Omega_B)=S_A+S_B.
+	\]
+
+	绝对零度时若只有一个基态微观态，则
+	\[
+		\Omega=1,
+		\qquad S_0=k\ln 1=0.
+	\]
+
+	\subsection{为什么自发过程趋向高熵态}
+	以理想气体自由膨胀为例。平动能级可近似看成箱中粒子：
+	\[
+		E_n=\frac{n^2h^2}{8ma^2}.
+	\]
+	体积增大时，盒长 $a$ 增大，能级间隔变小，因此在同一总能量下可及微观态数增加：
+	\[
+		\Omega_{\mathrm{final}}>\Omega_{\mathrm{initial}}.
+	\]
+	由于每个微观态等概率，体系绝大多数时间都会停留在属于末态的那些微观态上，因此宏观上就表现为“自发膨胀且不可逆”。
+
+	\begin{keypoint}
+		统计图像里，自发过程并不是“被某种力推向末态”，而是\textbf{末态对应的微观态数太多}。系统只是在等概率地游走，但高 $\Omega$ 态几乎占据了所有可能性。
+	\end{keypoint}
+
+	\subsection{逆涨落概率：Exercise 2}
+	若初末态对应微观态数分别为 $\Omega_{\mathrm{init}}$ 与 $\Omega_{\mathrm{final}}$，则
+	\[
+		\frac{P_{\mathrm{init}}}{P_{\mathrm{final}}}=\frac{\Omega_{\mathrm{init}}}{\Omega_{\mathrm{final}}}
+		=\exp\!\left(-\frac{\Delta S}{k}\right),
+	\]
+	其中
+	\[
+		\Delta S=S_{\mathrm{final}}-S_{\mathrm{init}}.
+	\]
+
+	Exercise 2 中，两块相同物体初温为 $T+\delta T$ 和 $T-\delta T$，接触后平衡温度为 $T$。体系总熵变为
+	\[
+		\Delta S=C_V\ln\frac{T^2}{(T+\delta T)(T-\delta T)}
+		=-C_V\ln\left(1-\frac{\delta T^2}{T^2}\right).
+	\]
+	当 $\delta T\ll T$ 时，利用 $\ln(1+x)\approx x$：
+	\[
+		\Delta S\approx C_V\left(\frac{\delta T}{T}\right)^2.
+	\]
+	随后系统“自发恢复成原来的冷热分布”的概率尺度为
+	\[
+		P\sim e^{-\Delta S/k},
+	\]
+	对宏观体系来说几乎为零。
+
+	\begin{examplebox}
+		Ex.~2 的关键不只是会算熵变，而是会把它翻译成概率：
+		\[
+			\Delta S\uparrow \Rightarrow \Omega\uparrow \Rightarrow P_{\text{reverse}}\sim e^{-\Delta S/k}\downarrow.
+		\]
+		宏观不可逆性本质上是“逆涨落概率极小”，而不是“逆过程绝对不可能”。
+	\end{examplebox}
+
+	\section{正则分布与配分函数（Lect.2 核心）}
+
+	\subsection{system + bath 图像}
+	真正的化学体系更常见的情形是：小系统与一个大热浴接触，系统和热浴之间可以交换能量，但整体（supersystem）仍视为孤立。设小系统处于微观态 $m$，能量为 $E_m$，则
+	\[
+		E_{\mathrm{tot}}=E_m+E_{\mathrm{bath}}.
+	\]
+	如果系统被固定在微观态 $m$，它自身的微观态数就是 1，因此该 arrangement 的可能性完全由\textbf{热浴}还能实现多少微观态来决定。
+
+	\subsection{由热浴微观态数得到 Boltzmann 因子}
+	对热浴应用 Boltzmann 熵公式与热力学接口：
+	\[
+		S_{\mathrm{bath}}=k\ln\Omega_{\mathrm{bath}},
+		\qquad
+		\left(\frac{\partial S}{\partial U}\right)_V=\frac1T.
+	\]
+	于是
+	\[
+		\frac{d\ln\Omega_{\mathrm{bath}}}{dE_{\mathrm{bath}}}=\frac1{kT}.
+	\]
+	这里用到的近似是：\textbf{热浴远大于系统}，因此 system 在不同微观态之间切换时，bath 的温度几乎不变，有限能量变化可以近似用上面的导数来描述。
+	当系统能量升高 $E_m$ 时，热浴能量减少同样的量，所以
+	\[
+		E_{\mathrm{bath}}=E_{\mathrm{tot}}-E_m.
+	\]
+	把两种 arrangement 比较后可得
+	\[
+		\Omega_{\mathrm{bath}}\propto e^{-E_m/kT},
+	\]
+	因而系统处于微观态 $m$ 的概率也应满足
+	\[
+		P_m\propto e^{-E_m/kT}.
+	\]
+
+	\begin{derivation}
+		真正的逻辑链是：
+		\[
+			E_m\uparrow \Rightarrow E_{\mathrm{bath}}\downarrow \Rightarrow \Omega_{\mathrm{bath}}\downarrow \Rightarrow P_m\downarrow.
+		\]
+		指数型衰减不是“凭直觉写出来的”，而是来自热浴熵对能量的导数恰好是 $1/T$。
+	\end{derivation}
+
+	\subsection{归一化与 $Q_N$ 的定义}
+	概率必须满足
+	\[
+		\sum_m P_m=1.
+	\]
+	因此引入归一化常数
+	\[
+		Q_N=\sum_m e^{-E_m/kT},
+	\]
+	最终得到\textbf{正则分布}
+	\[
+		P_m=\frac{1}{Q_N}e^{-E_m/kT}.
+	\]
+
+	\begin{keypoint}
+		Lect.~2 的中心结果：
+		\[
+			P_m=\frac{e^{-E_m/kT}}{Q_N},
+			\qquad
+			Q_N=\sum_m e^{-E_m/kT}.
+		\]
+		这里 $Q_N$ 是\textbf{体系正则配分函数}，求和对象是体系的全部\textbf{微观态}。
+	\end{keypoint}
+
+	\subsection{Exercise 3：有限热浴上的正则分布雏形}
+	延续 Exercise 1 的 4 粒子体系，总能量仍为 6，把粒子 1 当作 system，粒子 2--4 当作 bath。若 system 能量为 $E_m$，则 bath 的总能量为 $6-E_m$，所以 bath 微观态数就是三粒子非负整数解数：
+	\[
+		e_2+e_3+e_4=6-E_m.
+	\]
+	由插板法：
+	\[
+		\Omega_m=\binom{(6-E_m)+3-1}{3-1}=\binom{8-E_m}{2}.
+	\]
+	于是对 $E_m=0,1,2,3,4,5,6$，依次得到
+	\[
+		\Omega_m=28,\ 21,\ 15,\ 10,\ 6,\ 3,\ 1.
+	\]
+	再用
+	\[
+		P_m=\frac{\Omega_m}{\Omega_{\mathrm{tot}}}
+	\]
+	即可求出每个微观态的概率。若作图 $\ln P_m$ 对 $E_m$，应近似线性，因为正则分布预言
+	\[
+		\ln P_m=-\frac{E_m}{kT}-\ln Q_N.
+	\]
+
+	\begin{examplebox}
+		Ex.~3 的价值在于：它把 ``热浴推导'' 变成了一个可以手算的小模型。真正要看懂的不是数字本身，而是：\textbf{system 能量越高，bath 的排布方式越少，所以概率指数下降。}
+		若把
+		\[
+			S_{\mathrm{bath}}=k\ln\Omega_{\mathrm{bath}}
+		\]
+		代回，则有
+		\[
+			P_m\propto \Omega_{\mathrm{bath}}=\exp\left(\frac{S_{\mathrm{bath}}}{k}\right),
+		\]
+		而热浴能量减少又使 $S_{\mathrm{bath}}$ 线性下降，于是最终回到
+		\[
+			P_m\propto e^{-E_m/kT}.
+		\]
+	\end{examplebox}
+
+	\subsection{$P_m$、$n_i$、$q$、$Q_N$ 的区别}
+	最容易混的几个量：
+	\begin{itemize}
+		\item $P_m$：体系处于\textbf{某个微观态} $m$ 的概率；
+		\item $n_i$ 或 $n_j$：大量粒子体系里某一能级上的\textbf{布居数}；
+		\item $Q_N$：整个 $N$ 粒子体系按\textbf{微观态}求和的配分函数；
+		\item $q$：单个分子按\textbf{单粒子状态/能级}求和的分子配分函数。
+	\end{itemize}
+
+	公式上要严格区分：
+	\[
+		Q_N=\sum_{\text{microstates }m} e^{-E_m/kT},
+	\]
+	\[
+		q=\sum_{\text{states }i} e^{-\varepsilon_i/kT}
+		=\sum_{\text{levels }j} g_j e^{-\varepsilon_j/kT}.
+	\]
+
+	\begin{keypoint}
+		`lect1` 中的 Boltzmann 布居公式说的是能级上有多少粒子；`lect2` 中的正则分布说的是体系处在某个微观态的概率。两者形式相似，但对象不同。
+	\end{keypoint}
+
+	\section{配分函数的意义与后续桥接}
+
+	\subsection{从 $Q_N$ 走向 $q$}
+	在本章里，我们至少先把两个最重要的定义牢牢记住：
+	\[
+		Q_N=\sum_m e^{-E_m/kT},
+		\qquad
+		q=\sum_i e^{-\varepsilon_i/kT}=
+		\sum_j g_j e^{-\varepsilon_j/kT}.
+	\]
+	当粒子非相互作用、并采用本课程经典极限的不可分辨粒子处理时，后续会用到
+	\[
+		Q_N=\frac{q^N}{N!}.
+	\]
+	单分子总配分函数通常还可分解为
+	\[
+		q=q_{\mathrm{trans}}q_{\mathrm{rot}}q_{\mathrm{vib}}q_{\mathrm{elec}}.
+	\]
+
+	\begin{keypoint}
+		开卷复习时最关键的不是只背某一个公式，而是分清求和对象：
+		\begin{itemize}
+			\item 若在谈体系微观态概率，用 $Q_N$；
+			\item 若在谈单分子能级、布居与后续具体求值，用 $q$。
+		\end{itemize}
+	\end{keypoint}
+
+	\subsection{为什么配分函数如此重要}
+	后续章节会证明：只要知道配分函数，就能推出几乎所有热力学量。对体系配分函数而言，桥梁关系是
+	\[
+		A=-kT\ln Q_N.
+	\]
+	再由
+	\[
+		S=-\left(\frac{\partial A}{\partial T}\right)_V,
+		\qquad
+		A=U-TS
+	\]
+	即可导出
+	\[
+		S=k\ln Q_N+kT\left(\frac{\partial\ln Q_N}{\partial T}\right)_V,
+	\]
+	\[
+		U=kT^2\left(\frac{\partial\ln Q_N}{\partial T}\right)_V.
+	\]
+	若改写成单分子配分函数，则有
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V,
+		\qquad
+		C_V=\left(\frac{\partial U}{\partial T}\right)_V.
+	\]
+
+	\begin{keypoint}
+		所以配分函数不是“一个归一化常数而已”，而是统计热力学的总入口：
+		\[
+			Q_N/q \longrightarrow A \longrightarrow S,U,C_V,\mu,\cdots
+		\]
+		这也是为什么 Lect.~2 虽然只讲了正则分布和定义，却已经把整门课最关键的骨架搭起来了。
+	\end{keypoint}
+
+	\subsection{两能级系统：把配分函数真正用起来}
+	虽然更完整的推导放在后面章节，但习题 4--5 已经要求你立刻把配分函数用于计算。对单粒子\textbf{非简并}两能级系统：
+	\[
+		q=1+e^{-\Delta/kT}.
+	\]
+	于是
+	\[
+		U=NkT^2\left(\frac{\partial\ln q}{\partial T}\right)_V
+		=\frac{N\Delta}{e^{\Delta/kT}+1}.
+	\]
+	对应热容
+	\[
+		C_V=Nk\left(\frac{\Delta}{kT}\right)^2
+		\frac{e^{\Delta/kT}}{(e^{\Delta/kT}+1)^2}.
+	\]
+	若下、上能级简并度分别为 $g_0,g_1$，则应改成
+	\[
+		q=g_0+g_1e^{-\Delta/kT}.
+	\]
+	常见极限也值得直接记：
+	\begin{itemize}
+		\item 非简并两能级：$q\to 1$（低温），$q\to 2$（高温）；
+		\item 非简并两能级：$U\to 0$（低温），$U\to N\Delta/2$（高温）；
+		\item $C_V$ 在高温、低温两端都趋于 0，中间有单峰；
+		\item 若有简并，高温下上、下能级的占据不再简单各占一半，而由 $g_0:g_1$ 决定。
+	\end{itemize}
+
+	\begin{examplebox}
+		这类题最该形成的操作链是：
+		\[
+			q \longrightarrow \ln q \longrightarrow U=NkT^2\frac{\partial\ln q}{\partial T} \longrightarrow C_V.
+		\]
+		而不是回头逐粒子去数布居。高温极限下若有简并，能级占据比例由 $g_0:g_1$ 决定，不再是简单的“一半一半”。
+	\end{examplebox}
+
+	\section{最后速记}
+
+	\begin{keypoint}
+		Lect.~1--2 必背公式骨架：
+		\[
+			dS=\frac{\delta q_{\mathrm{rev}}}{T},
+			\qquad
+			dU=\delta q+\delta w,
+			\qquad
+			dU=TdS-pdV,
+		\]
+		\[
+			C_V=\left(\frac{\partial U}{\partial T}\right)_V,
+			\qquad
+			H=U+pV,
+			\qquad
+			A=U-TS,
+			\qquad
+			G=U+pV-TS,
+		\]
+		\[
+			P=\frac1\Omega,
+			\qquad
+			S=k\ln\Omega,
+			\qquad
+			\frac{P_{\mathrm{init}}}{P_{\mathrm{final}}}=e^{-\Delta S/k},
+		\]
+		\[
+			P_m=\frac{e^{-E_m/kT}}{Q_N},
+			\qquad
+			Q_N=\sum_m e^{-E_m/kT},
+			\qquad
+			q=\sum_j g_j e^{-\varepsilon_j/kT}.
+		\]
+	\end{keypoint}
+
+\end{multicols}
+
+\end{document}
