@@ -1,0 +1,404 @@
+% !TEX program = xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+\usepackage{setspace}
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{images/img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+\usepackage{titlesec}
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{3pt}{3pt}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+
+\usepackage[super,sort&compress]{natbib}
+\bibliographystyle{unsrt}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage{needspace}
+
+\begin{document}
+\setstretch{1.05}
+\zihaoWu
+
+\begin{center}
+	{\zihaoSan\heiti 绿色荧光蛋白的克隆表达和表征}
+\end{center}
+
+\vspace{6pt}
+
+\section{引言}
+\vspace{-0.5em}
+
+绿色荧光蛋白（green fluorescent protein, GFP）最初来源于维多利亚多管水母，其多肽链折叠后形成稳定的 $\beta$ 桶结构，内部 Ser--Tyr--Gly 残基经自发环化、脱水和氧化形成发色团，因此无需外加底物或辅因子即可在适当激发光下发出绿色荧光\cite{chalfie1994,tsien1998}。这一性质使 GFP 能够作为活细胞内基因表达、蛋白定位和细胞状态观察的可视化标记。经过突变改造后，GFP 及其衍生荧光蛋白在亮度、折叠效率、光稳定性和颜色范围等方面不断优化，已经成为分子生物学、细胞生物学和合成生物学中最常用的报告系统之一。
+
+基因工程实验通常包括载体制备、目的片段扩增、重组分子构建、宿主转化、筛选表达以及产物检测等环节。质粒载体为外源基因提供复制起点、选择标记和克隆位点；PCR 可在体外快速扩增特定 DNA 片段；感受态细胞转化使重组质粒进入宿主；诱导型表达系统则通过启动子调控外源蛋白的产生。GFP 具有可直接观察的荧光表型，非常适合作为串联这些基础技术的实验对象。
+
+本实验围绕 GFP 的克隆表达与表征展开，采用琼脂糖凝胶电泳检测 PCR 扩增产物，利用含抗生素平板筛选转化细胞，通过 IPTG 诱导表达 GFP，并结合 SDS-PAGE 和荧光显微镜观察表达效果。实验目的在于理解质粒载体、PCR、转化、诱导表达和电泳检测之间的逻辑关系，掌握基因工程从核酸操作到蛋白表达验证的基本流程。
+
+\section{实验部分}
+\vspace{-0.5em}
+
+\subsection{仪器与试剂}
+
+主要仪器包括 PCR 仪、台式高速离心机、恒温摇床、恒温培养箱、超净工作台、高压灭菌锅、琼脂糖凝胶电泳装置、凝胶成像系统、SDS-PAGE 电泳装置、金属浴、电子天平、微波炉或加热套，以及荧光显微镜。
+
+主要试剂包括含 GFP 基因的质粒模板或重组表达质粒、E. coli 感受态制备用菌株、LB 液体培养基和 LB 固体培养基、卡那霉素储备液、0.1 mol/L CaCl$_2$ 溶液、80\% 甘油、IPTG、PCR 反应缓冲液、dNTP 混合液、Taq DNA 聚合酶、GFP 扩增引物、1$\times$TAE 电极缓冲液、琼脂糖、DNA 荧光染料、DNA Marker、蛋白 Marker、SDS-PAGE 制胶试剂、蛋白上样缓冲液、Coomassie R250 染色液和脱色液等。
+
+\subsection{实验方法}
+
+\textbf{PCR 扩增与琼脂糖凝胶电泳。} 以含 GFP 基因的质粒为模板，加入正向和反向引物、dNTP、缓冲液和 Taq DNA 聚合酶配制 PCR 体系。PCR 循环包括变性、退火和延伸三个阶段，扩增结束后取产物与 6$\times$ Loading Buffer 混合。制备约 1\% 琼脂糖凝胶，加入 DNA 荧光染料，凝固后以 1$\times$TAE 为电泳缓冲液上样，使用 DNA Marker 对照条带迁移位置，电泳后在凝胶成像系统下观察并拍照。
+
+\textbf{感受态细胞制备、转化与筛选。} 将处于适宜生长期的大肠杆菌在低温条件下离心收集，使用预冷 CaCl$_2$ 溶液处理以制备化学感受态细胞。向感受态细胞中加入重组质粒 DNA，冰浴、42 ℃热激并复苏后，将菌液涂布于含卡那霉素的 LB 固体培养基上培养。设置不加质粒或不含抗性标记的对照，用于判断抗生素筛选和污染情况。
+
+\textbf{IPTG 诱导表达与菌体处理。} 挑取转化平板上的单菌落接种含卡那霉素的 LB 液体培养基，培养至菌体生长后加入 IPTG 诱导 GFP 表达。诱导后观察菌液颜色，离心收集菌体沉淀，用于后续 SDS-PAGE 和显微观察。
+
+\textbf{SDS-PAGE 检测蛋白表达。} 取诱导后的菌体裂解样品，与蛋白上样缓冲液混合后加热变性。制备不连续 SDS-PAGE 凝胶，样品在浓缩胶中富集后进入分离胶分离。电泳结束后使用 Coomassie R250 染色并脱色，根据蛋白 Marker 和样品条带分布判断 GFP 表达情况。
+
+\textbf{荧光显微镜观察。} 取诱导后的菌液少量滴加于载玻片，覆盖盖玻片后使用荧光显微镜观察。明场用于确认细胞形态和分布，荧光场用于检测 GFP 表达产生的绿色荧光信号。
+
+\section{结果与讨论}
+\vspace{-0.5em}
+
+\subsection{PCR 扩增产物的琼脂糖凝胶电泳}
+
+琼脂糖凝胶电泳结果见图 \ref{fig:agarose}。凝胶中 DNA Marker 条带清晰，可作为迁移位置参照；相邻样品孔附近可见较集中的 DNA 条带，说明 PCR 体系中存在可检测的扩增产物。凝胶背景存在散点和局部杂亮信号，且部分泳道条带较弱，提示制胶、点样或成像过程中仍有改进空间。由于照片中泳道标识不完整，本报告不对具体泳道身份和产物浓度作定量判断。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.62\linewidth]{src/img/4.17琼脂糖电泳结果/SYBR® Green.jpg}
+	\caption{{GFP 目的片段 PCR 产物的琼脂糖凝胶电泳结果}}
+	\label{fig:agarose}
+\end{figure}
+
+\subsection{重组质粒转化与抗性筛选}
+
+转化涂布平板结果见图 \ref{fig:plate}。实验组平板表面可见大量浅黄绿色菌落，而对照平板未见相同密度的独立菌落，说明含抗性标记的重组质粒进入受体细胞后可使其在卡那霉素选择压力下生长，表示转化与抗性筛选步骤有效。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.64\linewidth]{src/img/report/plate_transformation.jpg}
+	\caption{{转化后涂布平板培养结果}}
+	\label{fig:plate}
+\end{figure}
+
+\subsection{IPTG 诱导表达后的菌液和菌体沉淀}
+
+IPTG 诱导后的菌液和离心菌体见图 \ref{fig:induction}。诱导培养后的样品呈浅黄绿色，离心后菌体沉淀颜色更集中，说明产生颜色的组分主要随菌体沉降而富集，符合 GFP 在细胞内表达后被收集于菌体部分的预期。不同样品之间颜色深浅可受菌体量、诱导时间、质粒保持情况和拍摄光照影响，可能略有区别，但应都在预期结果范围内。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.44\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{src/img/report/iptg_induction.jpg}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.30\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{src/img/report/bacterial_pellet.jpg}
+	\end{minipage}
+	\caption{{IPTG 诱导后的菌液外观及离心后菌体沉淀}}
+	\label{fig:induction}
+\end{figure}
+
+\subsection{SDS-PAGE 对 GFP 表达的检测}
+
+SDS-PAGE 结果见图 \ref{fig:sds}。泳道从左至右编号为 \#10 至 \#1，其中 \#10 为蛋白 Marker，\#6 和 \#5 为对照菌体裂解液（分别上样 5 μL 和 10 μL），\#4 和 \#3 为样品菌体裂解液（分别上样 5 μL 和 10 μL）。根据讲义，GFP 理论分子量约为 27 kDa；在样品泳道 \#4 和 \#3 的相应低分子量区域可见较深条带，而对照泳道 \#6 和 \#5 在相同区域条带较弱或不突出，说明重组表达样品中 GFP 含量明显高于对照。样品 10 μL 泳道（\#3）整体染色强度高于样品 5 μL 泳道（\#4），也与上样量增加后条带增强的预期一致。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{SDS-PAGE 泳道信息}}
+	\label{tab:sds-lanes}
+	\scalebox{1.33}{
+		{\zihaoLiu
+		\begin{tabular}{cccccc}
+			\toprule
+			泳道 & \#10 & \#6 & \#5 & \#4 & \#3 \\
+			\midrule
+			内容 & Marker & 对照 & 对照 & 样品 & 样品 \\
+			上样量 & -- & 5 μL & 10 μL & 5 μL & 10 μL \\
+			\bottomrule
+		\end{tabular}
+		}
+	}
+\end{table}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.76\linewidth]{src/img/SDS-PAGE.jpg}
+	\caption{{诱导表达样品的 SDS-PAGE 检测结果（原图从左至右泳道编号为 \#10 至 \#1）}}
+	\label{fig:sds}
+\end{figure}
+
+\subsection{荧光显微镜观察}
+
+荧光显微镜观察结果见图 \ref{fig:fluorescence}。明场下可见分散的杆状细菌细胞；荧光场下大量细胞呈绿色荧光，且荧光信号与细胞形态相对应。这一结果直接证明诱导后的菌体中存在具有荧光活性的 GFP。局部细胞亮度不完全一致，可能与细胞生长阶段、质粒拷贝状态、诱导程度和显微成像焦平面有关。
+
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{src/img/4.24荧光显微镜成像/2.jpg}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{src/img/4.24荧光显微镜成像/1.jpg}
+	\end{minipage}
+	\caption{{诱导后菌体的明场和荧光场显微图像}}
+	\label{fig:fluorescence}
+\end{figure}
+
+\section{思考题}
+\vspace{-0.5em}
+
+\subsection{质粒载体 DNA 的制备与检测}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 溶液Ⅰ、溶液Ⅱ和溶液Ⅲ的作用，以及实验中分别加入上述溶液后，反应体系出现的现象及其成因？
+
+	溶液Ⅰ通常含葡萄糖、Tris-HCl 和 EDTA。葡萄糖维持渗透压，Tris-HCl 稳定 pH，EDTA 螯合 Mg$^{2+}$、Ca$^{2+}$ 等二价离子以抑制核酸酶并削弱细胞壁结构；加入后菌体沉淀被重悬为较均匀的浑浊悬液。溶液Ⅱ含 NaOH 和 SDS，SDS 破坏膜结构并使蛋白变性，NaOH 使 DNA 变性；加入后体系由浑浊变为较透明、黏稠的裂解液。溶液Ⅲ为酸性高盐溶液，可中和碱性体系，使小型环状质粒较快复性，而染色体 DNA、蛋白和 SDS 复合物沉淀；加入后出现白色絮状沉淀，上清中保留质粒 DNA。
+
+	\item 简要叙述酚氯仿抽提 DNA 体系后出现的现象及其成因？
+
+	离心后体系通常分为上层水相、中间变性蛋白层和下层有机相。DNA 带有亲水性的磷酸骨架，主要留在水相；酚和氯仿使蛋白质变性，并因密度较大形成下层有机相；变性蛋白聚集在两相界面，从而实现核酸与蛋白杂质的分离。
+
+	\item 沉淀 DNA 时为什么要用无水乙醇及在高盐低温条件下进行？
+
+	无水乙醇降低溶液介电常数并破坏 DNA 水化层，使 DNA 溶解度下降。高盐条件下阳离子中和 DNA 磷酸骨架负电荷，降低分子间排斥力，促进 DNA 聚集。低温可进一步降低 DNA 溶解度并减弱核酸酶活性，因此能提高沉淀回收效率。
+
+	\item 影响 DNA 在琼脂糖凝胶中迁移速率的因素有哪些？
+
+	DNA 片段大小、构象、琼脂糖浓度、电压、缓冲液离子强度、温度、染料结合情况和样品杂质都会影响迁移。一般片段越小迁移越快；同等大小下超螺旋 DNA、线性 DNA 和开环 DNA 迁移不同；凝胶浓度越高孔径越小，对大片段阻力越大；电压过高会导致发热、条带弥散或迁移异常。
+
+	\item 核酸电泳可以用琼脂糖凝胶或聚丙烯酰胺凝胶，请比较二者特点和适用范围。
+
+	琼脂糖凝胶孔径较大、制备简单、适合常规质粒、酶切片段和 PCR 产物检测，常用于约数百 bp 到数十 kb DNA 的分离。聚丙烯酰胺凝胶孔径小且均一，分辨率高，可区分很小的长度差异，适用于短片段核酸、测序片段、变性核酸分析和部分蛋白电泳；但未聚合丙烯酰胺有毒，操作要求更高。
+
+	\item TAE、TBE 和 TPE 三种缓冲液的成分、特点及使用范围有何不同？
+
+	TAE 由 Tris、乙酸和 EDTA 组成，缓冲能力相对较弱但 DNA 迁移快，利于后续胶回收和酶反应，常用于常规琼脂糖电泳。TBE 由 Tris、硼酸和 EDTA 组成，缓冲能力强、条带分辨率好，适合较长时间电泳和小片段分离，但硼酸盐可能影响后续酶反应。TPE 由 Tris、磷酸和 EDTA 组成，缓冲性能介于二者之间，历史上用于部分 DNA 电泳体系，但实际应用不如 TAE 和 TBE 常见。
+
+	\item 如果有一管大肠杆菌培养液，里面混杂着一些仅含有 pBR322 的细菌和一些仅含有 pUC18 的细菌，如何将它们区分出来？
+
+	可利用两种质粒抗性标记和蓝白斑筛选特征区分。pBR322 通常带氨苄青霉素和四环素抗性，pUC18 带氨苄青霉素抗性并含 lacZ$\alpha$ 多克隆位点。可先在含氨苄青霉素平板上获得单菌落，再分别影印到含四环素平板和含 X-gal/IPTG 的氨苄平板上：能在四环素平板生长的更可能含 pBR322；不能耐受四环素但在 X-gal/IPTG 条件下呈蓝白斑反应的更可能含 pUC18。最终可用质粒提取后酶切或 PCR 验证。
+\end{enumerate}
+
+\subsection{PCR 技术扩增目的基因}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 影响 PCR 扩增反应效率和扩增特异性的因素有哪些？
+
+	主要因素包括模板质量与用量、引物序列和浓度、退火温度、Mg$^{2+}$ 浓度、dNTP 浓度、聚合酶类型和用量、循环数、延伸时间以及反应体系污染情况。引物特异性差、退火温度过低或 Mg$^{2+}$ 过高容易产生非特异扩增；模板降解、抑制剂残留、退火温度过高或循环参数不合适会降低产量。
+
+	\item 为什么 GC 和 AT 碱基之比能决定熔解温度？
+
+	GC 碱基对含 3 个氢键，AT 碱基对含 2 个氢键，同时 GC 含量较高时碱基堆积作用通常更强。因此 GC 比例升高会增强双链 DNA 稳定性，需要更高温度才能使双链解离，表现为熔解温度升高。
+
+	\item 当电泳检查发现没有任何扩增产物或产生许多非特异性产物时，应如何分析和解决？
+
+	无扩增产物时应检查模板是否完整、体系是否漏加组分、引物是否设计错误、退火温度是否过高、延伸时间是否不足以及聚合酶是否失活；可通过阳性对照、降低退火温度、增加模板量或优化 Mg$^{2+}$ 浓度解决。非特异产物多时应提高退火温度、降低引物或 Mg$^{2+}$ 浓度、减少循环数、采用热启动酶、重新设计引物，必要时使用梯度 PCR 确定最佳条件。
+
+	\item 基础 PCR 衍生出了多种 PCR 技术如实时荧光定量 PCR、逆转录 PCR、Digital PCR 等，请列出 3 种 PCR 衍生技术的原理和适用范围。
+
+	实时荧光定量 PCR 在扩增过程中用荧光染料或探针实时记录产物累积，通过 Ct 值进行相对或绝对定量，适用于基因表达、病原核酸载量和拷贝数检测。逆转录 PCR 先将 RNA 反转录为 cDNA，再扩增目标序列，适用于 RNA 病毒检测和转录水平分析。Digital PCR 将样品分隔为大量微反应单元，按阳性和阴性反应比例用泊松统计计算拷贝数，适用于低丰度突变、微小拷贝数差异和高精度绝对定量。
+
+	\item 目前有哪些核酸扩增或检测手段可以替代 PCR？
+
+	可替代或补充 PCR 的方法包括环介导等温扩增（LAMP）、重组酶聚合酶扩增（RPA）、核酸序列依赖扩增（NASBA）、链置换扩增（SDA）、滚环扩增（RCA）以及 CRISPR-Cas 辅助核酸检测。等温扩增不依赖热循环设备，适合现场快速检测；CRISPR 检测利用 Cas 蛋白识别靶序列后的旁切活性产生荧光或侧向层析信号，适合高特异性筛查。
+\end{enumerate}
+
+\subsection{外源基因的转化与表达}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 为什么制作感受态细胞时必须保持低温？
+
+	低温可降低细胞代谢和膜流动性，减轻处理过程中细胞损伤；同时有助于 Ca$^{2+}$ 与细胞表面和 DNA 结合，维持感受态状态。若温度升高，细胞膜状态和酶活性变化可能降低转化效率并增加细胞死亡。
+
+	\item 哪些因素影响体系转化率？
+
+	影响因素包括受体菌生长阶段、感受态制备质量、DNA 构型和纯度、DNA 用量、盐离子和有机溶剂残留、冰浴和热激时间、复苏培养条件、抗生素浓度以及涂布操作。新鲜的对数生长期细胞、纯净的超螺旋质粒和合适的复苏时间通常有利于提高转化率。
+
+	\item 转化涂板后，如果平板上没有菌落长出或者只有极少数的菌落长出，可能原因是什么？
+
+	可能原因包括感受态细胞失活、热激条件不合适、质粒 DNA 降解或未加入、抗生素选择错误或浓度过高、复苏时间不足、培养温度或时间不合适、涂布量过少，以及平板或培养基配制异常。还应检查阳性对照是否正常，以区分是感受态问题、质粒问题还是筛选条件问题。
+
+	\item 在不连续体系 SDS-PAGE 中，当分离胶加完后，需在其上加一层水或无水乙醇，为什么？
+
+	加水或无水乙醇可隔绝空气中的氧气，使丙烯酰胺自由基聚合顺利进行；同时压平分离胶液面，使凝固后形成水平界面，便于上方浓缩胶均匀聚合。凝胶完全聚合后需除去覆盖液再灌注浓缩胶。
+
+	\item 电泳缓冲液与分离蛋白质等电点之间是什么关系？
+
+	蛋白质在不同 pH 下带电状态不同，pH 等于等电点时净电荷接近零，迁移能力最低。SDS-PAGE 中 SDS 使蛋白获得近似一致的负电荷，分离主要按分子量进行；但缓冲液 pH 仍决定甘氨酸、氯离子和蛋白迁移环境，影响浓缩与分离效果。非变性 PAGE 中，缓冲液 pH 与蛋白等电点的关系则会直接影响迁移方向和速度。
+
+	\item 在不连续体系 SDS-PAGE 中，分离胶与浓缩胶中均含有 TEMED 和 AP，试述其作用？
+
+	AP 即过硫酸铵，分解产生自由基，启动丙烯酰胺和甲叉双丙烯酰胺聚合；TEMED 催化过硫酸铵生成自由基，加快聚合反应。二者共同决定凝胶聚合速度和均一性，用量不足会导致凝胶不凝或强度差，用量过高则可能使聚合过快并影响孔径均一。
+
+	\item 影响 SDS-PAGE 电泳分离的因素有哪些？
+
+	影响因素包括分离胶浓度、交联度、浓缩胶质量、缓冲液 pH 和离子强度、SDS 含量、样品变性是否充分、还原剂使用、电压和发热控制、上样量、蛋白降解、盐和核酸等杂质。目标蛋白分子量越接近，越需要选择合适胶浓度和稳定电泳条件。
+
+	\item 利用大肠杆菌表达重组蛋白表达量低甚至表达失败，可能由哪些外源基因序列和宿主因素造成？
+
+	外源基因方面可能存在稀有密码子过多、GC 含量极端、mRNA 二级结构阻碍翻译、起始密码子附近序列不利于核糖体结合、蛋白含跨膜区或毒性结构、易形成包涵体或易被降解等问题。宿主方面可能有质粒不稳定、启动子诱导不足、代谢负担过高、伴侣蛋白不足、二硫键形成环境不匹配、蛋白酶降解、培养温度和诱导剂浓度不适宜等问题。可通过密码子优化、更换宿主菌株、降低诱导温度、调整 IPTG 浓度、融合标签或共表达分子伴侣改善。
+\end{enumerate}
+
+\subsection{综合思考题}
+
+\begin{enumerate}[label=\arabic*.]
+	\item 请说明 CRISPR-Cas9 基因编辑技术的作用原理及相关应用。
+
+	CRISPR-Cas9 来源于细菌和古菌的适应性免疫系统。工程化应用中，单向导 RNA（sgRNA）通过约 20 nt 的引导序列与目标 DNA 互补配对，并要求靶位点旁存在 PAM 序列；Cas9 蛋白在 sgRNA 引导下结合靶位点并切割双链 DNA。细胞随后通过非同源末端连接修复产生插入或缺失突变，或在提供同源模板时通过同源重组实现定点替换、插入或修复。其应用包括基因功能敲除、点突变构建、细胞和动物模型制备、作物遗传改良、微生物代谢工程、疾病相关突变研究，以及基于失活 Cas9 的转录调控和表观遗传调控。
+
+	\item 如果有不明病原体感染的疫情出现，如何使用基因工程手段鉴定该病原体并开展大规模筛查？
+
+	可先从患者样本中提取核酸，进行宏基因组测序或随机扩增测序，将获得的序列与数据库比对，寻找异常富集且与已知病原体相关的序列；随后设计特异引物和探针，用 RT-qPCR、qPCR、LAMP 或 CRISPR-Cas 检测体系验证阳性样本，并通过 Sanger 测序或高通量测序确认扩增片段。大规模筛查阶段应建立标准化采样、核酸提取、阳性和阴性对照、内参质控、自动化扩增检测和结果复核流程。若病原体为 RNA 病毒，需要先反转录；若变异较快，应选择保守区域设计多靶点检测，并持续用测序监测突变对引物和探针结合的影响。
+\end{enumerate}
+
+\section{结论}
+\vspace{-0.5em}
+
+本实验完成了 GFP 目的片段扩增、重组质粒转化筛选、IPTG 诱导表达以及蛋白和荧光表型检测。琼脂糖凝胶电泳显示 PCR 体系产生了可检测 DNA 条带；抗性平板上实验组出现明显菌落，支持重组质粒成功进入受体细胞；诱导后菌液和菌体沉淀呈黄绿色，SDS-PAGE 出现明显蛋白条带，荧光显微镜下可观察到大量绿色荧光杆状细胞，说明 GFP 在大肠杆菌中得到表达并形成具有活性的荧光蛋白。
+
+实验也暴露出若干限制：部分电泳图背景较高，SDS-PAGE 凝胶存在气泡和条带边界不整齐等问题，因此结果更适合进行定性判断，而不适合计算精确产量、转化效率或表达量。后续可通过规范设置泳道记录、加入明确阳性和阴性对照、进行菌落计数、优化制胶与上样操作，以及结合荧光强度测定或 Western blot 进一步提高表征的可靠性。
+
+\vspace{3em}
+
+{\footnotesize
+	\setstretch{1}
+	\begin{thebibliography}{9}
+		\bibitem{chalfie1994}
+		Chalfie M, Tu Y, Euskirchen G, Ward W W, Prasher D C.
+		Green fluorescent protein as a marker for gene expression.
+		\textit{Science}, \textbf{1994}, 263(5148): 802--805.
+
+		\bibitem{tsien1998}
+		Tsien R Y.
+		The green fluorescent protein.
+		\textit{Annual Review of Biochemistry}, \textbf{1998}, 67: 509--544.
+
+		\bibitem{birnboim1979}
+		Birnboim H C, Doly J.
+		A rapid alkaline extraction procedure for screening recombinant plasmid DNA.
+		\textit{Nucleic Acids Research}, \textbf{1979}, 7(6): 1513--1523.
+
+		\bibitem{saiki1988}
+		Saiki R K, Gelfand D H, Stoffel S, Scharf S J, Higuchi R, Horn G T, Mullis K B, Erlich H A.
+		Primer-directed enzymatic amplification of DNA with a thermostable DNA polymerase.
+		\textit{Science}, \textbf{1988}, 239(4839): 487--491.
+
+		\bibitem{chen2012}
+		Chen R.
+		Bacterial expression systems for recombinant protein production: E. coli and beyond.
+		\textit{Biotechnology Advances}, \textbf{2012}, 30(5): 1102--1107.
+
+		\bibitem{jiang2015}
+		Jiang Y, Chen B, Duan C, Sun B, Yang J, Yang S.
+		Multigene editing in the Escherichia coli genome via the CRISPR-Cas9 system.
+		\textit{Applied and Environmental Microbiology}, \textbf{2015}, 81(7): 2506--2514.
+	\end{thebibliography}
+}
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+
+\end{document}
