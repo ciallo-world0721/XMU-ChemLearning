@@ -125,6 +125,10 @@
 \usepackage{needspace}
 
 % ======================================================
+% 生成书签
+\usepackage{hyperref}
+
+% ======================================================
 \begin{document}
 
 % 全文行距设为 16pt（正文10.5pt对应linespread=1.2698）
@@ -200,21 +204,21 @@
 	\label{tab:example}
 	\scalebox{1.2} {
 		{\zihaoLiu
-			\begin{tabular}{cccc}
-				\toprule
-				序号                 & 化合物                               & 离子对（$m/z$） & 碰撞电压（eV） \\
-				\midrule
-				\multirow{2}{*}{1} & \multirow{2}{*}{（表中文字和数字采用 6 号字）} & 127/65*    & 20       \\
-								&                                   & 127/92     & 10       \\[2pt]
-				\multirow{2}{*}{2} & \multirow{2}{*}{3-CA, 4-CA}       & 127/65*    & 20       \\
-								&                                   & 127/100    & 15       \\[2pt]
-				\multirow{2}{*}{3} & \multirow{2}{*}{2,6-DCA}          & 161/90*    & 20       \\[2pt]
-								&                                   & 163/90     & 20       \\[2pt]
-				\multirow{2}{*}{4} & \multirow{2}{*}{2,4-DCA, 2,5-DCA} & 161/99*    & 20       \\
-								&                                   & 161/63     & 30       \\
-				\bottomrule
-			\end{tabular}
-		}
+				\begin{tabular}{cccc}
+					\toprule
+					序号                 & 化合物                               & 离子对（$m/z$） & 碰撞电压（eV） \\
+					\midrule
+					\multirow{2}{*}{1} & \multirow{2}{*}{（表中文字和数字采用 6 号字）} & 127/65*    & 20       \\
+					                   &                                   & 127/92     & 10       \\[2pt]
+					\multirow{2}{*}{2} & \multirow{2}{*}{3-CA, 4-CA}       & 127/65*    & 20       \\
+					                   &                                   & 127/100    & 15       \\[2pt]
+					\multirow{2}{*}{3} & \multirow{2}{*}{2,6-DCA}          & 161/90*    & 20       \\[2pt]
+					                   &                                   & 163/90     & 20       \\[2pt]
+					\multirow{2}{*}{4} & \multirow{2}{*}{2,4-DCA, 2,5-DCA} & 161/99*    & 20       \\
+					                   &                                   & 161/63     & 30       \\
+					\bottomrule
+				\end{tabular}
+			}
 	}
 \end{table}
 
