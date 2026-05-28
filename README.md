@@ -9,10 +9,23 @@
 由于`.git`目录较大，建议使用```git clone --depth=1```来跳过`git`对之前版本的追踪，节省时间和空间。
 也可以直接下载zip或者下载需要的单文件。
 
+## 相关链接推荐
+
+厦门大学信息学院 23 级课程资料收集 [sunshine-sutingjun/XMU-CS23-Learning-Resources](https://github.com/sunshine-sutingjun/XMU-CS23-Learning-Resources)
+
+厦门大学软件工程系学习材料 [lovemaoli/XMU_SeLearning](https://github.com/lovemaoli/XMU_SeLearning)
+
+XMU 2022 级软件工程课程资料整理 [YUK1PEDIA/XMU-SE](https://github.com/YUK1PEDIA/XMU-SE)
+
+厦门大学数字化教学平台浏览器文件下载扩展  [XMUFD Inline](https://chromewebstore.google.com/detail/xmufd-inline/imannochailfofibofphcpmlddlbbhao)
+
+🦐兵资料库 (QQ群) `389898216`
+
+## 目录结构
 
 <details>
     
-<summary>目录结构</summary>
+<summary>展开</summary>
 
 ```
 ├── extras
