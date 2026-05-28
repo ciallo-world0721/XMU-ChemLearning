@@ -6,7 +6,7 @@
 
 ## 使用说明
 
-由于`.git`目录较大，建议使用```git clone --depth=1```来跳过`git`对之前版本的追踪，节省时间和空间。
+由于 `.git` 目录较大，在 `clone` 时建议使用 `--depth 1` 来跳过对之前版本的追踪，节省时间和空间。
 也可以直接下载zip或者下载需要的单文件。
 
 ## 相关链接推荐
@@ -18,6 +18,8 @@
 XMU 2022 级软件工程课程资料整理 [YUK1PEDIA/XMU-SE](https://github.com/YUK1PEDIA/XMU-SE)
 
 厦门大学数字化教学平台浏览器文件下载扩展  [XMUFD Inline](https://chromewebstore.google.com/detail/xmufd-inline/imannochailfofibofphcpmlddlbbhao)
+
+厦门大学攻略大全 [XMU-Helper/home](https://github.com/XMU-Helper/home)
 
 🦐兵资料库 (QQ群) `389898216`
 
@@ -40,6 +42,8 @@ XMU 2022 级软件工程课程资料整理 [YUK1PEDIA/XMU-SE](https://github.com
 │   │   ├── 基础生物化学
 │   │   ├── 基础电化学
 │   │   └── 谱学
+│   ├── 有机化学
+│   │   └── 试卷与作业答案
 │   └── 概率统计II
 ├── 大一第1学期
 │   ├── 基础化学I
