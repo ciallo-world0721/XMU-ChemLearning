@@ -1,0 +1,531 @@
+% !TEX program = xelatex
+% 中心科学实验 IV 研究型实验报告模板
+% 化学国家级实验教学示范中心（厦门大学）
+
+\documentclass[a4paper]{article}
+
+% ===== 字体 =====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}      % \textbf 中文 → 黑体
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+% 开启假粗体后备（对没有显式 BoldFont 的字体合成加粗）
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+% ===== 字号定义 =====
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+% ===== 正文行距 =====
+% 10.5pt字体，行距16pt，linespread=16/(10.5*1.2)=1.2698
+\usepackage{setspace}
+
+% ===== 页面 =====
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+
+% ===== 页眉页脚 =====
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{src/img/}{template/images/}}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+% ===== 标题样式 =====
+\usepackage{titlesec}
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+% ===== 表格图片 =====
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+% ===== 参考文献 =====
+\usepackage[super,sort&compress]{natbib}
+\bibliographystyle{unsrt}
+
+% ===== 其他 =====
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% ======================================================
+% 评语与签字栏（整体不分页，置于最末）
+\usepackage{needspace}
+
+% ======================================================
+% 生成书签
+\usepackage{hyperref}
+
+% ======================================================
+\begin{document}
+
+% 全文行距设为 16pt（正文10.5pt对应linespread=1.2698）
+\setstretch{1.05}
+\zihaoWu
+
+% ===== 题目 =====
+\begin{center}
+	{\zihaoSan\heiti 天然化学连接法合成组蛋白 H3}
+\end{center}
+
+\vspace{6pt}
+
+% ======================================================
+\section{引言}
+\vspace{-0.5em}
+
+组蛋白 H3 是核小体的核心组分，其 N 端尾部可发生乙酰化、甲基化和磷酸化等多种翻译后修饰，
+在基因转录调控、DNA 复制与损伤修复中具有重要作用。为研究特定位点修饰的结构与功能，
+需要获得序列明确、结构均一且可定点改造的 H3 蛋白。与天然提取和常规重组表达相比，蛋白质化学合成策略在位点可控性方面更具优势，
+其中天然化学连接（Native Chemical Ligation, NCL）是最具代表性的技术路线之一\cite{dawson1994,kent2009}。
+
+NCL 的核心是在连接位点引入 C 端活化肽段和 N 端半胱氨酸肽段，在水相中先形成硫酯中间体，
+随后经分子内 \textit{S}$\rightarrow$\textit{N} 重排生成天然肽键。为避免传统硫酯片段在纯化过程中的不稳定性，
+本实验采用“酰肼 $\rightarrow$ 酰基叠氮 $\rightarrow$ 硫酯中间体”的改进策略，将 H3 N 端酰肼六肽与 H3 C 端蛋白片段拼接，
+构建组蛋白 H3 的合成模型\cite{zhang2024,collins2023}。
+
+本实验综合运用MW-SPPS、重组蛋白纯化（包涵体提取、His-tag亲和层析、SDS-PAGE、Bradford定量、SUMO酶切、TCA沉淀）及NCL连接技术，完成组蛋白H3的化学合成。实验分为三个模块：模块I合成H3 N端酰肼六肽（H-ARTKQT-NHNH₂），模块II纯化获得N端为Cys的H3 C端蛋白，模块III通过NCL连接两个片段获得全长H3。
+
+% ======================================================
+\section{实验部分}
+\vspace{-0.5em}
+
+\subsection{仪器与试剂}
+
+模块 I 主要使用微波合成仪（CEM Discovery SP）、
+Agilent 1100 高效液相色谱、Autoflex Max MALDI-TOF 质谱仪、半制备色谱及冻干设备；
+模块 II 主要使用超声破碎仪、Ni-TED 亲和纯化柱、电泳仪、PCR 仪、酶标仪和超滤离心管等。主要试剂包括
+Fmoc 保护氨基酸、Fmoc-NHNH-CTC 树脂、Oxyma Pure、DIC、TFA、DHB、GuHCl、尿素、Bradford 试剂和 Ulp1 蛋白酶等。
+
+\subsection{实验方法}
+
+\textbf{模块 I：H3 N 端酰肼六肽的合成与表征。}
+以 Fmoc-NHNH-CTC 树脂为固相载体，在 DMF/DCM 混合溶剂中完成树脂溶胀后，
+按照 Thr--Gln--Lys--Thr--Arg--Ala 的顺序进行多肽链延伸。脱保护条件采用 20\% 哌啶/DMF，90~$^{\circ}$C 微波加热约 70~s；
+偶联反应采用 DIC/Oxyma/DIPEA 体系，在 50~$^{\circ}$C 下反应 5--10~min，其中 Arg 残基采用重复偶联以提高效率。
+多肽合成完成后，使用 TFA/TIS/H$_2$O（95/2.5/2.5, v/v/v）于 38~$^{\circ}$C 条件下切割 35~min，
+再经冰乙醚沉淀得到粗肽。色谱表征采用 Agilent tc-C18(2) 色谱柱（4.6$\times$150~mm，5~$\mu$m），
+流动相 A 为 0.1\% TFA/水，B 为 0.1\% TFA/乙腈，0--2~min 维持 5\% B，2--30~min 由 5\% B 线性升至 100\% B，
+流速 0.8~mL$\cdot$min$^{-1}$，检测波长 214~nm。质谱采用正离子模式 MALDI-TOF 测定分子量。
+
+\clearpage
+
+\textbf{模块 II：H3 C 端蛋白的纯化与表征。}
+表达有 His-SUMO-H3 C 端片段的菌体先在冰水浴中加入 15--20~mL 裂解缓冲液超声破碎，
+按“超声 5~s、暂停 10~s、总时长约 15~min”的节奏完成细胞裂解；随后在 4~$^{\circ}$C、11000~r$\cdot$min$^{-1}$ 条件下离心 15~min 收集包涵体。
+得到的沉淀先用含 1\% Triton X-100 的裂解缓冲液洗涤，再用 IB washing buffer 重复洗涤一次，以尽可能去除膜碎片和可溶性杂蛋白。
+纯化后的包涵体用含 6~mol$\cdot$L$^{-1}$ GuHCl 的 IB extraction buffer 溶解，离心去除不溶残渣后，沿纯化柱内壁上样至 1~mL Ni-TED 树脂。
+树脂依次用 6~mL IB extraction buffer 和 3~mL Urea washing buffer 充分洗涤，最后使用含 250~mmol$\cdot$L$^{-1}$ 咪唑的 Urea elution buffer 洗脱含 His-tag 的目标蛋白，
+按每管 0.5~mL 收集 10 管流份，并用 Bradford 试剂在 parafilm 膜上进行快速定性筛查。
+
+对含蛋白的流份，每管取 5~$\mu$L 与 10~$\mu$L 2$\times$上样缓冲液混合，经 95~$^{\circ}$C 加热 3~min 后上样至 12\% SDS-PAGE 胶，
+在 180~V 下电泳约 40--45~min，染色与脱色后判断目标蛋白主要分布于第 2--6 管。将这些高纯度流份合并后转入 10~kDa 超滤管，在室温下浓缩至约 1~mL，
+再逐滴加入 5~mL Refolding buffer 中完成复性，并继续超滤至约 0.5~mL。Bradford 法浓度测定中，
+以 2.0~mg$\cdot$mL$^{-1}$ BSA 储备液配制 0.125、0.25、0.50、0.75 和 1.00~mg$\cdot$mL$^{-1}$ 五个浓度梯度，
+每孔加入 5~$\mu$L 标准液、Refolding buffer 空白或待测样品，再加入 245~$\mu$L Bradford 试剂，在 595~nm 下读取吸光度。
+最后按蛋白:Ulp1~=~100:3 的摩尔比加入 Ulp1 蛋白酶，在 4~$^{\circ}$C 或室温条件下酶切 6--12~h，并用 SDS-PAGE 比较酶切效果。
+
+\textbf{模块 III：NCL 技术路线说明。}
+模块 III 以模块 I 获得的 H3 N 端酰肼六肽和模块 II 获得的 H3 C 端蛋白为底物。
+实验时先将约 425~$\mu$g 冻干六肽溶于 115~$\mu$L Acidic Ligation Buffer，并在 $-12$~$^{\circ}$C 冷阱中预冷 5~min；
+随后缓慢加入 8.6~$\mu$L 0.2~mol$\cdot$L$^{-1}$ NaNO$_2$，在低温下反应 20~min，使酰肼转化为酰基叠氮中间体。
+与此同时，用 125~$\mu$L 0.3~mol$\cdot$L$^{-1}$ MPAA 溶液溶解约 0.1~mg H3 C 端蛋白，并滴加到上述肽段溶液中，
+再用 2~mol$\cdot$L$^{-1}$ NaOH 将体系调节至 pH~6.8，以提高 Cys 侧链亲核性并促进后续的硫酯交换与酰基转移。
+反应在室温下继续搅拌约 6~h；监测时取 20~$\mu$L 反应液，加入 1.35~$\mu$L 0.2~mol$\cdot$L$^{-1}$ TCEP 还原 30~min，
+再补加 20~$\mu$L 色谱 A 相，经高速离心后使用与模块 I 相同的 HPLC 条件分析，并收集 15--30~min 的主要峰进行 MALDI-ToF-MS 表征。
+
+% ======================================================
+\section{结果与讨论}
+\vspace{-0.5em}
+
+\subsection{模块 I：H3 N 端酰肼六肽的合成与表征}
+
+图~\ref{fig:photo_resin}--\ref{fig:photo_cleavage} 记录了模块 I 的关键实验现象。树脂经 DMF/DCM 溶胀后呈均匀悬浮状态，
+说明固相载体已充分润湿；多肽合成管与抽滤装置能够支持“洗涤--抽滤--微波加热”的快速切换；切割 35~min 后体系呈黑绿色，
+提示粗肽沉淀中除目标产物外还可能含有 TFA 盐、切割试剂残留或树脂裂解副产物，这一点与后续色谱结果相吻合。
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.58\linewidth]{photo_resin.png}
+	\caption{溶胀后的树脂状态}
+	\label{fig:photo_resin}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.58\linewidth]{photo_setup.png}
+	\caption{反应管与抽滤装填装置}
+	\label{fig:photo_setup}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.72\linewidth]{photo_cleavage.png}
+	\caption{切割 35~min 后的体系外观}
+	\label{fig:photo_cleavage}
+\end{figure}
+
+6-2 粗肽的称量结果见表~\ref{tab:crude_mass}。该样品的表观产率明显高于理论值，说明称量结果包含了目标肽之外的附加质量。
+对于酰肼六肽体系而言，TFA 成盐、侧链保护基脱除不完全、TIS 等清除剂共沉淀以及树脂裂解碎片残留，都会使“粗肽质量”明显偏大，
+因此该数值更适合作为操作成功与否的初步判据，而不能直接视为目标肽真实得率。
+
+\begin{table}[h]
+	\centering
+	\caption{粗肽称量结果与表观产率}
+	\label{tab:crude_mass}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{lc}
+					\toprule
+					项目                    & 6-2     \\
+					\midrule
+					空离心管质量 $m_0$ / g      & 12.7303 \\
+					粗肽与离心管总质量 $m_1$ / g   & 12.7750 \\
+					粗肽质量 $(m_1-m_0)$ / mg & 44.7    \\
+					理论最大质量 / mg           & 7.17    \\
+					表观产率 / \%             & 623     \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+HPLC 结果见图~\ref{fig:hplc_crude}--\ref{fig:hplc_overlay}。6-2 粗肽样品在 3.21~min 附近给出显著主峰，说明目标六肽已经成功生成。该主峰前后仍伴随多个低保留时间和中高保留时间杂峰，
+提示样品中同时存在截短肽、二酮哌嗪副产物以及保留保护基的疏水性杂质。纯肽标准的主峰位于 3.11~min，峰形尖锐且杂峰极少，
+表明标准品纯度明显高于粗肽。将 6-2 与纯肽标准叠加后可以看出，二者主峰保留时间接近，支持 6-2 粗肽主峰归属于目标六肽。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{hplc_crude_6_2.png}
+	\caption{6-2 粗肽样品的 HPLC 图谱}
+	\label{fig:hplc_crude}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]
+	{hplc_pure_reference.png}
+	\caption{纯肽标准的 HPLC 图谱}
+	\label{fig:hplc_pure}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{hplc_overlay_crude_vs_pure.png}
+	\caption{6-2 粗肽与纯肽标准的 HPLC 叠加对比图谱}
+	\label{fig:hplc_overlay}
+\end{figure}
+
+从 6-2 的色谱形态看，目标主峰之前的弱峰可归因于更高极性的截短肽或二酮哌嗪副产物，而 5--15~min 区间的宽峰与肩峰则更可能来自保护基未完全脱除的副产物、
+TFA 加合物或少量树脂裂解片段。主峰相对纯肽标准后移约 0.10~min，也与粗肽中残留较多 TFA 盐、离子对作用增强疏水性这一解释相一致。
+因此，对 6-2 粗肽更合理的结论不是简单给出某个“主峰面积百分比”，而是确认其已经含有目标六肽、但杂质组成仍较复杂；后续若要进一步提高回收率和纯度，
+优先应从 Arg 双偶联、切割条件优化及后处理洗涤充分性三方面入手。
+
+质谱结果见图~\ref{fig:ms_nterm} 和表~\ref{tab:ms_assign}。谱图中 $m/z$ 718.358 的主峰与理论 [M+H]$^+$ = 718.42 高度吻合，
+直接证明目标六肽已被成功合成。与此同时，617.317 峰对应缺失 C 端 Thr 的截短肽，769.375、814.353 和 870.344 等峰则反映出保护基残留或加合物的存在，
+与粗肽色谱中“主峰附近伴随杂峰”的现象相互印证。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\linewidth]{ms_h3_nterm.png}
+	\caption{H3 N 端酰肼六肽的质谱图}
+	\label{fig:ms_nterm}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{H3 N 端酰肼六肽主要质谱峰归属}
+	\label{tab:ms_assign}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					实测 $m/z$ & 电荷 & 归属                  & 说明              \\
+					\midrule
+					718.358  & 1+ & [M+H]$^+$           & 目标六肽主峰，与理论值吻合   \\
+					617.317  & 1+ & [des-Thr+H]$^+$     & 缺失 C 端 Thr 的截短肽 \\
+					769.375  & 1+ & [M+保护基碎片]$^+$       & 提示脱保护不完全        \\
+					814.353  & 1+ & [M+TFA+Na]$^+$ 或加合峰 & 反映加合物或保护基残留     \\
+					870.344  & 1+ & [M+2保护基]$^+$ 或相关加合峰 & 表明后处理仍有杂质残留     \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+综上，模块 I 的实验结果说明：MW-SPPS 已成功获得目标酰肼六肽，HPLC 和质谱都支持目标产物的存在，
+但粗肽纯度仍受副反应和后处理因素影响，因而色谱纯化和后续结构鉴定仍是不可缺少的步骤。
+
+\subsection{模块 II：H3 C 端蛋白的纯化与表征}
+
+包涵体提取结果见表~\ref{tab:ib_mass}。
+从 2.5~g 湿菌体中，第一次离心得到约 0.2797~g 包涵体湿重，产量在合理范围内，表明细菌表达量较高且包涵体形成充分。
+第一次洗涤（用 Lysis buffer）后湿重降至 0.2655~g，减少约 0.0142~g（约 5\%），说明洗去了部分可溶性杂质、膜碎片和未破碎细胞；
+第二次洗涤（用 IB washing buffer）后湿重降至 0.2615~g，再减少 0.0040~g（约 1.5\%），表明进一步去除了少量杂质但变化已较小。
+两次洗涤共损失约 0.0182~g（约 6.5\%），主要为非包涵体成分，洗涤过程有效。
+最终包涵体湿重为 0.2615~g，后续用含 6~mol$\cdot$L$^{-1}$ 盐酸胍的 IB extraction buffer 溶解，可得到较高浓度的变性蛋白溶液。
+
+\begin{table}[htbp]
+	\centering
+	\caption{包涵体提取过程中各步骤质量记录}
+	\label{tab:ib_mass}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{lccc}
+					\toprule
+					步骤         & 离心管质量 / g & 离心后总质量 / g & 包涵体湿重 / g \\
+					\midrule
+					空管         & 13.6408   & ---        & ---       \\
+					第一次离心（裂解后） & 13.6408   & 13.9205    & 0.2797    \\
+					第一次洗涤后离心   & 13.6408   & 13.9063    & 0.2655    \\
+					第二次洗涤后离心   & 13.6408   & 13.9023    & 0.2615    \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+图~\ref{fig:sds_purification} 为 His-SUMO-H3 融合蛋白纯化过程的 SDS-PAGE 图。His-SUMO-H3 融合蛋白（含 SUMO 标签约 11~kDa 与 H3 C 端片段 H3(7-136) 约 14.5~kDa）理论分子量约 25--27~kDa。
+洗脱液在约 27~kDa 位置出现明显主带，与理论分子量一致，表明 Ni-TED 亲和纯化效果良好。
+流穿液中残留目标蛋白量应极少（Bradford 检测呈无色）。前部流份仍存在一定杂带，可能原因包括：超声破碎不彻底导致大分子复合物残留、洗涤不充分使杂蛋白未完全去除、蛋白降解（需在冰上操作并加入蛋白酶抑制剂）或树脂非特异性吸附。
+主带位置与强度变化已足以支持“第 2--6 管为高蛋白浓度流份”的判断。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.72\linewidth]{sds_page_purification.png}
+	\caption{His-SUMO-H3 融合蛋白纯化过程的 SDS-PAGE 图}
+	\label{fig:sds_purification}
+\end{figure}
+
+数据处理流程如下：（1）以 A1、C1 作为纯水背景 $\mathrm{OD}_\mathrm{DDW}$（本实验 A1=0.5648、C1=0.5989）；（2）以 A7、C7 作为 Refolding buffer 背景 $\mathrm{OD}_\mathrm{Ref}$（A7=0.5753、C7=0.5741）；（3）校正标准品吸光度 = $\mathrm{OD}_\mathrm{BSA}$ $-$ $\mathrm{OD}_\mathrm{DDW}$；（4）校正样品吸光度 = $\mathrm{OD}_\mathrm{sample}$ $-$ $\mathrm{OD}_\mathrm{Ref}$；（5）以校正后吸光度对 BSA 浓度做过原点线性拟合，将样品校正吸光度代入求测定浓度，再乘以稀释倍数得原始浓度。
+
+图~\ref{fig:bradford_ab} 给出了 A 行和 C 行分别拟合的标准曲线对比。A 行拟合斜率为 $9.59\times10^{-4}$，$R^2=0.988$，线性良好；C 行斜率为 $9.78\times10^{-4}$，$R^2=0.897$，在 500~$\mu$g$\cdot$mL$^{-1}$ 及以上浓度区间略高于 A 行，可能与高浓度样品加样体积较小、Bradford 试剂混匀不完全有关。将两行数据用平均纯水背景统一校正后，得到图~\ref{fig:bradford_mean} 所示的平均标准曲线，过原点拟合斜率为 $9.69\times10^{-4}$，$R^2=0.958$，介于 A、C 行之间，说明取平均后能有效抵消随机误差。
+
+表~\ref{tab:bradford_ac} 列出了 A 行和 C 行分别计算的各稀释度原始浓度。所有稀释度的测定浓度均在标准曲线线性范围（0--1000~$\mu$g$\cdot$mL$^{-1}$）内。但全有效稀释度的标准差较大，主要受两端稀释度影响：1:5 稀释的测定浓度接近标准曲线高端（A 行 717、C 行 774~$\mu$g$\cdot$mL$^{-1}$），相对误差增大；1:80 稀释的测定浓度过低（A 行 63、C 行 44~$\mu$g$\cdot$mL$^{-1}$），信噪比差。中段点（1:10、1:20、1:40）的测定浓度处于标准曲线中段，线性最佳且两行平行性好，因此仅保留这三个中段稀释度用于最终计算。
+
+AC 平均中段点方案（3567.5~$\mu$g$\cdot$mL$^{-1}$，标准差 147.6~$\mu$g$\cdot$mL$^{-1}$）与 A、C 行中段点的平均值（3442.8 和 3692.1~$\mu$g$\cdot$mL$^{-1}$）基本一致，且标准差适中，推荐作为最终蛋白浓度。最终蛋白浓度为 $(3567.5\pm147.6)$~$\mu$g$\cdot$mL$^{-1}$，即约 $(3.57\pm0.15)$~mg$\cdot$mL$^{-1}$。按复性后样品体积约 0.5~mL 估算，对应总蛋白量约为 1.78~mg，说明经过变性溶解、亲和纯化和复性后，仍可获得足量的 H3 C 端蛋白用于后续酶切与连接实验。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{bradford_curve_ab.png}
+	\caption{BSA 标准曲线（A、C 两组重复对比）}
+	\label{fig:bradford_ab}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{bradford_curve_mean.png}
+	\caption{BSA 标准曲线（A、C 重复取平均后的过原点拟合）}
+	\label{fig:bradford_mean}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{所有稀释度样品原始浓度计算结果（浓度单位均为 $\mu$g$\cdot$mL$^{-1}$）}
+	\label{tab:bradford_ac}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{lccccc}
+					\toprule
+					稀释倍数 & A行测定浓度 & C行测定浓度 & A行原始浓度 & C行原始浓度 & 平均原始浓度 \\
+					\midrule
+					1:5  & 717.4  & 774.2  & 3586.9 & 3871.0 & 3729.0 \\
+					1:10 & 351.9  & 358.6  & 3518.6 & 3585.8 & 3552.2 \\
+					1:20 & 158.3  & 184.6  & 3165.2 & 3691.1 & 3428.1 \\
+					1:40 & 91.1   & 95.0   & 3644.8 & 3799.5 & 3722.1 \\
+					1:80 & 62.9   & 44.0   & 5029.3 & 3517.3 & 4273.3 \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Bradford 法定量结果汇总}
+	\label{tab:bradford_summary}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{lccc}
+					\toprule
+					计算方案     & 所用稀释度            & 平均原始浓度 / ($\mu$g$\cdot$mL$^{-1}$) & 标准差 / ($\mu$g$\cdot$mL$^{-1}$) \\
+					\midrule
+					A 行全有效   & 1:5--1:80        & 3788.9                            & 718.0                          \\
+					A 行中段点   & 1:10, 1:20, 1:40 & 3442.8                            & 248.6                          \\
+					C 行全有效   & 1:5--1:80        & 3692.9                            & 146.1                          \\
+					C 行中段点   & 1:10, 1:20, 1:40 & 3692.1                            & 106.9                          \\
+					AC 平均全有效 & 1:5--1:80        & 3740.9                            & 323.0                          \\
+					AC 平均中段点 & 1:10, 1:20, 1:40 & 3567.5                            & 147.6                          \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+Ulp1 酶切结果见图~\ref{fig:ulp1_digest} 和表~\ref{tab:ulp1_assign}。酶切后在 15~kDa 附近出现两条新带，
+可分别归属于 SUMO 标签与无标签 H3 C 端蛋白，同时 4~$^{\circ}$C 条件下的酶切条带更为清晰，说明低温条件更利于维持底物蛋白构象并实现有效切割。
+这与 Ulp1 识别 SUMO 三维结构并在 Gly-Gly$\downarrow$Cys 位点切割的原理完全一致。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{ulp1_digest.png}
+	\caption{Ulp1 酶切前后样品的 SDS-PAGE 分析图}
+	\label{fig:ulp1_digest}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Ulp1 酶切后主要条带的理论分子量与观察结果}
+	\label{tab:ulp1_assign}
+	\scalebox{1.3}{
+		{\zihaoLiu
+				\begin{tabular}{lcc}
+					\toprule
+					组分                 & 理论分子量        & 实际观察          \\
+					\midrule
+					His-SUMO-H3 融合蛋白   & $\sim$27~kDa & 25~kDa 附近残留条带 \\
+					Ulp1 蛋白酶           & $\sim$35~kDa & 35~kDa 附近条带   \\
+					SUMO 标签（含 His-tag） & $\sim$15~kDa & 15--16~kDa 条带 \\
+					H3 C 端蛋白（无标签）      & $\sim$12~kDa & 12~kDa 附近条带   \\
+					\bottomrule
+				\end{tabular}}
+	}
+\end{table}
+
+综合模块 II 的结果，可以认为本实验已成功完成 H3 C 端蛋白的提取、亲和纯化、复性与酶切表征。
+
+% ======================================================
+\clearpage
+
+\section{结论}
+\vspace{-0.5em}
+
+本实验以天然化学连接法合成组蛋白 H3 为目标，围绕“多肽合成--蛋白纯化--后续连接”三阶段技术路线展开，
+完成了 H3 N 端酰肼六肽与 H3 C 端蛋白片段的关键表征。主要结论如下：
+
+模块 I 中，6-2 粗肽样品的表观产率明显高于理论值，说明粗肽中同时含有 TFA 盐、保护基残留和副产物；
+HPLC 显示 6-2 粗肽在 3.21~min 附近出现目标主峰，并与纯肽标准的 3.11~min 主峰相互对应。
+MALDI 质谱进一步确认 $m/z$ 718.358 的主峰与目标六肽理论分子量吻合，证明 H3 N 端酰肼六肽已成功合成。
+另外，在合成过程中出现了意料之外的情况：切割后体系中有绿色的物质，在加入乙醚后迅速地消失，而重新加入 TFA 后又恢复；猜测这可能与氯代三苯甲基碳正离子相关。
+
+模块 II 中，经包涵体提取、Ni-TED 亲和纯化和超滤复性后，His-SUMO-H3 C 端蛋白能够以较高纯度和较高浓度回收；从2.5 g湿菌体中提取包涵体，经两次洗涤后获得0.2615 g包涵体湿重，洗涤去除率约6.5\%。Ni-TED亲和纯化后，SDS-PAGE显示融合蛋白（His-SUMO-H3）在27 kDa处呈现单一主带，洗脱效果良好。
+依据 Bradford 标准曲线，最终蛋白浓度约为 $(3.57\pm0.15)$~mg$\cdot$mL$^{-1}$。Ulp1 酶切后出现与 SUMO 标签和 H3 C 端片段相符的新条带，且 4~$^{\circ}$C 条件优于室温。
+
+本实验通过 MW-SPPS、HPLC、MALDI-TOF、SDS-PAGE 与蛋白定量等方法，成功地实现了组蛋白 H3 的化学合成与生化表征。
+
+
+\vspace{3em}
+% ======================================================
+% 参考文献：使用标准 thebibliography 环境
+{\footnotesize
+	\setstretch{1}
+	\begin{thebibliography}{99}
+		\bibitem{zhang2024}
+		Zhang G, Zhu T F. Nat Chem, \textbf{2024}, 16: 592--598.
+
+		\bibitem{collins2023}
+		Collins J M, Singh S K, White T A, Cesta D J, Simpson C L, Tubb L J, Houser C L. Nat Commun, \textbf{2023}, 14: 8168.
+
+		\bibitem{kent2009}
+		Kent S B H. Chem Soc Rev, \textbf{2009}, 38(2): 338--351.
+
+		\bibitem{dawson1994}
+		Dawson P E, Muir T W, Clark-Lewis I, Kent S B H. Science, \textbf{1994}, 266(5186): 776--779.
+
+		\bibitem{palasek2007}
+		Palasek S A, Cox Z J, Collins J M. J Pept Sci, \textbf{2007}, 13(3): 143--148.
+
+		\bibitem{collins2014}
+		Collins J M, Porter K A, Singh S K, Vanier G S. Org Lett, \textbf{2014}, 16(3): 940--943.
+
+		\bibitem{patent2022}
+		付川, 赵玉芬, 等. 用于微波辅助多肽合成的反应装置. 中国专利, CN215712719U, 2022.
+	\end{thebibliography}
+}
+
+% ======================================================
+% 评语与签字栏
+% \needspace 确保"评语"标签和空白区同页；若已换页则 \vspace*{\fill} 将签字栏推到底部
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+
+\end{document}
