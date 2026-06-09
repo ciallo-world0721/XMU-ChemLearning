@@ -26,10 +26,11 @@ XMU 2022 级软件工程课程资料整理 [YUK1PEDIA/XMU-SE](https://github.com
 ## 目录结构
 
 <details>
-    
-<summary>展开</summary>
+<summary>
+展开
+</summary>
 
-```
+```text
 ├── extras
 │   ├── ML
 │   ├── 中心科学实验班培养方案
@@ -123,3 +124,7 @@ XMU 2022 级软件工程课程资料整理 [YUK1PEDIA/XMU-SE](https://github.com
 ```
 
 </details>
+
+## License
+
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)

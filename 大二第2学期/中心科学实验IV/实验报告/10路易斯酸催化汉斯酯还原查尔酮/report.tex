@@ -1,0 +1,467 @@
+% !TEX program = xelatex
+% 中心科学实验 IV 研究型实验报告模板
+% 化学国家级实验教学示范中心（厦门大学）
+
+\documentclass[a4paper]{article}
+
+% ===== 字体 =====
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}      % \textbf 中文 → 黑体
+\setCJKsansfont[BoldFont=SimHei]{SimHei}
+\setCJKmonofont{FangSong}
+\newCJKfontfamily\heiti[BoldFont=SimHei]{SimHei}
+\newCJKfontfamily\kaishu{KaiTi}
+\newCJKfontfamily\fangsong{FangSong}
+\newCJKfontfamily\xingkai{STXingkai}
+% 开启假粗体后备（对没有显式 BoldFont 的字体合成加粗）
+\xeCJKsetup{AutoFakeBold=true}
+\setmainfont{Times New Roman}
+
+% ===== 字号定义 =====
+\newcommand{\zihaoSan}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\zihaoSi}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\zihaoWu}{\fontsize{10.5pt}{16pt}\selectfont}
+\newcommand{\zihaoXiaoWu}{\fontsize{9pt}{13.5pt}\selectfont}
+\newcommand{\zihaoLiu}{\fontsize{7.5pt}{11pt}\selectfont}
+
+% ===== 正文行距 =====
+% 10.5pt字体，行距16pt，linespread=16/(10.5*1.2)=1.2698
+\usepackage{setspace}
+
+% ===== 页面 =====
+\usepackage[a4paper,
+  top=4.6cm, bottom=3.0cm,
+  left=2.5cm, right=2.0cm,
+  headheight=3.8cm,
+  headsep=0.8cm,
+  footskip=1.8cm]{geometry}
+
+% ===== 页眉页脚 =====
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\newcommand{\infobar}{%
+  \zihaoWu
+  \setlength{\tabcolsep}{0pt}%
+  \vspace{0.5em}
+  \begin{tabular}{@{}p{0.315\textwidth}p{0.315\textwidth}p{0.315\textwidth}@{}}
+    系（Dept.）\underline{\hspace{2.2cm}} &
+    专业（Major）\underline{\hspace{1.3cm}} &
+    学号（ID）\underline{\hspace{1.3cm}} \\[7pt]
+    姓名（Name）\underline{\hspace{1.6cm}} &
+    日期（Date）\underline{\hspace{1.5cm}} &
+    实验台号（No.）\underline{\hspace{0.8cm}}
+  \end{tabular}%
+  \vspace{1em}
+}
+
+\newcommand{\myhead}{%
+  \begin{minipage}[c]{2cm}%
+    \includegraphics[height=2cm]{images/img-000.png}%
+  \end{minipage}%
+  \vspace{-0.5em}%
+  \begin{minipage}[c]{\dimexpr\textwidth-1.8cm\relax}%
+    \centering
+    {\hspace{-1.5em}\zihaoSan\heiti 中心科学实验 IV\hspace{2em}{\xingkai 实\kern0.2em 验\kern0.2em 报\kern0.2em 告}}\\[3pt]
+    {\hspace{-1.5em}\fontsize{11pt}{14pt}\selectfont\textbf{Experimental Report of Central Science}}\\[6pt]
+    \infobar
+  \end{minipage}%
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\myhead}
+\fancyfoot[C]{
+  \vspace{-0.5em}
+  \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+  {\textbf{\fontsize{9pt}{13pt}\selectfont
+    National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{\myhead}
+  \fancyfoot[C]{
+    \vspace{-0.5em}
+    \zihaoWu \bfseries 化学国家级实验教学示范中心（厦门大学）\\[1pt]
+    {\textbf{\fontsize{9pt}{13pt}\selectfont
+      National Demonstration Center for Experimental Chemistry Education (Xiamen University)}}
+  }
+}
+
+% ===== 标题样式 =====
+\usepackage{titlesec}
+\titleformat{\section}{\zihaoSi\heiti}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{6pt}
+\titleformat{\subsection}{\zihaoWu\heiti\bfseries}{\thesubsection}{1em}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+% ===== 表格图片 =====
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[section]{placeins}
+\captionsetup[table]{labelsep=space,font={small},position=above,skip=4pt,justification=centering}
+\captionsetup[figure]{labelsep=space,font={small},position=below,skip=4pt,justification=centering}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.8}
+
+% ===== 参考文献 =====
+\usepackage[super,sort&compress]{natbib}
+\bibliographystyle{unsrt}
+
+% ===== 其他 =====
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% ======================================================
+% 评语与签字栏（整体不分页，置于最末）
+\usepackage{needspace}
+
+% ======================================================
+% 生成书签
+\usepackage{hyperref}
+
+% ======================================================
+\begin{document}
+
+% 全文行距设为 16pt（正文10.5pt对应linespread=1.2698）
+\setstretch{1.05}
+\zihaoWu
+
+% ===== 题目 =====
+\begin{center}
+	{\zihaoSan\heiti 路易斯酸催化汉斯酯还原查尔酮}
+\end{center}
+
+\vspace{6pt}
+
+% ======================================================
+\section{引言}
+\vspace{-0.5em}
+
+查尔酮是一类典型的 $\alpha,\beta$-不饱和酮，兼具共轭双键与羰基两种反应位点，常被用作有机合成与选择性还原研究的模型底物。
+在温和条件下实现其碳碳双键的定向还原，是理解共轭体系化学选择性的重要实例。汉斯酯是一类经典的有机氢源，可模拟
+NADH 的氢转移行为；当其与路易斯酸协同使用时，可通过活化底物羰基、增强 $\beta$-位亲电性来促进 1,4-还原反应。
+稀土三氟甲磺酸盐兼具较强的路易斯酸性与较好的操作稳定性，在有机合成中常被用作温和高效的催化剂。\cite{kobayashi2002}
+
+本实验以查尔酮为底物、汉斯酯为还原剂、Yb(OTf)$_3$ 为催化剂，在室温下完成共轭双键的选择性还原，目标产物为苯基苯乙基酮。
+实验过程中结合薄层色谱监测反应进程，以柱层析纯化产物，并利用 $^1$H NMR 对原料、产物及汉斯酯样品进行结构分析。
+通过该实验可综合训练薄层跟踪、萃取干燥、柱层析分离和谱图解析等有机化学实验技能，并加深对路易斯酸催化转移氢化机理的理解。\cite{xing2017,march2013}
+
+% ======================================================
+\section{实验部分}
+\vspace{-0.5em}
+
+\subsection{仪器与试剂}
+
+主要仪器包括核磁共振波谱仪、旋转蒸发仪、薄层色谱板、紫外分析灯、分析天平、常规玻璃仪器及硅胶柱层析装置。实验所用
+查尔酮、汉斯酯、三氟甲磺酸镱、叔丁基甲基醚、乙酸乙酯、石油醚、无水硫酸钠等试剂均由教学实验室统一提供并直接使用。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 主要反应物与试剂信息}}
+	\label{tab:reagents}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{cccc}
+					\toprule
+					名称          & 作用         & 用量                 & 备注         \\
+					\midrule
+					查尔酮         & 底物         & 104 mg（0.50 mmol）  & 淡黄色固体      \\
+					汉斯酯         & 有机氢源       & 250 mg（约 1.0 mmol） & 2.0 eq     \\
+					Yb(OTf)$_3$ & 路易斯酸催化剂    & 310 mg（0.50 mmol）  & 白色粉末       \\
+					叔丁基甲基醚      & 反应溶剂       & 2.5 mL             & 室温反应       \\
+					乙酸乙酯、石油醚    & 萃取/展开/洗脱溶剂 & 适量                 & TLC 与柱层析使用 \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+\subsection{实验方法}
+
+在 10 mL 圆底烧瓶中依次加入查尔酮 104 mg（0.50 mmol）、Yb(OTf)$_3$ 310 mg（0.50 mmol）和叔丁基甲基醚 2.5 mL，
+加入磁力搅拌子并塞上空心塞，于室温下搅拌使体系充分混合。待底物与催化剂分散均匀后，加入汉斯酯 250 mg（约 1.0 mmol），继续在室温下搅拌反应。
+反应期间采用薄层色谱监测查尔酮斑点的变化，直至原料点基本消失。
+
+主反应进行的同时采用湿法装柱备用。将石油醚/乙酸乙酯（20:1，体积比）与 200--300 目硅胶调成均匀糊状，通过加料漏斗缓慢装入色谱柱，
+装柱过程中轻敲柱壁以排除气泡并防止柱床开裂；待液面接近硅胶面时将柱面轻轻拍平。柱床应保持连续、平整且无明显空隙，以保证后续分离效果。
+
+反应完成后，加入 5 mL 乙酸乙酯稀释反应液，并将体系转移至分液漏斗中；反应瓶再以 2$\times$5 mL 乙酸乙酯洗涤，洗液并入分液漏斗。
+有机相依次用 3 mL 水和 3 mL 饱和食盐水洗涤，以除去无机盐及部分极性杂质。洗涤后的有机相用无水硫酸钠干燥约 15 min，过滤后旋转蒸发除去溶剂，
+水浴温度控制在 45 \textcelsius\ 左右，得到粗产物。
+
+粗产物以少量洗脱剂溶解或分散后上柱。上样时尽量控制样品溶液体积，以获得较窄的样品带，提高柱层析分辨率；随后再用少量洗脱剂洗涤烧瓶 2--3 次，
+并将洗液全部转移至柱上。待液面接近硅胶面后，铺一层薄石英砂保护柱面，再以石油醚/乙酸乙酯（20:1，体积比）洗脱。洗脱过程中分段收集馏分，
+并用 TLC 判断产物所在位置。将含目标产物的馏分合并，经旋转蒸发除去溶剂后，用少量乙酸乙酯转移至已称重的 10 mL 烧瓶中，继续减压干燥至恒重，
+称量并计算产率。最后通过 TLC 判断样品纯度，并结合 $^1$H NMR 对原料、还原剂及产物进行结构表征。
+
+\subsection{实验原理}
+
+本实验属于路易斯酸促进的转移氢化反应。查尔酮作为共轭烯酮底物，在 Yb(OTf)$_3$ 配位活化后，其 $\beta$-位亲电性增强；
+汉斯酯则作为 1,4-二氢吡啶类有机氢源，向活化底物转移氢负离子等效体，最终实现碳碳双键的 1,4-还原并生成苯基苯乙基酮。
+反应后汉斯酯被氧化为相应的吡啶二羧酸酯。该体系避免了金属氢化物强还原剂的使用，条件较温和，适合教学实验中展示选择性还原与路易斯酸催化的协同作用。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.88\linewidth]{src/img/course-page-7.png}
+	\caption{{\zihaoXiaoWu 路易斯酸促进汉斯酯还原查尔酮的机理示意}}
+	\label{fig:principle-course}
+\end{figure}
+
+% ======================================================
+\section{结果与讨论}
+\vspace{-0.5em}
+
+\subsection{反应过程}
+
+实验开始时，查尔酮呈淡黄色固体，Yb(OTf)$_3$ 为白色粉末，汉斯酯为浅色固体。加入叔丁基甲基醚并搅拌后，体系形成淡黄色至黄色悬浊液；
+加入汉斯酯后，反应液颜色略有加深，整体保持浑浊状态。随着反应进行，催化剂沉淀在底部，上层为黄色澄清液体。
+经萃取、干燥和旋蒸后得到浅色粗产物；柱层析收集到的目标馏分总体接近无色，除去溶剂后可见白色至类白色固体析出。
+
+TLC 结果如图 \ref{fig:tlc} 所示。对于反应中取样，P 道仍可观察到与查尔酮标准样相同位置的斑点，说明底物尚未完全消耗；
+同时在更低 $R_f$ 处可见新的斑点，表明还原产物已经开始生成。反应结束后，P 道中与查尔酮对应的斑点显著减弱甚至基本消失，
+说明查尔酮已被充分转化。由于汉斯酯及其氧化副产物极性较大，样品道在基线附近还能观察到拖尾或低 $R_f$ 斑点，这与反应体系组分较复杂一致。
+
+柱层析收集样品的 TLC 结果进一步表明，第 3 管样品中已含有与苯基苯乙基酮标准样位置一致的主斑点，但仍伴随一个较低 $R_f$ 的杂质点。
+这说明柱层析能够有效富集目标产物，但分离尚未完全，后续产率与纯度分析均应考虑少量杂质残留的影响。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.25\linewidth]{src/img/tlc_reaction_mid.jpg}\hspace{0.05\linewidth}
+	\includegraphics[width=0.25\linewidth]{src/img/tlc_reaction_end.jpg}
+	\caption{{\zihaoXiaoWu 反应过程 TLC 监测。左：反应中取样；右：反应结束取样。自左至右分别为S, M, P}}
+	\label{fig:tlc}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.28\linewidth]{src/img/tlc_product.jpg}
+	\caption{{\zihaoXiaoWu 柱层析产物的 TLC 检测。自左至右分别为S, M, P}}
+	\label{fig:tlc-product}
+\end{figure}
+
+\subsection{外观与产率}
+
+称量结果显示，产物与称量瓶总质量为 30.0083 g，空瓶质量为 29.9371 g，故所得产物质量为 0.0712 g。查尔酮与苯基苯乙基酮
+的化学计量比为 1:1，按查尔酮 0.50 mmol 计算，苯基苯乙基酮的理论产量为：
+\[
+	m_{\text{理论}} = 0.50\times 10^{-3}\ \text{mol}\times 196.24\ \text{g mol}^{-1} = 0.0981\ \text{g}
+\]
+因此实验产率为：
+\[
+	\eta = \frac{0.0712}{0.0981}\times 100\% = 72.6\%
+\]
+
+产物如预期一样是白色晶体，产率处于合理范围，说明合成过程基本成功。
+不过结合 TLC 结果可判断样品中仍残留少量杂质，
+瓶壁可见少量附着物，提示在转移、洗脱或干燥过程中存在机械损失，同时样品纯化程度还有进一步提升空间。
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 苯基苯乙基酮产率计算}}
+	\label{tab:yield}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{ccccc}
+					\toprule
+					产物     & 投料底物/mmol & 实际产量/g & 理论产量/g & 产率/\% \\
+					\midrule
+					苯基苯乙基酮 & 0.50      & 0.0712 & 0.0981 & 72.6  \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\linewidth]{src/img/product_weight.jpg}\hfill
+	\includegraphics[width=0.45\linewidth]{src/img/product_photo.jpg}
+	\caption{{\zihaoXiaoWu 产物称量与产物外观}}
+	\label{fig:product}
+\end{figure}
+
+\subsection{核磁共振谱图分析}
+
+汉斯酯、自制查尔酮与最终产物的 $^1$H NMR 谱图如图 \ref{fig:hantzsch-made}--\ref{fig:product-nmr} 所示。比较汉斯酯两张谱图可以看到，
+实验室制备样品在 $\delta$ 4.10 处给出乙氧基 OCH$_2$ 的四重峰，在 $\delta$ 1.22 处给出乙基 CH$_3$ 的三重峰，二者积分关系与结构中
+两个乙酯基团吻合；$\delta$ 2.12 附近的单峰对应 2,6-位两个甲基，$\delta$ 3.19 附近的单峰对应 4-位次甲氢，$\delta$ 4.69 处宽峰
+可归属为 N--H。整体峰形较集中，杂峰较少。相比之下，市售样品虽然也保留了相同主峰，但在 $\delta$ 4.17 附近峰形更宽，且在
+$\delta$ 2.89 与 5.39 等处可见额外小峰，说明其中可能含有少量溶剂、水分或稳定剂杂质；这也解释了其峰形和积分较自制样品更不理想。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\linewidth]{src/img/nmr_hantzsch_prepared.png}
+	\caption{{\zihaoXiaoWu 实验室制备汉斯酯的 $^1$H NMR 谱图}}
+	\label{fig:hantzsch-made}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\linewidth]{src/img/nmr_hantzsch_commercial.png}
+	\caption{{\zihaoXiaoWu 市售汉斯酯的 $^1$H NMR 谱图}}
+	\label{fig:hantzsch-commercial}
+\end{figure}
+
+\clearpage
+
+查尔酮的 $^1$H NMR 主要分布于芳香区和烯烃区。$\delta$ 7.85 与 7.46 附近的一对双峰可归属于共轭双键上的两个烯烃氢，
+是查尔酮最关键的结构特征；由于双键与羰基及两侧苯环共轭，芳香区信号整体位于较低场，形成 $\delta$ 7.46--8.05 范围内的复杂多重峰。
+其中靠近羰基的苯环邻位氢受吸电子效应影响更大，通常更偏低场。该谱图说明底物保留完整的 $\alpha,\beta$-不饱和酮骨架。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\linewidth]{src/img/nmr_chalcone.png}
+	\caption{{\zihaoXiaoWu 查尔酮的 $^1$H NMR 谱图}}
+	\label{fig:chalcone-nmr}
+\end{figure}
+
+产物苯基苯乙基酮的谱图则发生了明显变化。首先，查尔酮中用于表征共轭双键的一对烯烃氢双峰完全消失；其次，在 $\delta$ 3.49--2.90
+范围出现新的 4H 多重峰，可分别归属于羰基 $\alpha$-位 CH$_2$ 与苄位 CH$_2$。其中更靠近羰基的亚甲基受羰基去屏蔽作用影响，
+化学位移略向低场移动。芳香区仍保留约 10H 的信号，分布在 $\delta$ 7.27--8.06 范围内，符合两个苯环未被破坏的结构特点。
+因此，从“烯烃氢消失、脂肪区新增 4H 亚甲基信号、芳香氢总数保持不变”这三点可以较明确地判断查尔酮已经完成 1,4-还原，
+生成目标产物苯基苯乙基酮。谱图结论与 TLC 对反应转化和柱层析分离的判断相一致。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\linewidth]{src/img/nmr_product.png}
+	\caption{{\zihaoXiaoWu 苯基苯乙基酮的 $^1$H NMR 谱图}}
+	\label{fig:product-nmr}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{{\zihaoXiaoWu 主要样品 $^1$H NMR 特征峰归属}}
+	\label{tab:nmr}
+	\scalebox{1.2}{
+		{\zihaoLiu
+				\begin{tabular}{p{2.4cm}p{3.0cm}p{6.0cm}}
+					\toprule
+					样品      & 特征化学位移 $\delta$/ppm                      & 归属                                       \\
+					\midrule
+					汉斯酯（制备） & 4.10（q），3.19（s），2.12（s），1.22（t），4.69（br） & 乙酯 OCH$_2$、4-位次甲氢、2,6-位甲基、乙基 CH$_3$、N--H \\
+					汉斯酯（市售） & 4.17（q），3.27（s），2.20（s），1.29（t）          & 主体结构相同，但伴随额外杂峰                           \\
+					查尔酮     & 7.85（d），7.46（d），7.46--8.05（m）            & 两个烯烃氢及两个苯环芳香氢                            \\
+					苯基苯乙基酮  & 3.49--2.90（m，4H），7.27--8.06（m）           & 羰基两侧 CH$_2$ 与两个苯环芳香氢                     \\
+					\bottomrule
+				\end{tabular}
+			}}
+\end{table}
+
+% ======================================================
+\section{思考题}
+\vspace{-0.5em}
+
+\subsection{通过查阅文献，给出汉斯酯还原碳碳双键的机理。}
+
+在该反应中，Yb(OTf)$_3$ 先与查尔酮羰基氧配位，降低共轭体系的 LUMO 能级，使 $\beta$-位碳的亲电性增强。随后汉斯酯作为
+1,4-二氢吡啶型有机氢源，向查尔酮的 $\beta$-位转移氢负离子等效体，形成烯醇/烯醇盐型中间体；中间体再经质子转移得到饱和酮产物，
+而汉斯酯自身则被氧化为相应吡啶二羧酸酯。该过程本质上属于路易斯酸促进的共轭加成型转移氢化反应，其关键在于底物活化与氢转移协同发生。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.82\linewidth]{src/img/mechanism.png}
+	\caption{{\zihaoXiaoWu 汉斯酯在路易斯酸活化下还原查尔酮碳碳双键的示意机理}}
+	\label{fig:mechanism}
+\end{figure}
+
+\subsection{常见的路易斯酸有哪些？操作以路易斯酸为催化剂的反应时需要注意什么？}
+
+常见路易斯酸包括 AlCl$_3$、FeCl$_3$、ZnCl$_2$、BF$_3\cdot$Et$_2$O、TiCl$_4$、SnCl$_4$、Sc(OTf)$_3$ 以及各种镧系金属三氟甲磺酸盐等。
+使用时应重点注意以下几点：其一，许多路易斯酸对水和醇敏感，操作过程中应尽量保持器皿与溶剂干燥；其二，路易斯酸常具有腐蚀性或刺激性，
+加料与后处理时需在通风条件下进行并佩戴防护用品；其三，催化剂用量、加料顺序和温度会显著影响选择性，若底物中含有多个可配位位点，
+更应防止副反应、树脂化或过度活化；其四，后处理淬灭时需缓慢操作，避免局部放热或产生大量酸性废液。
+
+\subsection{查尔酮和苯基苯乙基酮 1H NMR 谱中特征峰的归属。如何利用 1H NMR 谱判断分子结构中双键的顺反？}
+
+查尔酮的芳香氢主要分布在 $\delta$ 7.4--8.1；其中靠近羰基的苯环邻位氢受吸电子效应影响更强，因而位于更低场。两个烯烃氢分别位于
+$\delta$ 7.85 和 7.46 附近，通常表现为一对双峰，是查尔酮最重要的结构特征。苯基苯乙基酮则失去了这两个烯烃氢信号，转而在
+$\delta$ 3.49--2.90 范围出现 4H 的多重峰，对应羰基两侧的 CH$_2$。因此，仅从是否存在这对烯烃氢以及是否出现脂肪氢信号，
+即可直观区分原料与还原产物。
+
+利用 $^1$H NMR 判断双键顺反时，最常用依据是双键两侧烯烃氢之间的偶合常数 $J$。一般而言，反式烯烃的 $^3J$ 值较大，常在
+15--16 Hz 左右；顺式烯烃较小，通常约为 10--12 Hz。若谱图中两烯烃氢表现为一对耦合双峰，并测得较大的偶合常数，则可判断该双键以反式构型为主。
+
+\subsection{根据你掌握的有机化学理论知识，设计一个多步合成实验。}
+
+可设计“以苯胺为起始原料合成对硝基苯胺”的三步实验。该路线依次包括氨基保护、芳环硝化和酰胺水解三个步骤，既包含典型的官能团转化，
+又能体现定位效应控制、保护基策略和多步分离纯化的综合思路。
+
+第一步先将苯胺进行乙酰化，制备乙酰苯胺。具体可在冰浴条件下将苯胺溶于适量冰醋酸或水/醋酸混合体系中，缓慢加入乙酸酐，
+控制温度避免副反应，反应后倒入冷水中析出乙酰苯胺晶体，经抽滤和重结晶提纯。设置这一步的目的在于利用乙酰基降低氨基的强活化作用，
+避免苯胺在硝化条件下发生氧化、重氮化或多硝化等副反应，同时提高后续对位硝化的选择性。
+
+第二步对乙酰苯胺进行硝化。将乙酰苯胺溶解或分散于冰醋酸中，在低温下缓慢滴加由浓硫酸和浓硝酸配制的硝化试剂，控制反应温度在较低范围，
+以减少邻位副产物和二硝化副产物的生成。反应结束后将体系倒入碎冰中析出粗产物，再通过重结晶获得以对硝基乙酰苯胺为主的中间体。
+该步骤的关键在于温度控制和加料速度控制；由于乙酰氨基仍为邻对位定位基，且对位位阻更小，因此通常可使对位产物占优势。
+
+第三步对对硝基乙酰苯胺进行酸性或碱性水解，脱去保护基得到对硝基苯胺。若采用酸水解，可将中间体加入稀盐酸中加热回流，
+反应完全后冷却，再用碱液调节 pH 使游离胺析出；若采用碱水解，则可在乙醇/水和氢氧化钠体系中回流，随后酸化或调 pH 分离产物。
+粗产物经抽滤、洗涤和重结晶后，可得到黄色至黄褐色针状晶体对硝基苯胺。
+
+% ======================================================
+\section{结论}
+\vspace{-0.5em}
+
+本实验在 Yb(OTf)$_3$ 催化下，以汉斯酯为氢源实现了查尔酮碳碳双键的选择性还原，成功制得苯基苯乙基酮。TLC 结果显示，
+反应结束后查尔酮基本转化，柱层析第 3 管已富集目标产物；称量计算得到产物质量 0.0712 g，理论产量 0.0981 g，收率为 72.6\%。
+$^1$H NMR 进一步证明产物中查尔酮烯烃氢信号消失，并出现苄位/羰基邻位 CH$_2$ 信号，说明还原过程达到预期目标。
+
+综合来看，Yb(OTf)$_3$/汉斯酯体系能够在较温和条件下有效完成共轭烯酮的 1,4-还原；实验结果也表明，TLC 跟踪、柱层析分离质量、
+样品转移损失和干燥彻底程度会直接影响最终收率与纯度。若进一步优化上样量、馏分判定与洗脱体积，产物纯度和回收率仍有提升空间。
+
+\vspace{3em}
+% ======================================================
+% 参考文献：使用标准 thebibliography 环境
+{\footnotesize
+	\setstretch{1}
+	\begin{thebibliography}{9}
+		\bibitem{kobayashi2002}
+		Kobayashi S, Sugiura M, Kitagawa H, Lam W W-L.
+		\textit{Chem. Rev.}, \textbf{2002}, 102(6): 2227--2302
+
+		\bibitem{xing2017}
+		邢其毅, 裴伟伟, 徐瑞秋, 裴坚.
+		{\kaishu 基础有机化学（第五版）}.
+		北京: 北京大学出版社, 2017
+
+		\bibitem{march2013}
+		Smith M B, March J.
+		\textit{March's Advanced Organic Chemistry}, 7th ed.
+		New York: Wiley, 2013
+
+		\bibitem{hantzsch1881}
+		Hantzsch A.
+		\textit{Ber. Dtsch. Chem. Ges.}, \textbf{1881}, 14: 1637--1638
+	\end{thebibliography}
+}
+
+% ======================================================
+% 评语与签字栏
+% \needspace 确保"评语"标签和空白区同页；若已换页则 \vspace*{\fill} 将签字栏推到底部
+
+\vspace*{\fill}
+\noindent{\zihaoWu 评语（Remarks）：}
+
+\vspace{2em}
+
+\begin{center}
+	{\zihaoWu\bfseries 指导教师（Instructor）\hspace{8em} 日期（Date）}
+\end{center}
+
+\vspace{1.5cm}
+
+\end{document}
