@@ -1,0 +1,979 @@
+
+\documentclass[UTF8,a4paper,10pt,twocolumn]{ctexart}
+\usepackage[margin=1.55cm,columnsep=0.72cm]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,shapes.geometric}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{合成化学II｜高分子化学考试笔记}
+\rhead{\thepage/\pageref{LastPage}}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{1.5em}\setlength{\parskip}{1.5pt}\setlength{\tabcolsep}{2pt}\sloppy
+\setlist[itemize]{nosep,leftmargin=2em}
+\setlist[enumerate]{nosep,leftmargin=2.2em}
+\definecolor{rose}{HTML}{D9A6A3}
+\definecolor{sky}{HTML}{A9C7D8}
+\definecolor{mint}{HTML}{A9CDB8}
+\definecolor{cream}{HTML}{E8D7A8}
+\definecolor{ink}{HTML}{2F3437}
+\color{ink}
+\renewcommand\arraystretch{1.16}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\Mn}{\overline{M}_n}
+\newcommand{\Mw}{\overline{M}_w}
+\newcommand{\Mz}{\overline{M}_z}
+\newcommand{\Xn}{\overline{X}_n}
+\newcommand{\Xw}{\overline{X}_w}
+\newcommand{\PDI}{\mathrm{PDI}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\kp}{k_p}
+\newcommand{\kt}{k_t}
+\newcommand{\kd}{k_d}
+\newcommand{\ki}{k_i}
+\newcommand{\ktr}{k_{tr}}
+\newcommand{\Rp}{R_p}
+\newcommand{\Ri}{R_i}
+\newcommand{\Rt}{R_t}
+\newcommand{\RM}{R_M}
+\newtcolorbox{exam}{breakable,enhanced,arc=2.2mm,boxrule=0.35pt,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,colback=rose!18!white,colframe=rose!42!gray,title=考试抓手,fonttitle=\bfseries\small,coltitle=black,fontupper=\small,attach boxed title to top left={xshift=1.5mm,yshift*=-1.5mm},boxed title style={arc=2mm,boxrule=0pt,colback=rose!35!white}}
+\newtcolorbox{formula}{breakable,enhanced,arc=2.2mm,boxrule=0.35pt,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,colback=sky!15!white,colframe=sky!45!gray,title=核心公式,fonttitle=\bfseries\small,coltitle=black,fontupper=\small,attach boxed title to top left={xshift=1.5mm,yshift*=-1.5mm},boxed title style={arc=2mm,boxrule=0pt,colback=sky!30!white}}
+\newtcolorbox{pitfall}{breakable,enhanced,arc=2.2mm,boxrule=0.35pt,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,colback=cream!35!white,colframe=cream!60!gray,title=易错点,fonttitle=\bfseries\small,coltitle=black,fontupper=\small,attach boxed title to top left={xshift=1.5mm,yshift*=-1.5mm},boxed title style={arc=2mm,boxrule=0pt,colback=cream!55!white}}
+\newtcolorbox{examplebox}{breakable,enhanced,arc=2.2mm,boxrule=0.35pt,left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,colback=mint!18!white,colframe=mint!45!gray,title=作业型例题,fonttitle=\bfseries\small,coltitle=black,fontupper=\small,attach boxed title to top left={xshift=1.5mm,yshift*=-1.5mm},boxed title style={arc=2mm,boxrule=0pt,colback=mint!35!white}}
+\title{\bfseries 《合成化学II》高分子化学考试笔记}
+\author{}
+\date{\today}
+\raggedbottom
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{一页速查：考试最常用结论}
+\begin{exam}
+  \textbf{判断聚合机理：}
+  \begin{itemize}
+    \item 给电子取代基（烷基、烷氧基、乙烯基醚、异丁烯）稳定碳正离子：偏向\textbf{阳离子聚合}；强吸电子取代基（\ce{-CN}、\ce{-COOR}、二氰基）稳定碳负离子：偏向\textbf{阴离子聚合}；苯乙烯、丁二烯等共轭单体三类活性中心都可稳定。
+    \item 自由基聚合最常见于乙烯基单体：苯乙烯、MMA、丙烯腈、氯乙烯、醋酸乙烯酯、四氟乙烯等。空间位阻大的一、二二取代内烯烃和三/四取代烯烃通常难以自由基均聚。
+    \item 链式聚合：低转化率即可出现高分子量产物；逐步聚合：高分子量只在高反应程度 $p\to1$ 时出现。
+  \end{itemize}
+  \textbf{自由基动力学：}
+  \begin{align*}
+    \Ri      & =2f\kd[I],                                     \\
+    [M\cdot] & =\left(\frac{f\kd[I]}{\kt}\right)^{1/2},       \\
+    \Rp      & =\kp[M]\left(\frac{f\kd[I]}{\kt}\right)^{1/2}.
+  \end{align*}
+  \textbf{动力学链长与聚合度：}
+  \begin{align*}
+    \nu           & =\frac{\Rp}{\Ri},                                               \\
+    \Xn           & =\begin{cases}2\nu,&\text{偶合终止}\cr \nu,&\text{歧化终止}\end{cases}, \\
+    \frac{1}{\Xn} & =\frac{\Ri}{2\Rp}+C_M+C_I\frac{[I]}{[M]}
+    +C_S\frac{[S]}{[M]}+\cdots.
+  \end{align*}
+  \textbf{二元自由基共聚：}投料摩尔分数 $f_i$ 与瞬时共聚物组成 $F_i$ 不一定相同，
+  \[
+    F_1=\frac{r_1f_1^2+f_1f_2}{r_1f_1^2+2f_1f_2+r_2f_2^2}.
+  \]
+  \textbf{线形逐步聚合：}
+  \begin{align*}
+    \Xn & =\frac{1}{1-p}\quad(r=1),                           \\
+    \Xn & =\frac{1+r}{1+r-2rp}\quad(r\le 1),                  \\
+    p_c & \approx\frac{2}{\bar f}\quad(\text{Carothers 凝胶点}).
+  \end{align*}
+\end{exam}
+
+
+
+\section{符号、单位与公式使用约定}
+\begin{exam}
+  \textbf{考试写公式的最低要求：}先说明对象，再代入数值。建议每道计算题按“已知量 $\to$ 选公式 $\to$ 单位检查 $\to$ 结果含义”书写。所有浓度默认用 $\mathrm{mol\,L^{-1}}$，速率默认用 $\mathrm{mol\,L^{-1}\,s^{-1}}$；若题目给质量、体积、密度，要先换算成物质的量浓度。
+\end{exam}
+
+\begin{exam}
+  \textbf{常用符号与物理量：}
+  \begin{itemize}
+    \item $[M],[I],[S],[P]$：单体、引发剂、溶剂/链转移剂、聚合物浓度，单位常为 $\mathrm{mol\,L^{-1}}$。
+    \item $[M\cdot]$：所有增长链自由基的总浓度；不是某一条链的浓度，常由稳态假定求得。
+    \item $\Ri,\Rp,\Rt$：引发、聚合、终止速率，单位常为 $\mathrm{mol\,L^{-1}\,s^{-1}}$；$\Rp=-\dd[M]/\dd t$。
+    \item $\kd,\ki,\kp,\kt$：引发剂分解、链引发、链增长、终止速率常数；$k_d$ 常为 $\mathrm{s^{-1}}$，$k_p,k_t$ 常为 $\mathrm{L\,mol^{-1}\,s^{-1}}$。
+    \item $f$：引发剂效率，无量纲，表示分解自由基中真正引发聚合的比例；笼蔽效应和杂质会使 $f<1$。
+    \item $f_i,F_i$：二元共聚中单体 $M_i$ 在原料液中的摩尔分数、在瞬时生成共聚物中的结构单元摩尔分数；不要与引发剂效率 $f$ 混淆。
+    \item $k_{ij},r_i$：链端为 $M_i\cdot$ 的自由基加成单体 $M_j$ 的增长速率常数；$r_1=k_{11}/k_{12}$、$r_2=k_{22}/k_{21}$ 为竞聚率。
+    \item $\nu$：动力学链长，即一个活性中心平均消耗的单体数；与最终聚合度 $\Xn$ 的关系取决于终止方式。
+    \item $X,\Xn,\Xw$：单条链聚合度、数均聚合度、重均聚合度，均无量纲；忽略端基时 $M\approx XM_0$。
+    \item $\Mn,\Mw,\Mz,\PDI$：数均、重均、$z$均分子量和分散系数；$\PDI=\Mw/\Mn\ge1$。
+    \item $p,r$：逐步聚合反应程度和官能团当量比；$p$ 是“已反应官能团分数”，$r$ 通常取较少官能团/较多官能团。
+    \item $\bar f,f_w,p_c$：数均官能度、重均官能度、凝胶点反应程度；用于支化/交联体系。
+    \item $\Delta G,\Delta H,\Delta S,T_c$：自由能、焓变、熵变和上限温度；$\Delta G=\Delta H-T\Delta S$，温度必须用 K。
+  \end{itemize}
+\end{exam}
+
+\begin{pitfall}
+  \textbf{单位快速检查：} $\Ri=2f\kd[I]$ 中 $k_d$ 是 $\mathrm{s^{-1}}$，所以结果是浓度/时间；$\Rp=\kp[M][M\cdot]$ 中 $k_p$ 是二级速率常数；$\Xn,\nu,p,r,C_X,f$ 都无量纲。若算出的 $p>1$、$r>1$（且未按约定取倒数）、$\PDI<1$ 或 $T_c$ 没有用绝对温度，通常说明公式或单位用错。
+\end{pitfall}
+
+\section{高分子基本概念与平均分子量}
+\subsection{基本术语}
+\begin{itemize}
+  \item \textbf{高分子/聚合物：}结构单元通过化学键连接而成的高分子量化合物；相对分子质量通常 $10^4\sim10^6$。
+  \item \textbf{单体（monomer）：}能通过聚合反应生成高分子的低分子化合物。
+  \item \textbf{结构单元（structural unit）：}单体进入高分子链后的残余部分。
+  \item \textbf{重复单元（repeat unit）：}链中周期性重复的最小结构；不一定等同于单体单元，例如尼龙-66的重复单元包含己二胺和己二酸两个残基。
+  \item \textbf{主链、侧基、端基：}主链是连续连接的骨架；侧基影响立构、极性、玻璃化温度与聚合活性；端基常用于端基分析和分子量控制。
+  \item \textbf{均聚物/共聚物：}一种单体得到均聚物；两种及以上单体得到共聚物，可有无规、交替、嵌段、接枝等序列。
+\end{itemize}
+
+\begin{formula}
+  \textbf{Carothers 聚合度与分子量：}逐步聚合的 $\bar X_n$ 按\textbf{结构单元数}定义，不按重复单元数定义。若结构单元平均摩尔质量为 $M_0$，端基质量为 $M_{eg}$，则
+  \[
+    \bar M_n=M_0\bar X_n+M_{eg}\approx M_0\bar X_n.
+  \]
+  对 $A_2+B_2$ 缩聚，$M_0$ 通常为一个重复单元质量的一半。例如尼龙-66重复单元约 $226$，结构单元平均 $M_0\approx113$；丁二醇--己二酸聚酯重复单元 $200$，结构单元平均 $M_0=100$。加聚型乙烯基聚合中，结构单元与重复单元通常相同。
+\end{formula}
+
+\subsection{平均分子量与分布}
+设第 $i$ 种链的分子数为 $N_i$，分子量为 $M_i$，质量为 $W_i=N_iM_i$：
+\begin{align*}
+  \Mn  & =\frac{\sum_i N_iM_i}{\sum_i N_i},                                       \\
+  \Mw  & =\frac{\sum_i N_iM_i^2}{\sum_i N_iM_i}=\frac{\sum_i W_iM_i}{\sum_i W_i}, \\
+  \Mz  & =\frac{\sum_i N_iM_i^3}{\sum_i N_iM_i^2},                                \\
+  \PDI & =\frac{\Mw}{\Mn}\ge 1.
+\end{align*}
+\begin{itemize}
+  \item $\Mn$ 对低分子量组分敏感，可由渗透压、沸点升高/凝固点降低、端基滴定、GPC等测定。
+  \item $\Mw$ 对高分子量组分敏感，可由光散射、GPC等测定。
+  \item 分布窄：$\PDI$ 接近1；普通自由基聚合常较宽；活性/可控聚合可接近窄分布。
+\end{itemize}
+\begin{pitfall}
+  分子量题常错在三个地方：\textbf{(1)} 把单体摩尔质量当重复单元摩尔质量；\textbf{(2)} 忽略端基是否可忽略；\textbf{(3)} 给出质量分数时误用 $\Mn$ 公式，应先区分 $N_i$ 与 $W_i$。
+\end{pitfall}
+
+\section{聚合反应分类与链式/逐步聚合比较}
+\subsection{Carothers 与 Flory 分类}
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.18\linewidth}p{0.36\linewidth}p{0.36\linewidth}}
+    \toprule
+    分类法                      & 类型             & 考点                                                   \\
+    \midrule
+    Carothers：按单体与聚合物组成/结构变化 & 加成聚合、缩合聚合、开环聚合 & 加聚通常无小分子脱除，聚合物组成与单体相同；缩聚常脱水、醇、HCl等；开环聚合由环张力释放或熵/焓驱动。 \\
+    Flory：按机理                & 链式聚合、逐步聚合      & 最重要。链式有活性中心和链引发/增长/终止；逐步是官能团间逐步反应，高分子量需极高反应程度。       \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\subsection{链式聚合与逐步聚合的实验判别}
+\begin{center}
+  \begin{tikzpicture}[x=0.72cm,y=0.62cm,>=Stealth]
+    \draw[->] (0,0) -- (7.2,0) node[below left]{反应时间/转化率};
+    \draw[->] (0,0) -- (0,4.2) node[above right]{相对量};
+    \draw[blue,thick] plot[smooth] coordinates {(0.2,0.3)(1,2.8)(2,3.2)(6.8,3.4)};
+    \draw[red,thick] plot[smooth] coordinates {(0.2,0.1)(2,0.3)(4,0.8)(5.5,1.8)(6.8,3.7)};
+    \draw[dashed] (5.6,0)--(5.6,4) node[above,font=\scriptsize]{高反应程度};
+  \end{tikzpicture}
+\end{center}
+\textbf{实验判别流程：}定时取样 $\to$ 用NMR/IR/滴定/色谱测官能团或双键转化率 $\to$ 用GPC/SEC、黏度法或端基分析测分子量 $\to$ 作 $\Mn$ 或 $\Xn$--$p$ 曲线。低转化率已有高分子量为链式；符合 $\Xn=1/(1-p)$ 且高分子量只在高 $p$ 出现为逐步。
+
+\section{自由基聚合}
+\subsection{单体判断：空间效应与电子效应}
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.24\linewidth}p{0.33\linewidth}p{0.34\linewidth}}
+    \toprule
+    取代/结构特点              & 对自由基聚合的影响                & 典型例子                              \\
+    \midrule
+    乙烯基单体 $\ce{CH2=CHX}$ & 位阻小，常可自由基聚合              & 苯乙烯、氯乙烯、醋酸乙烯酯、丙烯腈                 \\
+    1,1-二取代烯烃            & 可聚合但位阻增大，取代基稳定增长自由基时更易   & MMA、偏二氯乙烯；1,1-二苯基乙烯因自由基过稳且位阻大，难均聚 \\
+    1,2-二取代、三/四取代内烯烃     & 通常难聚合，原因是位阻和链增长热力学/动力学不利 & 2-丁烯、甲基肉桂酸酯等                      \\
+    强吸电子基                & 稳定自由基，也适合阴离子             & 丙烯腈、MMA、二氰基乙烯                     \\
+    给电子基                 & 稳定阳离子；自由基是否适合视位阻和链转移而定   & 乙烯基醚偏阳离子；丙烯自由基难得高聚物               \\
+    共轭基                  & 同时稳定自由基、阳离子、阴离子          & 苯乙烯、丁二烯、异戊二烯                      \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\begin{examplebox}
+  \textbf{单体机理判断模板：}
+  \begin{itemize}
+    \item $\ce{CH2=CHCl}$：自由基（PVC工业路线）。
+    \item $\ce{CH2=CHCN}$：自由基、阴离子；$\ce{-CN}$ 稳定负离子和自由基。
+    \item $\ce{CH2=C(CN)2}$：阴离子强；两个氰基强吸电子。
+    \item $\ce{CH2=C(CH3)2}$：阳离子；叔碳正离子稳定。
+    \item $\ce{CH2=CHC6H5}$：自由基、阳离子、阴离子均可。
+    \item $\ce{CH2=CHOCH3}$：阳离子；烷氧基强给电子。
+  \end{itemize}
+\end{examplebox}
+
+\subsection{自由基聚合历程与引发剂}
+\textbf{历程：}链引发 $\to$ 链增长 $\to$ 链终止，常伴有链转移。
+\begin{align*}
+  \text{引发剂分解：} & \quad I \xrightarrow{\kd}2R\cdot,                       \\
+  \text{链引发：}   & \quad R\cdot+M\xrightarrow{\ki}RM\cdot,                 \\
+  \text{链增长：}   & \quad RM_n\cdot+M\xrightarrow{\kp}RM_{n+1}\cdot,        \\
+  \text{偶合终止：}  & \quad RM_n\cdot+RM_m\cdot\xrightarrow{k_{tc}}RM_{n+m}R, \\
+  \text{歧化终止：}  & \quad RM_n\cdot+RM_m\cdot\xrightarrow{k_{td}}RM_n+RM_m.
+\end{align*}
+
+\[
+  \ce{R. + CH2=CHPh ->[$k_i$] R-CH2-\dot{C}HPh ->[$+\,nM$][$k_p$] P_n.}
+\]
+
+\textbf{常见引发剂：}
+\begin{itemize}
+  \item 偶氮类：AIBN，热分解产生两个碳自由基和氮气。
+  \item 过氧化物：BPO、过氧化二叔丁基等，热分解产生氧自由基或进一步脱羧生成苯基自由基。
+  \item 氧化还原体系：如叔丁基过氧化氢/\ce{Fe^{2+}}，低温也可产生自由基。
+\end{itemize}
+
+\begin{examplebox}
+  \textbf{AIBN 引发苯乙烯，偶合终止：}
+  \begin{align*}
+    \ce{AIBN            & -> 2R. + N2},         \\
+    \ce{R. + CH2=CHPh   & -> R-CH2-\dot{C}HPh}, \\
+    \ce{P_n. + CH2=CHPh & -> P_{n+1}.}
+  \end{align*}
+  偶合终止时两条链自由基相连，生成一个含两个引发剂残基的大分子。
+\end{examplebox}
+
+\subsection{自由基聚合动力学}
+\subsubsection{理想模型假定}
+\begin{itemize}
+  \item 自由基等活性：$\kp,\kt,\ktr$ 与链长无关。
+  \item 稳态假定：自由基生成速率等于消失速率，$\dd[M\cdot]/\dd t\approx0$。
+  \item 聚合度很大：单体主要消耗于链增长，引发消耗单体可忽略。
+\end{itemize}
+
+\begin{formula}
+  \begin{align*}
+    \Ri      & =2f\kd[I],                                           \\
+    \Rp      & =-\frac{\dd[M]}{\dd t}=\kp[M][M\cdot],               \\
+    \Rt      & =2\kt[M\cdot]^2,                                     \\
+    \Ri      & =\Rt,                                                \\
+    [M\cdot] & =\left(\frac{f\kd[I]}{\kt}\right)^{1/2},             \\
+    \Rp      & =\kp\left(\frac{f\kd}{\kt}\right)^{1/2}[M][I]^{1/2}.
+  \end{align*}
+  \textbf{物理量解释：}$\Ri$ 是有效自由基产生速率；系数2来自一个引发剂分子通常裂解为两个自由基，$f$修正未能逃出溶剂笼或被杂质消耗的部分。$[M\cdot]$ 是所有增长自由基的总浓度，不是单条链浓度。$\Rt$ 写成 $2\kt[M\cdot]^2$ 是因为一次双基终止同时消耗两个自由基；若教材把 $k_t$ 定义含因子2，公式外观会略有不同，但代题时必须与题目定义一致。
+\end{formula}
+因此，自由基聚合速率通常对单体为一级、对引发剂为半级：$[I]$ 加倍，$\Rp$ 只增为 $\sqrt2$ 倍。升温会同时影响 $k_d,k_p,k_t$，但因 $k_d$ 活化能较高，通常升温显著加快引发和聚合，同时使链数增多、平均链长变短，分子量降低。
+
+\subsubsection{自动加速效应（凝胶效应）}
+\begin{center}
+  \begin{tikzpicture}[x=0.82cm,y=0.72cm,>=Stealth]
+    \draw[->] (0,0) -- (7.2,0) node[below left]{时间};
+    \draw[->] (0,0) -- (0,4) node[above]{转化率};
+    \draw[thick,blue] plot[smooth] coordinates {(0,0)(1.2,0.15)(2.5,0.7)(3.5,2.2)(5,3.3)(7,3.7)};
+    \node at (0.8,0.45){诱导};
+    \node at (2.2,1.1){正常};
+    \node at (3.9,2.9){自动加速};
+    \node at (6.1,3.4){减速};
+    \draw[dashed] (3,0)--(3,3.9);
+  \end{tikzpicture}
+\end{center}
+本质：转化率升高后体系黏度增大、链缠结，双分子终止受扩散限制，$k_t$ 下降，$[M\cdot]$ 升高，导致 $\Rp$ 突增。温度升高或加入溶剂可降低黏度、推迟凝胶效应；但溶剂也可能增加链转移、降低分子量。
+
+\subsection{分子量、动力学链长与链转移}
+\begin{formula}
+  动力学链长定义为一个活性中心从引发到终止平均消耗的单体数：
+  \[
+    \nu=\frac{\text{单体消耗速率}}{\text{自由基生成速率}}=\frac{\Rp}{\Ri}.
+  \]
+  无链转移时：
+  \[
+    \Xn=2\nu\quad(\text{偶合终止}),\qquad \Xn=\nu\quad(\text{歧化终止}).
+  \]
+  \textbf{含义区别：}$\nu$ 统计的是“一个自由基活性中心”在寿命内加上的单体数；$\Xn$ 统计的是“最终一条大分子”含有的重复单元数。偶合时两条活链接成一条死链，所以一条大分子约含两个动力学链；歧化时两条活链分别变成两条死链，所以 $\Xn=\nu$。若偶合和歧化并存，设偶合生成的\textbf{产物大分子分数}为 $x_p$，则平均引发剂残基数为 $2x_p+1(1-x_p)=1+x_p$。但若题目问“偶合/歧化终止各占百分比”，应按\textbf{参与终止的活性链/反应物占比}归一化，而不是直接用产物分数。
+\end{formula}
+
+\begin{examplebox}
+  若每个大分子含 1.30 个引发剂残基，且无链转移，则先得偶合产物分数 $x_p=0.30$、歧化产物分数 $0.70$。按讲义要求换算为终止反应物占比：
+  \begin{align*}
+    f_c&=\frac{2x_p}{2x_p+(1-x_p)}
+        =\frac{0.60}{1.30}=46.2\%,\\
+    f_d&=\frac{1-x_p}{1.30}=53.8\%.
+  \end{align*}
+  \textbf{提示：}30\%/70\% 是最终产物分子分数，不是终止方式占比。
+\end{examplebox}
+
+\subsubsection{链转移与 Mayo 方程}
+链自由基可向单体、引发剂、溶剂、链转移剂或聚合物转移：
+\[
+  P_n\cdot+XA\xrightarrow{k_{tr,X}}P_nX+A\cdot.
+\]
+转移不一定降低聚合速率，但会终止原增长链，通常降低分子量。定义链转移常数 $C_X=k_{tr,X}/k_p$。
+\begin{formula}
+  常用 Mayo 方程：
+  \[
+    \boxed{\frac{1}{\Xn}=\frac{\Ri}{2\Rp}+C_M+C_I\frac{[I]}{[M]}+C_S\frac{[S]}{[M]}+C_P\frac{[P]}{[M]}+\cdots}
+  \]
+  其中 $C_X=k_{tr,X}/k_p$ 是链转移常数，表示增长自由基遇到 $X$ 时“转移”相对“继续加单体”的倾向。$C_X$ 越大，少量 $X$ 就能显著降低分子量；$[X]/[M]$ 说明链转移效应取决于相对浓度。第一项对应无链转移时双基终止造成的有限链长（按偶合写法常见）；若题目特别说明终止方式，要按教材或题干定义校正。
+\end{formula}
+
+\begin{examplebox}
+  \textbf{链转移剂用量题模板：}苯乙烯 $[M]=1$ mol/L，$\Ri=4.0\times10^{-11}$，$\Rp=1.5\times10^{-7}$，偶合终止，欲将 $\Mn=83200$。先算目标 $\Xn=83200/104=800$，无链转移项 $\Ri/(2\Rp)=1/7500$，若正丁硫醇 $C_S=21$：
+  \[
+    \frac1{800}=\frac1{7500}+21\frac{[S]}{1}\quad\Rightarrow\quad [S]=5.32\times10^{-5}\ \mathrm{mol\,L^{-1}}.
+  \]
+\end{examplebox}
+
+\begin{exam}
+  \textbf{链转移细分类：}向单体转移常限制最高分子量（VC、VAc 较明显）；向引发剂转移因 $[I]\ll[M]$ 通常影响较小；向溶剂/链转移剂转移可用硫醇等调节分子量；向大分子转移在高转化率重要，会引入支化并增大分散度。若新自由基再引发能力弱，则表现为缓聚甚至阻聚。
+\end{exam}
+
+\begin{formula}
+  \textbf{自由基聚合分子量分布速查：}低转化率且等活性时，令 $\alpha$ 为成链几率
+  \[
+    \alpha=\frac{\Rp}{\Rp+\sum R_t+\sum R_{tr}}.
+  \]
+  歧化终止或链转移时，每个失活事件给一条死链：
+  \[
+    \frac{N_x}{N}=(1-\alpha)\alpha^{x-1},\qquad
+    \PDI=1+\alpha\le2.
+  \]
+  偶合终止时两条活链合成一条死链，分布较窄：
+  \[
+    \PDI=\frac{2+\alpha}{2}\le1.5.
+  \]
+  高转化率、凝胶效应或向大分子链转移会使分布显著变宽，上式只作瞬时/低转化率近似。
+\end{formula}
+
+\subsection{阻聚、缓聚与参数测定}
+\begin{itemize}
+  \item \textbf{阻聚：}存在诱导期，诱导期内无聚合物形成；阻聚剂耗尽后按正常速率聚合。常见阻聚剂：氧、醌类、稳定自由基等。
+  \item \textbf{缓聚：}无明显诱导期但聚合速率降低。
+  \item 用诱导期可测引发速率：若阻聚剂浓度为 $[Z]$、每个阻聚剂分子消耗 $n$ 个自由基，则 $t_{ind}\approx n[Z]/\Ri$。
+\end{itemize}
+
+\subsection{自由基聚合实施方法}
+\begin{center}
+\scriptsize
+\begin{tabularx}{\linewidth}{p{0.17\linewidth}p{0.36\linewidth}p{0.38\linewidth}}
+\toprule
+方法 & 特点 & 考试抓手\\
+\midrule
+本体 & 单体兼介质，产品纯、速率高，散热和黏度控制难 & 油溶性引发剂；易自动加速\\
+溶液 & 散热好、黏度低，但溶剂链转移/后处理问题 & 分子量常低于本体\\
+悬浮 & 单体液滴分散于水，相当于小本体珠粒 & 油溶性引发剂，散热好\\
+乳液 & 胶束/乳胶粒中聚合，速率快且可高分子量 & 水溶性引发剂、乳化剂\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{自由基聚合热力学}
+聚合可能性由 $\Delta G=\Delta H-T\Delta S$ 决定。乙烯基聚合通常 $\Delta H<0$（双键转化为两个 $\sigma$ 键放热）、$\Delta S<0$（许多单体变成一条链，平动/转动自由度降低），因此低温有利，高温不利。聚合上限温度：
+\[
+  T_c=\frac{\Delta H}{\Delta S}
+\]
+这里 $T_c$ 必须用 K；由于 $\Delta H$ 与 $\Delta S$ 同为负值，$T_c$ 为正。当 $T>T_c$ 时 $\Delta G>0$，聚合热力学上不利，可能发生解聚；当 $T<T_c$ 时热力学允许，但速率还要由动力学决定。单体中取代基共轭会稳定单体、降低 $-\Delta H$；位阻也会影响聚合焓与增长可行性。
+
+\subsection{自由基共聚合}
+共聚合是两种或多种单体共同聚合生成含不同结构单元的大分子。按序列可分为无规、交替、嵌段、接枝共聚物；传统自由基共聚通常给出统计序列，RDRP 或活性阴离子顺序加料更适合制备嵌段/复杂拓扑共聚物。
+
+\begin{formula}
+  \textbf{二元共聚的四个增长反应与竞聚率：}
+  \begin{align*}
+    M_1\cdot+M_1&\xrightarrow{k_{11}}M_1M_1\cdot,&
+    M_1\cdot+M_2&\xrightarrow{k_{12}}M_1M_2\cdot,\\
+    M_2\cdot+M_1&\xrightarrow{k_{21}}M_2M_1\cdot,&
+    M_2\cdot+M_2&\xrightarrow{k_{22}}M_2M_2\cdot.
+  \end{align*}
+  \[
+    r_1=\frac{k_{11}}{k_{12}},\qquad r_2=\frac{k_{22}}{k_{21}}.
+  \]
+  $r_1$ 表示 $M_1\cdot$ 对自身单体 $M_1$ 相对于对 $M_2$ 的偏好；$r_2$ 同理。$r_i>1$ 偏向自增长，$r_i<1$ 偏向交叉增长。
+\end{formula}
+
+\begin{formula}
+  \textbf{Mayo--Lewis 共聚组成方程：}设投料中 $M_1,M_2$ 的摩尔分数为 $f_1,f_2$，瞬时生成共聚物中结构单元摩尔分数为 $F_1,F_2$，且 $f_1+f_2=F_1+F_2=1$，则
+  \begin{align*}
+    \frac{\dd[M_1]}{\dd[M_2]}
+      &=\frac{[M_1]\{r_1[M_1]+[M_2]\}}
+              {[M_2]\{[M_1]+r_2[M_2]\}},\\
+    F_1&=\frac{r_1f_1^2+f_1f_2}
+             {r_1f_1^2+2f_1f_2+r_2f_2^2},\qquad
+    F_2=1-F_1.
+  \end{align*}
+  该式是\textbf{低转化率/瞬时组成}关系；高转化率时单体组成会随反应漂移，所得共聚物组成也随时间变化。
+\end{formula}
+
+\begin{exam}
+  \textbf{竞聚率判型：}
+  \begin{itemize}
+    \item $r_1=r_2=1$：理想无规共聚，$F_1=f_1$，共聚物组成等于投料组成。
+    \item $r_1,r_2<1$：交叉增长较有利，序列有交替倾向；$r_1=r_2=0$ 为严格交替，$F_1=F_2=0.5$。
+    \item $r_1,r_2>1$：两种自由基都偏向加自身单体，易形成较长同类序列，甚至趋向分别均聚。
+    \item 一大一小：大者对应的单体更易进入共聚物，组成曲线偏向该单体。
+    \item 恒比点满足 $F_1=f_1$；若存在内点，则
+      \[
+        f_1^\ast=\frac{1-r_2}{2-r_1-r_2},\qquad f_2^\ast=1-f_1^\ast.
+      \]
+  \end{itemize}
+\end{exam}
+
+\begin{pitfall}
+  \textbf{共聚合易错点：}
+  \begin{itemize}
+    \item $f_i$ 是\textbf{投料/单体混合物}摩尔分数，$F_i$ 是\textbf{瞬时共聚物}组成；不能直接把 $f_i$ 当作聚合物组成。
+    \item 竞聚率的分母是同一链端自由基加另一单体的速率常数，例如 $r_1=k_{11}/k_{12}$，不要写成 $k_{11}/k_{21}$。
+    \item “不能均聚”不等于“不能共聚”：如马来酸酐难自聚，但可与苯乙烯等给电子单体交替共聚。
+    \item 工业或合成上若要组成均一，常控制低转化率或连续补料；若要嵌段共聚，通常依赖活性/可控聚合与顺序加料。
+  \end{itemize}
+\end{pitfall}
+
+\subsection{可控/可逆失活自由基聚合（RDRP）}
+传统自由基聚合不可控的本质是链自由基浓度较高、不可逆双基终止多。可控自由基聚合通过“活性种 $\rightleftharpoons$ 休眠种”快速交换，使活性自由基浓度维持在约 $10^{-8}$ mol/L 量级：既允许增长，又显著抑制终止。
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.18\linewidth}p{0.39\linewidth}p{0.34\linewidth}}
+    \toprule
+    方法   & 核心平衡                             & 考点                          \\
+    \midrule
+    NMP  & 增长自由基被氮氧稳定自由基可逆捕获                & 由阻聚思路转化为调控手段；适合苯乙烯及部分单体。    \\
+    ATRP & 卤代休眠链与过渡金属络合物发生可逆原子转移            & 端基卤素保留，易做嵌段/接枝；金属催化剂与配体重要。  \\
+    RAFT & 增长自由基与二硫代酯/三硫代碳酸酯等链转移剂发生可逆加成--裂解 & 单体适用面广，端基功能度高，适于复杂拓扑和嵌段聚合物。 \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\section{离子链式聚合}
+\subsection{总论：单体与条件}
+离子聚合选择性强、条件苛刻、可控性好。共同特点是活性中心带电，受单体电子效应、反离子、溶剂极性、温度和杂质影响极大。
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.18\linewidth}p{0.32\linewidth}p{0.40\linewidth}}
+    \toprule
+    类型    & 适合单体                                  & 条件/考点                                              \\
+    \midrule
+    阳离子聚合 & 给电子取代基烯烃、能稳定碳正离子的单体：异丁烯、乙烯基醚；苯乙烯/二烯也可 & 亲电引发剂；严格避免强亲核杂质；低温、干燥；链转移多，真正活性较难。                 \\
+    阴离子聚合 & 吸电子或共轭单体：苯乙烯、丁二烯、异戊二烯、MMA、丙烯腈、二氰基乙烯   & 亲核引发剂；严格无水、无氧、无酸、无醇；常可活性聚合，分子量可由 $[M]_0/[I]_0$ 控制。 \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\subsection{阳离子聚合}
+\subsubsection{引发剂与链引发}
+\begin{itemize}
+  \item 质子酸：\ce{H2SO4}, \ce{HClO4}, \ce{CF3SO3H} 等，要求阴离子亲核性弱，否则易终止。
+  \item Lewis酸+共引发剂：\ce{BF3 + H2O/ROH}, \ce{AlCl3 + H2O}, \ce{TiCl4} 等，实际活性种常为质子酸或碳正离子/配合离子对。
+\end{itemize}
+\begin{align*}
+  \ce{H+ + CH2=C(CH3)2} & \ce{-> (CH3)3C+},     \\
+  \ce{BF3 + H2O}        & \ce{<=> H+ [BF3OH]-}.
+\end{align*}
+
+\subsubsection{增长、终止与转移}
+\begin{itemize}
+  \item 增长中心为碳正离子/氧鎓离子与反离子形成的离子对；溶剂极性越大，离子对越松散，活性通常越高。
+  \item 链增长可能伴随重排或异构化；低温有助于抑制副反应。
+  \item 终止：与反离子结合、与水/醇/胺等亲核物反应。
+  \item 链转移：向单体、溶剂、反离子或聚合物转移，常导致分子量降低并生成可再引发的阳离子。
+\end{itemize}
+
+\begin{formula}
+  阳离子聚合常见速率式随机理而变。若以 Lewis 酸/质子供体体系、稳态处理，可出现类似
+  \[
+    \Rp=K k_i k_p [I][ZH][M]^2/k_t
+  \]
+  的形式。其中 $K$ 表示引发剂/共引发剂形成有效离子对的平衡常数，$[I]$ 为 Lewis 酸或引发剂浓度，$[ZH]$ 为水、醇或酸等质子供体浓度，$[M]$ 为单体浓度，$k_t$ 表征被反离子或亲核物终止的速率。此式只代表一种简化模型；考试更常考“影响方向”：低温、弱亲核反离子、适当极性溶剂、严格除水除杂可提高可控性和分子量。
+\end{formula}
+
+\subsection{阴离子聚合与活性聚合}
+\subsubsection{引发剂}
+\begin{itemize}
+  \item 金属/电子转移：萘钠在THF中形成萘自由基阴离子，可引发苯乙烯生成双阴离子活性链。
+  \item 有机金属化合物：$n$-BuLi、\ce{RMgX} 等，常用于苯乙烯和二烯活性阴离子聚合。
+\end{itemize}
+\[
+  \ce{n-BuLi + CH2=CHPh -> n-Bu-CH2-CH(Ph)^- Li+}.
+\]
+
+\subsubsection{活性阴离子聚合的核心关系}
+理想阴离子聚合无链终止、无链转移，活性中心数恒定：
+\begin{formula}
+  \[
+    \Rp=-\frac{\dd[M]}{\dd t}=k_p[M][P^-],\qquad [P^-]\approx[I]_0.
+  \]
+  积分得：
+  \[
+    \ln\frac{[M]_0}{[M]}=k_p[P^-]t.
+  \]
+  数均聚合度：
+  \[
+    \Xn=\frac{[M]_0-[M]}{[P^-]_0}=\frac{[M]_0x}{[I]_{\mathrm{eff}}}.
+  \]
+  这里 $[P^-]$ 是活性链阴离子浓度；理想活性聚合中它随时间近似不变，所以 $\ln([M]_0/[M])$--$t$ 应为直线。$x$ 是单体转化率，$[I]_{\mathrm{eff}}$ 是真正生成活性链的有效引发剂浓度，不一定等于投料浓度。若引发剂是双官能电子转移体系（如萘钠生成双阴离子链），要注意\textbf{一条聚合物链对应两个引发剂当量}。
+\end{formula}
+
+\begin{examplebox}
+  \textbf{萘钠/苯乙烯活性聚合：}1.0\,$\times10^{-3}$ mol 萘钠、2.0 mol 苯乙烯、总体积1 L。按2 mol萘钠生成1 mol双阴离子链：$N_p=5.0\times10^{-4}$ mol。2000 s时转化50\%，消耗1.0 mol单体，
+  \[
+    \Xn=1.0/(5.0\times10^{-4})=2000.
+  \]
+  欲 $\Xn=3000$，需消耗 $1.5$ mol，$x=0.75$。因 $\ln([M]_0/[M])\propto t$，
+  \[
+    \frac{t}{2000}=\frac{\ln(1/(1-0.75))}{\ln(1/(1-0.50))}=\frac{\ln4}{\ln2}=2,
+    \quad t=4000\ \mathrm{s}.
+  \]
+\end{examplebox}
+
+\subsection{自由基、阳离子、阴离子比较}
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.16\linewidth}p{0.25\linewidth}p{0.25\linewidth}p{0.25\linewidth}}
+    \toprule
+    项目    & 自由基                 & 阳离子              & 阴离子                \\
+    \midrule
+    活性中心  & $sp^2$ 自由基          & $sp^2$ 碳正离子/氧鎓离子 & 多为 $sp^3$ 碳负离子/离子对 \\
+    单体    & 弱吸电子、共轭、卤代等乙烯基单体    & 给电子、共轭单体         & 吸电子、共轭单体           \\
+    引发剂   & 偶氮、过氧化物、氧化还原        & 质子酸、Lewis酸+共引发剂  & BuLi、萘钠、金属有机物      \\
+    杂质敏感性 & 中等；氧阻聚              & 对亲核/碱性杂质敏感       & 对水、氧、醇、酸极敏感        \\
+    温度    & 按引发剂选择；升温速率增大、分子量降低 & 常低温              & 低温到室温，需控温          \\
+    终止/转移 & 双基终止、链转移常见          & 转移和终止易发生         & 理想可无终止无转移，活性聚合     \\
+    应用特点  & 工业最广，方法多样           & 聚异丁烯、丁基橡胶等       & 窄分布、嵌段共聚物如SBS      \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\section{配位聚合与开环聚合}
+\subsection{立体异构与立构规整性}
+\begin{itemize}
+  \item \textbf{构型（configuration）：}必须断裂/重组化学键才可改变，如全同、间同、顺反。
+  \item \textbf{构象（conformation）：}单键内旋转产生，无需断键。
+  \item 聚丙烯可有全同、间同、无规；聚丁二烯可有顺式、反式、1,2-结构等。立构规整性显著影响结晶度、密度、软化温度、强度和溶解性。
+\end{itemize}
+
+\begin{center}
+  \begin{tikzpicture}[scale=0.8]
+    \foreach \i in {0,...,5}{\draw[thick] (\i,0)--(\i+0.8,0);}
+    \foreach \i in {0,1,2,3,4,5}{\draw[blue,thick] (\i+0.35,0)--(\i+0.35,0.7) node[above]{R};}
+    \node at (3,-0.55){全同：侧基同侧};
+    \begin{scope}[yshift=-2cm]
+      \foreach \i in {0,...,5}{\draw[thick] (\i,0)--(\i+0.8,0);}
+      \foreach \i in {0,2,4}{\draw[blue,thick] (\i+0.35,0)--(\i+0.35,0.7) node[above]{R};}
+      \foreach \i in {1,3,5}{\draw[blue,thick] (\i+0.35,0)--(\i+0.35,-0.7) node[below]{R};}
+      \node at (3,-1.05){间同：侧基交替};
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+
+\subsection{Ziegler--Natta 配位聚合}
+\begin{itemize}
+  \item Z--N 引发剂由过渡金属化合物（主引发剂，如 \ce{TiCl4}, \ce{TiCl3}, \ce{VCl4} 等）与金属有机化合物（助引发剂，如 \ce{AlR3}, \ce{AlR2Cl}）组成。
+  \item 特征：单体先与金属中心配位，再插入金属--碳键；可实现乙烯、丙烯、二烯等的立体定向聚合。
+  \item 链转移/终止：$\beta$-H 迁移、向金属有机物转移、向单体或氢气转移；工业上可用氢气调分子量。
+\end{itemize}
+\begin{formula}
+  配位聚合考试关键词：\textbf{配位--插入机理、四元环过渡态、增长链末端带阴离子性、立体定向能力、Z--N主/助引发剂、链转移调分子量}。
+\end{formula}
+
+\subsection{开环聚合（ROP）}
+开环聚合是在引发剂作用下环状单体开环形成线形聚合物。驱动力来自环张力释放（小环、部分中环）和聚合焓/熵平衡。常见单体：环醚、内酯、内酰胺、环硅氧烷、环烯烃等。
+\begin{itemize}
+  \item 环大小影响稳定性：三、四元环张力大，易开环；五、六元环较稳定；八元及以上环熵因素复杂。
+  \item 可按活性中心分为阳离子、阴离子、配位/插入、逐步型开环等。
+  \item 己内酰胺制尼龙-6是重要例子；环氧乙烷可阴离子/阳离子开环制聚醚。
+\end{itemize}
+
+\section{逐步聚合与线形缩聚}
+\subsection{逐步聚合一般特征}
+\begin{itemize}
+  \item 反应通过官能团间反应逐步进行；单体、低聚物、高聚物之间均可相互反应。
+  \item 每一步反应速率和活化能近似相同（官能团等活性假设）。
+  \item 单体早期迅速消耗，随后主要是低聚物间反应；延长时间主要提高分子量而不是转化率。
+  \item 逐步聚合可包括逐步缩合聚合、逐步加成聚合（如聚氨酯）和少数逐步开环聚合。
+\end{itemize}
+
+\subsection{缩聚反应类型与单体官能度}
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.22\linewidth}p{0.36\linewidth}p{0.33\linewidth}}
+    \toprule
+    官能度体系                       & 产物/反应        & 考点                         \\
+    \midrule
+    单官能度化合物                     & 不能形成长链，可作封端剂 & 控制分子量、破坏等当量                \\
+    $A_2+B_2$ 或 $AB$            & 线形缩聚物        & Carothers 方程、分子量控制、平衡移除小分子 \\
+    $A_2+B_f$、$A_f+B_2$ ($f>2$) & 支化/交联，体形缩聚   & 平均官能度、凝胶点                  \\
+    $AB_f$ 或 $AB_f+AB$          & 支化/超支化，通常不交联 & 树枝状/超支化概念                  \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\subsection{Carothers 方程}
+\subsubsection{等当量线形缩聚}
+等物质的量的双官能团单体，反应程度 $p$ 为已反应官能团分数。若初始分子数为 $N_0$，形成一个键分子数减少1，则：
+\begin{formula}
+  \[
+    \boxed{\Xn=\frac{N_0}{N}=\frac{1}{1-p}}.
+  \]
+  $N_0$ 为初始分子总数，$N$ 为时刻 $t$ 的分子总数；每形成一个新键，体系分子数减少1。$p$ 是官能团反应程度：例如二元酸--二元醇中羧基已酯化的比例。想得到 $\Xn=100$，必须 $p=0.99$；$\Xn=1000$，必须 $p=0.999$。这就是逐步聚合对高纯度、等当量和高真空/脱小分子的苛刻要求。
+\end{formula}
+\begin{center}
+  \begin{tikzpicture}[x=7cm,y=0.008cm,>=Stealth]
+    \draw[->] (0,0)--(1.03,0) node[right]{$p$};
+    \draw[->] (0,0)--(0,430) node[above]{$\Xn$};
+    \draw[thick,red,domain=0:0.997,samples=100] plot (\x,{1/(1-\x)});
+    \draw[dashed] (0.99,0)--(0.99,100)--(0,100) node[left]{100};
+    \node at (0.72,260){$\Xn=1/(1-p)$};
+  \end{tikzpicture}
+\end{center}
+
+\subsubsection{不等当量或加入单官能团封端剂}
+令 $r=N_{A0}/N_{B0}\le1$，且 $p$ 通常指过量官能团对应反应程度一致或按限制官能团处理，常用形式为：
+\begin{formula}
+  \[
+    \boxed{\Xn=\frac{1+r}{1+r-2rp}}.
+  \]
+  $r$ 是两类互反应官能团的初始当量比，通常取 $r=N_{A0}/N_{B0}\le1$；$p$ 是较少官能团的反应程度或题目指定的反应程度（要与公式推导一致）。当 $p=1$ 时，
+  \[
+    (\Xn)_{\max}=\frac{1+r}{1-r}.
+  \]
+  因此极微小的不等当量都会显著限制最高聚合度。
+\end{formula}
+若 $A_2+B_2$ 等当量，另加少量单官能团 $B$ 型封端剂（如乙酸封端胺基），要把封端剂官能团计入相应官能团总数，再求 $r$。
+
+\begin{examplebox}
+  \textbf{尼龙-66 加乙酸控分子量：}己二胺、己二酸各1 mol，加入乙酸 $x$ mol；目标 $\bar M_n=16000$。Carothers 方程用结构单元，尼龙-66重复单元约 $226$，结构单元平均 $M_0=113$，$\bar X_n=16000/113=141.6$，$p=0.997$。
+  \[
+    141.6=\frac{1+r}{1+r-2r(0.997)}\Rightarrow r=0.9919.
+  \]
+  胺基2 mol，总酸基 $2+x$ mol，$r=2/(2+x)$，得 $x\approx0.016$ mol。
+\end{examplebox}
+
+\subsection{线形缩聚动力学与平衡}
+\subsubsection{官能团等活性理论}
+长短不同的分子链端官能团反应活性近似相同，故可按官能团浓度写速率式。以二元酸--二元醇聚酯化为例，在连续排出小分子副产物、逆反应可忽略时，酸催化增长的基本形式可写为
+\[
+  R_p=-\frac{\dd[\ce{COOH}]}{\dd t}=k[\ce{COOH}][\ce{OH}][\ce{H+}].
+\]
+讲义中自催化处把 $[\ce{H+}]$ 写成 $K_a[\ce{COOH}]$ 不严谨；若按弱酸离解平衡严格计算，应有 $[\ce{H+}]\simeq(K_a[\ce{COOH}])^{1/2}$。代入上式后，自催化缩聚表观级数应取 $1+1+\tfrac12=\tfrac52$ 级更合理；下列计算按此修正。
+
+\begin{formula}
+\textbf{三种常考动力学情况：}
+\begin{enumerate}
+  \item \textbf{不可逆、自催化聚酯化：}无外加强酸，二元酸自身离解供给 $\ce{H+}$。等当量时令 $C=[\ce{COOH}]=[\ce{OH}]=C_0(1-p)$，因 $[\ce{H+}]\simeq(K_aC)^{1/2}$，把 $K_a^{1/2}$ 并入速率常数得
+  \[
+    -\frac{\dd C}{\dd t}=kC^{5/2}.
+  \]
+  积分：
+  \begin{align*}
+    C^{-3/2}-C_0^{-3/2}&=\frac32kt,\\
+    \frac{1}{(1-p)^{3/2}}&=1+\frac32kC_0^{3/2}t,\\
+    \Xn^{3/2}&=1+\frac32kC_0^{3/2}t.
+  \end{align*}
+  因此 $\Xn^{3/2}$--$t$ 近似线性，分子量增长仍慢于外加酸催化。
+
+  \item \textbf{不可逆、外加酸催化：}强酸浓度近似恒定，且 $k_a[\ce{H+}]\gg kC$，令 $k'=k_a[\ce{H+}]$：
+  \begin{align*}
+    -\frac{\dd C}{\dd t}&=k'C^2,\\
+    \frac{1}{C}-\frac{1}{C_0}&=k't,\\
+    \Xn&=1+C_0k't.
+  \end{align*}
+  此时 $\Xn$--$t$ 线性，速率通常远快于自催化。
+
+  \item \textbf{可逆平衡缩聚：}小分子副产物不能及时排出时，逆反应不可忽略。等当量、$C_0=1$ 时，水不排出：
+  \[
+    \frac{\dd p}{\dd t}=k_1\left[(1-p)^2-\frac{p^2}{K}\right].
+  \]
+  平衡时 $p=\sqrt K/(1+\sqrt K)$，$\Xn=1+\sqrt K$。若部分排出小分子，设残留水浓度/摩尔分数为 $n_w$，常写
+  \begin{align*}
+    \frac{\dd p}{\dd t}
+      &=k_1\left[(1-p)^2-\frac{pn_w}{K}\right],\\
+    p\to1\text{ 时}\quad
+    \Xn&\approx\sqrt{\frac{K}{n_w}}.
+  \end{align*}
+  因此高分子量缩聚必须移除小分子副产物。
+\end{enumerate}
+\end{formula}
+\subsubsection{可逆平衡缩聚}
+聚酯化等缩聚可逆，若小分子副产物不移除，平衡常数限制 $p$ 与分子量。提高分子量的基本策略：
+\begin{itemize}
+  \item 提高反应程度：高温、催化剂、延长时间。
+  \item 移除小分子副产物：高真空、惰性气流、共沸带水。
+  \item 保持官能团严格等当量和高纯度，避免单官能杂质。
+  \item 后期加强搅拌和传质，降低黏度影响。
+\end{itemize}
+
+\subsection{线形缩聚物分子量分布}
+在等活性、等当量、无副反应条件下，最概然分布给出：
+\begin{align*}
+  N_x  & =N_0(1-p)^2p^{x-1},                   \\
+  \Xn  & =\frac{1}{1-p},                       \\
+  \Xw  & =\frac{1+p}{1-p},                     \\
+  \PDI & =\frac{\Xw}{\Xn}=1+p\to2\quad(p\to1).
+\end{align*}
+$N_x$ 表示聚合度为 $x$ 的链的分子数；$p^{x-1}$ 表示形成 $x$ 聚体需连续形成 $x-1$ 个键，$(1-p)^2$ 表示两端仍为未反应端基。该分布的结论是：理想线形逐步聚合在高转化率时 $\PDI$ 约为2，因此即使没有副反应，分布也不会像活性阴离子聚合那样接近1。
+
+\section{非线形缩聚、支化与凝胶点}
+\subsection{支化、交联与凝胶}
+\begin{itemize}
+  \item 支化聚合物仍可溶、可熔（未形成无限网络）；交联聚合物形成三维网络，不溶不熔。
+  \item 凝胶点是体系首次出现无限大网络的临界反应程度；接近凝胶点时，反应程度微小增加会使分子量急剧上升。
+  \item 体形缩聚通常先形成可加工预聚体，再固化交联。
+\end{itemize}
+\begin{center}
+  \begin{tikzpicture}[every node/.style={circle,draw,inner sep=1.5pt},scale=0.9]
+    \node (a) at (0,0){}; \node (b) at (1,0.5){}; \node (c) at (1,-0.5){}; \node (d) at (2,0.9){}; \node (e) at (2,0.1){}; \node (f) at (2,-0.7){};
+    \draw (a)--(b)--(d); \draw (b)--(e); \draw (a)--(c)--(f); \node[draw=none,rectangle] at (1,-1.4){支化};
+    \begin{scope}[xshift=5cm]
+      \foreach \x/\y/\n in {0/0/a,1/0.6/b,1/-0.6/c,2/0.6/d,2/-0.6/e,3/0/f,1.5/1.3/g,1.5/-1.3/h}{\node (\n) at (\x,\y){};}
+      \draw (a)--(b)--(d)--(f)--(e)--(c)--(a) (b)--(g)--(d) (c)--(h)--(e) (b)--(e) (c)--(d);
+      \node[draw=none,rectangle] at (1.5,-1.8){交联网络/凝胶};
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+
+\subsection{平均官能度与 Carothers 凝胶点}
+平均官能度：
+\[
+  \bar f=\frac{\sum_i N_if_i}{\sum_iN_i},
+\]
+但若两类互反应官能团不等量，不能简单把所有投料直接平均；应先按能进入网络的有效官能团数修正。
+\begin{formula}
+  Carothers 法把凝胶点近似视为 $\Xn\to\infty$：
+  \[
+    \boxed{p_c=\frac{2}{\bar f}}.
+  \]
+  $\bar f$ 是投料分子的数均官能度，$p_c$ 是刚出现无限网络时的临界反应程度。若 $\bar f\le2$，体系平均每个分子不能提供超过线形增长所需的分支点，通常不形成凝胶；若算得 $p_c>1$，说明在完全反应前不会凝胶。
+\end{formula}
+Carothers 法通常预测 $p_c$ 偏大，因为真实凝胶不要求 $\Mn\to\infty$，而是重均分子量发散；它适合快速估算和判断是否可能凝胶。
+
+\subsection{Flory 统计凝胶点}
+对于 $A_2+B_f$ 或 $A_2+B_2+B_f$ 等体系，Flory 用支化系数判断从一个支化点出发是否平均产生超过一个新支化点。等当量、$A$ 组均为双官能时，常用简化式：
+\begin{formula}
+  若 $A$ 单体官能度为 $f_A$，$B$ 组按官能团加权的重均官能度为
+  \[
+    f_{B,w}=\frac{\sum N_i f_i^2}{\sum N_i f_i},
+  \]
+  等当量时凝胶条件可写作：
+  \[
+    \boxed{p_c^2(f_A-1)(f_{B,w}-1)=1}.
+  \]
+  $f_{B,w}$ 比普通平均官能度更强调高官能度单体，因为一个三官能单体比二官能单体更容易把网络继续分叉。若 $f_A=2$，则 $p_c=1/\sqrt{f_{B,w}-1}$。
+\end{formula}
+
+\begin{examplebox}
+  \textbf{邻苯二甲酸酐/乙二醇/丙三醇凝胶点：}2.5 mol 酸酐（二官能）、1 mol 乙二醇（二官能）、1 mol 丙三醇（三官能）。总官能团数 $5+2+3=10$，总分子数 $4.5$，
+  \[
+    \bar f=10/4.5=2.222,
+    \quad p_c(\mathrm{Carothers})=2/\bar f=0.900.
+  \]
+  Flory：酸官能团 $N_A=5$，醇官能团 $N_B=5$ 等当量；醇组
+  \[
+    f_{B,w}=\frac{2^2\times1+3^2\times1}{2\times1+3\times1}=\frac{13}{5}=2.6.
+  \]
+  酸酐按 $f_A=2$：
+  \[
+    p_c=\frac{1}{\sqrt{(2-1)(2.6-1)}}=0.791.
+  \]
+\end{examplebox}
+
+\section{逐步聚合实施方法与典型聚合物}
+\begin{center}
+  \scriptsize
+  \begin{tabularx}{\linewidth}{p{0.18\linewidth}p{0.38\linewidth}p{0.35\linewidth}}
+    \toprule
+    方法   & 特点                                  & 例子/考点                 \\
+    \midrule
+    熔融缩聚 & 单体和聚合物在熔点以上、分解温度以下反应；无溶剂；后期需高真空脱小分子 & PET、尼龙-66；黏度高，传质和搅拌重要 \\
+    溶液缩聚 & 单体在溶剂中反应，利于传热和搅拌，但需除溶剂              & 聚氨酯、芳香族聚酰胺部分体系        \\
+    界面缩聚 & 两单体分别在互不相溶两相中，反应在界面发生；低温快反应         & 二酰氯+二胺制聚酰胺；需碱吸收HCl    \\
+    固相缩聚 & 低聚物在熔点以下、惰性气体或高真空下继续缩聚              & 提高PET、尼龙等分子量，副反应少     \\
+    \bottomrule
+  \end{tabularx}
+\end{center}
+
+\textbf{典型聚合物：}
+\begin{itemize}
+  \item 聚酯：PET（对苯二甲酸/对苯二甲酸二甲酯与乙二醇）、PTT等。
+  \item 聚酰胺：尼龙-66（己二胺+己二酸）、尼龙-6（己内酰胺开环）。
+  \item 聚碳酸酯：双酚A与光气界面法或碳酸二苯酯酯交换法。
+  \item 酚醛、脲醛、环氧、不饱和聚酯、聚氨酯：常涉及预聚体与固化交联。
+\end{itemize}
+
+
+
+\section{公式推导、适用条件与物理量再解释}
+\begin{exam}
+  \textbf{核心公式不能脱离适用条件：}
+  \begin{itemize}
+    \item $\Ri=2f\kd[I]$：适用于引发剂一级热分解且一个分子给两个自由基；$f$ 是有效引发比例，不是转化率。
+    \item $\Rp=\kp[M](f\kd[I]/\kt)^{1/2}$：适用于理想自由基、稳态、双基终止；半级来自 $[M\cdot]\propto[I]^{1/2}$，增大 $[I]$ 会升速但降分子量。
+    \item $\nu=\Rp/\Ri$：表示每个自由基引发事件平均消耗多少单体；最终 $\Xn$ 要再看偶合或歧化终止。
+    \item Mayo 方程：链转移对象每增加一种，就在 $1/\Xn$ 中加一项 $C_X[X]/[M]$；$C_X$ 越大，降分子量越明显。
+    \item $\Xn=1/(1-p)$：等当量线形逐步聚合上限式；$p$ 越接近1，$\Xn$ 对微小误差越敏感。
+    \item $\Xn=(1+r)/(1+r-2rp)$：用于 $A_2+B_2$ 不等当量或有封端剂；$r$ 由官能团数决定，不由分子数直接决定。
+    \item $\ln([M]_0/[M])=k_p[P^-]t$：活性阴离子聚合中 $[P^-]$ 近似恒定；作图直线说明活性中心数恒定。
+    \item $T_c=\Delta H/\Delta S$：判断聚合--解聚热力学平衡；只说明热力学允许与否，不保证速率足够快。
+    \item $p_c=2/\bar f$：Carothers 凝胶点近似；若 $p_c>1$，完全反应前不凝胶，结果常比 Flory 偏高。
+    \item $p_c^2(f_A-1)(f_w-1)=1$：统计凝胶点公式；高官能度单体被平方加权，少量三官能/四官能物影响很大。
+  \end{itemize}
+\end{exam}
+
+\begin{pitfall}
+  \textbf{公式适用范围比公式本身更重要。}自由基速率式若出现自动加速、强链转移或强阻聚，就不能机械套理想稳态式；逐步聚合若有单官能杂质、单体挥发、环化或不等反应性，$\Xn=1/(1-p)$ 只可作为上限估计；凝胶点公式默认无分子内环化，实际环化会推迟凝胶。
+\end{pitfall}
+
+\section{作业题型归纳与解题模板}
+\subsection{题型1：判断单体适用机理}
+\begin{enumerate}
+  \item 先看取代基电子效应：给电子 $\to$ 阳离子；吸电子 $\to$ 阴离子；共轭 $\to$ 多机制可行。
+  \item 再看空间效应：内烯烃、三/四取代烯烃常难以链增长；氟代烯烃是重要例外。
+  \item 最后结合工业事实：VC、VAc、St、MMA、AN、TFE常自由基；异丁烯、乙烯基醚常阳离子；St/二烯可阴离子活性。
+\end{enumerate}
+
+\subsection{题型2：写链式聚合历程}
+必须包含：引发剂生成活性种、链引发、链增长、终止/转移。若题目指定“偶合终止”或“歧化终止”，终止式必须对应。若是离子聚合，还要写反离子；若是配位聚合，写“配位--插入”关键词。
+
+\subsection{题型3：自由基速率与分子量计算}
+\begin{enumerate}
+  \item 由 $\Ri=2f\kd[I]$ 求 $f\kd$ 或 $\Ri$。
+  \item 由 $\nu=\Rp/\Ri$ 求动力学链长。
+  \item 根据终止方式求 $\Xn$：偶合 $2\nu$，歧化 $\nu$，混合终止用引发剂残基数或终止比例。
+  \item 有链转移时用 Mayo 方程；若需溶剂浓度，按密度和理想体积相加计算 $[S]$。
+\end{enumerate}
+
+\subsection{题型4：逐步聚合聚合度计算}
+\begin{enumerate}
+  \item 算\textbf{结构单元平均摩尔质量} $M_0$，目标 $\Xn\approx\Mn/M_0$；$A_2+B_2$ 缩聚通常 $M_0$ 为重复单元质量的一半。
+  \item 判断是否等当量：等当量用 $\Xn=1/(1-p)$。
+  \item 不等当量或有单官能团封端剂：先列官能团数，取 $r\le1$，用 $\Xn=(1+r)/(1+r-2rp)$。
+  \item 也可用分子数守恒：反应一次形成一个键，分子数减少1；$\Xn=N_0/N$。该法适合验证含少量单官能团题。
+\end{enumerate}
+
+\begin{examplebox}
+  \textbf{对苯二甲酸/乙二醇/苯甲酸题：}1 mol二酸、1 mol二醇、0.001 mol苯甲酸，$p=0.95$。官能团法：羟基2.000 mol，羧基2.001 mol，$r=2.000/2.001=0.9995$，
+  \[
+    \Xn=\frac{1+0.9995}{1+0.9995-2(0.9995)(0.95)}\approx19.9.
+  \]
+  分子数法：$N_0=2.001$ mol，反应羟基 $2.000\times0.95=1.900$ mol，$N=2.001-1.900=0.101$ mol，$\Xn=2.001/0.101\approx19.8$。
+\end{examplebox}
+
+\subsection{题型5：凝胶点计算}
+\begin{enumerate}
+  \item Carothers 法：算平均官能度 $\bar f=\sum N_if_i/\sum N_i$，$p_c=2/\bar f$。若官能团不等量，先修正有效组成。
+  \item Flory 法：按题型选择统计公式；常见等当量 $A_2+B$混合组：先算 $f_w=\sum N_if_i^2/\sum N_if_i$，再用 $p_c^2(f_A-1)(f_w-1)=1$。
+  \item 比较：Carothers 常偏大，Flory 更接近真实，但仍基于等反应性、无环化等假设。
+\end{enumerate}
+
+
+\section{作业覆盖补充：逐题对应的易漏知识点}
+\subsection{链式作业：单体与机理完整速判}
+\begin{exam}
+\textbf{第一组单体：}
+\begin{itemize}
+  \item \ce{CH2=CHCl}、\ce{CF2=CF2}：典型自由基聚合；卤代乙烯工业上常走自由基路线。
+  \item \ce{CH2=CHCN}、\ce{CH2=C(CN)COOR}：自由基和阴离子均可；\ce{-CN}、\ce{-COOR} 吸电子，可稳定自由基/碳负离子。
+  \item \ce{CH2=C(CN)2}：强阴离子聚合倾向；两个氰基强吸电子。
+  \item \ce{CH2=CHCH3}：普通自由基活性低，工业上以配位聚合为主；甲基给电子，阳离子条件下也可反应但易转移。
+  \item \ce{CH2=C(CH3)2}、\ce{CH2=CHOCH3}：阳离子聚合；烷基/烷氧基给电子，稳定碳正离子或氧鎓离子。
+  \item \ce{CH2=CHPh}、\ce{CH2=CH-CH=CH2}：共轭体系稳定自由基、阳离子、阴离子，三类机理均可能。
+\end{itemize}
+\textbf{第二组能否自由基聚合：}1,1-二苯基乙烯通常难均聚（位阻大且自由基过稳）；\ce{ClHC=CHCl}、\ce{CF2=CFCl} 可自由基聚合；\ce{CH2=C(CH3)C2H5} 能但活性低；\ce{CH3CH=CHCH3}、\ce{CH3CH=CHCOOCH3} 属内烯烃，位阻和取代度使自由基均聚很困难；MMA \ce{CH2=C(CH3)COOCH3} 与醋酸乙烯酯 \ce{CH2=CHOCOCH3} 是典型自由基单体。
+\end{exam}
+
+\subsection{链式作业：引发剂/催化剂配对}
+\begin{exam}
+\textbf{六类引发体系：}
+\begin{itemize}
+  \item BPO $\ce{(PhCO2)2}$：生成 $\ce{PhCOO.}$ 或脱羧 $\ce{Ph.}$，引发苯乙烯、氯乙烯、MMA 等自由基单体。
+  \item $t$-BuOOH/\ce{Fe^{2+}}：氧化还原生成 $t$-BuO$\cdot$，可低温自由基引发，水/乳液体系常见。
+  \item Na+萘/THF：电子转移生成阴离子活性种，引发苯乙烯、二氰基乙烯、MMA；需严格无水无氧。
+  \item \ce{H2SO4}：提供 $\ce{H+}$，引发异丁烯、乙烯基醚，苯乙烯也可；需低温、无亲核/碱性杂质。
+  \item \ce{BF3+H2O}：形成 $\ce{H+ [BF3OH]-}$，是 Lewis 酸--共引发剂阳离子体系，适合异丁烯、乙烯基醚。
+  \item $n$-BuLi：提供 $n$-Bu$^-$Li$^+$，阴离子引发苯乙烯、二氰基乙烯、MMA；溶剂需干燥纯化。
+\end{itemize}
+\end{exam}
+\textbf{书写链引发式模板：}自由基 $R\cdot+\ce{CH2=CHX}->R\ce{-CH2-\dot{C}HX}$；阳离子 $\ce{H+ + CH2=CHX -> CH3-CHX+}$；阴离子 $R^-M^++\ce{CH2=CHX}->R\ce{-CH2-CHX^-}M^+$。题目若要求“各催化剂引发方程式”，先写产生活性种，再写活性种加到双键。
+
+\subsection{链式作业：速率、溶剂浓度与链转移计算}
+\begin{examplebox}
+\textbf{二叔丁基过氧化物/苯乙烯/苯溶剂题：}由 $\Ri=2f\kd[I]$，若 $\Ri=4.0\times10^{-11}$、$[I]=0.01$，则 $f\kd=2.0\times10^{-9}\ \mathrm{s^{-1}}$。动力学链长 $\nu=\Rp/\Ri=1.5\times10^{-7}/(4.0\times10^{-11})=3.75\times10^3$。若只偶合且无转移，$\Xn=2\nu=7500$。有转移时：
+\[
+\frac1{\Xn}=\frac{\Ri}{2\Rp}+C_M+C_I\frac{[I]}{[M]}+C_S\frac{[S]}{[M]}.
+\]
+苯浓度要由密度换算：1 L溶液中苯乙烯1 mol，体积 $104.15/0.887=117.4$ mL；苯体积 $882.6$ mL，$[S]=0.839\times882.6/78.11=9.49\ \mathrm{mol\,L^{-1}}$，代入得 $\Xn\approx4.61\times10^3$。
+\end{examplebox}
+
+\subsection{逐步作业：丁二醇--己二酸与单体损失}
+\begin{examplebox}
+\textbf{1 mol丁二醇+1 mol己二酸制 $\Mn=5000$ 聚酯：}重复单元质量 $200$，结构单元平均 $M_0=100$，目标 $\Xn=5000/100=50$。等当量时 $\Xn=1/(1-p)$，故 $p=0.980$。若丁二醇脱水损失0.5\%，则羟基/羧基 $r=0.995$，同一 $p$ 下
+\begin{align*}
+\Xn&=\frac{1+0.995}{1+0.995-2(0.995)(0.980)}=44.53,\\
+\Mn&\approx4.45\times10^3.
+\end{align*}
+要重新得到 $\Mn=5000$，应补加丁二醇或预先使丁二醇略过量，使实际官能团等当量；单靠延长时间只能部分弥补。
+
+若羧基总量2 mol中1.0\%来自乙酸，乙酸为单官能封端剂，近似取 $r=2.000/2.020=0.9901$。要求 $\Xn=50$：
+\[
+50=\frac{1+r}{1+r-2rp}\Rightarrow p\approx0.985.
+\]
+\end{examplebox}
+
+\section{考前自测清单}
+\begin{enumerate}
+  \item 能否不看书写出 $\Ri,\Rp,[M\cdot],\nu,\Xn$ 的关系？
+  \item 能否解释为什么自由基聚合速率对 $[I]$ 是半级？
+  \item 给一个乙烯基单体，能否从电子效应+位阻判断自由基/阳离子/阴离子/配位？
+  \item 能否写 AIBN/BPO/氧化还原体系的引发式？
+  \item 能否区分偶合终止与歧化终止在引发剂残基数、聚合度上的差异？
+  \item 能否用 Mayo 方程计算链转移剂浓度？
+  \item 能否说明自动加速效应的本质是 $k_t$ 扩散受限下降？
+  \item 能否解释 RDRP 中“休眠种--活性种”快速交换为何能可控？
+  \item 能否列出阳离子/阴离子聚合的典型单体、引发剂和杂质要求？
+  \item 能否用活性阴离子聚合公式计算转化率、时间、聚合度？
+  \item 能否区分构型与构象、全同/间同/无规、顺式/反式？
+  \item 能否说清 Ziegler--Natta 的“配位--插入”机理和氢气调分子量？
+  \item 能否用 $\Xn=1/(1-p)$ 说明逐步聚合为何必须 $p>0.99$？
+  \item 遇到封端剂或单体损失，能否正确列官能团数并求 $r$？
+  \item 能否分别用 Carothers 法和 Flory 法计算凝胶点？
+\end{enumerate}
+
+
+% \section{考场计算的结果检查与趋势判断}
+% \begin{exam}
+% \textbf{数值题写完后用趋势反查：}
+% \begin{itemize}
+%   \item 自由基聚合：$[I]$ 增大 $\Rightarrow$ $\Ri$ 增大、$[M\cdot]$ 增大、$\Rp$ 增大，但平均链长 $\nu\propto [I]^{-1/2}$ 降低，所以分子量下降。
+%   \item 单体浓度 $[M]$ 增大且其他不变时，$\Rp$ 与 $\nu$ 通常增大，分子量增大；若伴随黏度显著升高，可能诱发自动加速。
+%   \item 链转移剂 $[S]$ 增大时，$1/\Xn$ 增大、$\Xn$ 下降；若转移后自由基仍能再引发，聚合速率不一定明显下降。
+%   \item 逐步聚合中 $p$ 从0.990到0.995时，$\Xn$ 由100变为200；后期微小副反应、单体不等量或封端剂都会被放大。
+%   \item 凝胶题若提高三官能/四官能单体比例，$\bar f$ 或 $f_w$ 增大，$p_c$ 应降低；若计算反而升高，需重新检查官能团计数。
+% \end{itemize}
+% \end{exam}
+
+% \begin{pitfall}
+% \textbf{常见无意义结果：}
+% $\Xn<1$ 表示聚合度定义或重复单元质量用错；$p_c<0$ 或 $p_c>1$ 要解释为公式不适用或完全反应前不凝胶；$\Delta H/\Delta S$ 若直接用 $^{\circ}\mathrm{C}$ 代入会导致热力学判断错误；把质量分数当分子数分数会使 $\Mn,\Mw$ 互换或得到 $\PDI<1$。
+% \end{pitfall}
+
+
+% \subsection{物理量的实验来源}
+% \begin{itemize}
+%   \item $p$ 可由端基滴定、酸值/羟值、IR特征峰或NMR积分求得；逐步聚合题若给“酸值下降百分比”，本质上就是给羧基反应程度。
+%   \item $\Mn$ 可由端基分析、膜渗透压和GPC校准曲线得到；端基法只适合分子量不太高且端基可定量的样品。
+%   \item $\Mw$ 常由静态光散射或GPC得到；高分子量尾部对 $\Mw$ 影响大，所以少量高分子量组分会显著拉高 $\PDI$。
+%   \item $\Rp$ 通常由单体转化率--时间曲线斜率得到：若体积近似不变，$\Rp\approx [M]_0\,\dd x/\dd t$，其中 $x$ 为单体转化率。
+%   \item $k_p,k_t$ 很少直接由普通考试题求；若题给稳态自由基浓度或引发速率，可由 $\Rp=\kp[M][M\cdot]$ 或 $\Rt=2\kt[M\cdot]^2$ 反推。
+% \end{itemize}
+
+% \newpage
+% \subsection{公式解释的标准句式}
+% \begin{exam}
+% \begin{itemize}
+%   \item 解释半级：稳态下自由基浓度由生成与双基终止平衡决定，$[M\cdot]\sim[I]^{1/2}$，故 $\Rp$ 对 $[I]$ 呈半级。
+%   \item 解释高 $p$ 要求：逐步聚合中每形成一个键只使分子数减少1，$\Xn=1/(1-p)$；当 $p$ 接近1时，少量未反应官能团决定最终分子量。
+%   \item 解释链转移：链转移使原增长链提前停止，但新自由基可能继续增长，因此主要影响分子量，未必同比例影响速率。
+%   \item 解释凝胶点：当从一个支化点出发平均能产生超过一个新的支化点时，网络可无限扩展，体系由溶胶转为凝胶。
+% \end{itemize}
+% \end{exam}
+
+\end{document}

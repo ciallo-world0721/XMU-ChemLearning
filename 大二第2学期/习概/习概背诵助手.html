@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>习概背诵助手</title>
+  <style>
+    :root {
+      --paper: #ffffff;
+      --panel: #fbf7f0;
+      --panel-warm: #f1e6da;
+      --ink: #27231f;
+      --muted: #6b625a;
+      --soft: #8b8177;
+      --clay: #a45f43;
+      --clay-dark: #7c3f2e;
+      --rule: #d8cab9;
+      --rule-soft: #eadfd2;
+      --ok: #3f7454;
+      --warn: #a16a21;
+      --bad: #a44438;
+      --shadow: 0 18px 50px rgba(39, 35, 31, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: ui-serif, "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+      line-height: 1.65;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(280px, 350px) minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      border-right: 1px solid var(--rule-soft);
+      background: #fff;
+      padding: 24px 20px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--rule);
+      background: var(--panel);
+      color: var(--clay-dark);
+      display: grid;
+      place-items: center;
+      font: 700 18px/1 ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font: 800 22px/1.15 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .search {
+      margin-bottom: 14px;
+    }
+
+    .search input {
+      width: 100%;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: var(--clay);
+      box-shadow: 0 0 0 3px rgba(164, 95, 67, 0.12);
+    }
+
+    .filters,
+    .quick-actions,
+    .grade-row,
+    .answer-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filters {
+      margin-bottom: 16px;
+    }
+
+    .chip,
+    .icon-btn,
+    .grade-btn {
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 10px;
+      min-height: 38px;
+    }
+
+    .chip {
+      font: 650 13px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .chip.active,
+    .icon-btn.primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .quick-actions {
+      margin: 0 0 18px;
+    }
+
+    .icon-btn {
+      font: 650 13px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .icon-btn:hover,
+    .chip:hover,
+    .grade-btn:hover {
+      border-color: var(--clay);
+    }
+
+    .sidebar-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 16px 0 18px;
+    }
+
+    .stat {
+      border: 1px solid var(--rule-soft);
+      background: var(--panel);
+      padding: 10px;
+    }
+
+    .stat strong {
+      display: block;
+      font: 800 20px/1 ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topic-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .topic {
+      border-top: 1px solid var(--rule-soft);
+      padding-top: 12px;
+    }
+
+    .topic-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      font: 800 14px/1.35 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .topic-title small {
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .question-link {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+      padding: 8px 6px;
+      text-align: left;
+    }
+
+    .question-link:hover {
+      background: var(--panel);
+    }
+
+    .question-link.active {
+      background: var(--panel-warm);
+    }
+
+    .q-num {
+      color: var(--clay-dark);
+      font-weight: 800;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .q-title {
+      min-width: 0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .key-tag,
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      border: 1px solid var(--rule);
+      padding: 2px 6px;
+      color: var(--clay-dark);
+      background: #fff;
+      font: 800 12px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      white-space: nowrap;
+    }
+
+    .status-pill.known {
+      color: var(--ok);
+      border-color: rgba(63, 116, 84, .35);
+    }
+
+    .status-pill.fuzzy {
+      color: var(--warn);
+      border-color: rgba(161, 106, 33, .35);
+    }
+
+    .status-pill.unknown {
+      color: var(--bad);
+      border-color: rgba(164, 68, 56, .35);
+    }
+
+    .main {
+      min-width: 0;
+      padding: 30px clamp(22px, 5vw, 64px) 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--rule-soft);
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+    }
+
+    .topbar-title {
+      color: var(--muted);
+      font: 650 14px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .progress-wrap {
+      min-width: 220px;
+      max-width: 360px;
+      flex: 1;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: var(--panel);
+      border: 1px solid var(--rule-soft);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--clay);
+      transition: width .2s ease;
+    }
+
+    .study-card {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font: 750 14px/1.4 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .question-heading {
+      margin: 0;
+      color: var(--clay-dark);
+      font: 850 clamp(24px, 4vw, 38px)/1.25 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 18px 0 16px;
+      color: var(--muted);
+      font: 650 14px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .source-chip {
+      border: 1px solid var(--rule);
+      background: var(--panel);
+      color: var(--muted);
+      padding: 8px 10px;
+    }
+
+    .recall-box {
+      border: 1px solid var(--rule);
+      background: var(--panel-warm);
+      padding: 16px;
+      margin: 18px 0;
+    }
+
+    .recall-box textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      padding: 12px;
+      outline: none;
+    }
+
+    .recall-box textarea:focus {
+      border-color: var(--clay);
+      box-shadow: 0 0 0 3px rgba(164, 95, 67, 0.12);
+    }
+
+    .recall-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font: 700 13px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .answer-panel {
+      border: 1px solid var(--rule);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      margin-top: 18px;
+    }
+
+    .answer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 16px;
+    }
+
+    .answer-count {
+      color: var(--muted);
+      font: 650 13px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .answers {
+      list-style: none;
+      margin: 0;
+      padding: 10px 16px 16px;
+      counter-reset: answer;
+    }
+
+    .answers li {
+      counter-increment: answer;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .answers li:last-child {
+      border-bottom: 0;
+    }
+
+    .answers li::before {
+      content: counter(answer) ".";
+      color: var(--clay-dark);
+      font: 800 16px/1.7 ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .answer-text {
+      font-size: 18px;
+    }
+
+    .answers li.hidden-answer .answer-text {
+      color: var(--soft);
+      font-family: ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+      font-size: 15px;
+    }
+
+    .answers li.hidden-answer .answer-text button {
+      border: 1px dashed var(--rule);
+      background: #fff;
+      color: var(--muted);
+      padding: 8px 10px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .grade-card {
+      margin-top: 18px;
+      border-top: 1px solid var(--rule-soft);
+      padding-top: 16px;
+    }
+
+    .grade-row {
+      margin-top: 10px;
+    }
+
+    .grade-btn {
+      font: 750 14px/1 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .grade-btn.known.active {
+      background: rgba(63, 116, 84, .1);
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+
+    .grade-btn.fuzzy.active {
+      background: rgba(161, 106, 33, .1);
+      border-color: var(--warn);
+      color: var(--warn);
+    }
+
+    .grade-btn.unknown.active {
+      background: rgba(164, 68, 56, .1);
+      border-color: var(--bad);
+      color: var(--bad);
+    }
+
+    .empty-state {
+      max-width: 720px;
+      margin: 12vh auto 0;
+      border: 1px solid var(--rule);
+      background: var(--panel);
+      padding: 28px;
+    }
+
+    .empty-state h2 {
+      margin: 0 0 8px;
+      font: 850 28px/1.2 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .empty-state p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+      font: 650 13px/1.3 ui-sans-serif, system-ui, "PingFang SC", sans-serif;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid var(--rule-soft);
+      }
+
+      .main {
+        padding: 22px 18px 42px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .progress-wrap {
+        width: 100%;
+        max-width: none;
+      }
+
+      .question-heading {
+        font-size: 26px;
+      }
+
+      .answer-text {
+        font-size: 17px;
+      }
+    }
+
+    @media print {
+
+      .sidebar,
+      .topbar,
+      .quick-actions,
+      .answer-toolbar,
+      .recall-box,
+      .grade-card,
+      .toast {
+        display: none !important;
+      }
+
+      .app {
+        display: block;
+      }
+
+      .main {
+        padding: 0;
+      }
+
+      .study-card {
+        max-width: none;
+      }
+
+      .answer-panel {
+        box-shadow: none;
+      }
+
+      .answers li.hidden-answer .answer-text {
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 16px;
+      }
+
+      .answers li.hidden-answer .answer-text button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">习</div>
+        <div>
+          <h1>习概背诵助手</h1>
+          <p>10 个专题 · 26 道题 · 185 条原句</p>
+        </div>
+      </div>
+      <div class="search"><input id="searchInput" type="search" placeholder="搜索题目、专题或答案关键词"></div>
+      <div class="filters" role="group" aria-label="筛选题目">
+        <button class="chip active" type="button" data-filter="all">全部</button>
+        <button class="chip" type="button" data-filter="key">重点</button>
+        <button class="chip" type="button" data-filter="weak">薄弱</button>
+        <button class="chip" type="button" data-filter="unknown">不会</button>
+      </div>
+      <div class="quick-actions">
+        <button class="icon-btn primary" type="button" id="randomAll">随机</button>
+        <button class="icon-btn" type="button" id="randomKey">抽重点</button>
+        <button class="icon-btn" type="button" id="randomWeak">抽薄弱</button>
+        <button class="icon-btn" type="button" id="printBtn">打印</button>
+        <button class="icon-btn" type="button" id="resetBtn">重置</button>
+      </div>
+      <div class="sidebar-stats">
+        <div class="stat"><strong id="statKnown">0</strong><span>会了</span></div>
+        <div class="stat"><strong id="statFuzzy">0</strong><span>模糊</span></div>
+        <div class="stat"><strong id="statUnknown">0</strong><span>不会</span></div>
+      </div>
+      <div id="topicList" class="topic-list"></div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div class="topbar-title">先背题目，再逐条展开教材原句对照。</div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>完成进度 <strong id="progressText">0/0</strong></span><span
+              id="progressPct">0%</span></div>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+      <article id="studyCard" class="study-card"></article>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script>
+    const DATA = [
+      {
+        "id": "t1",
+        "number": 1,
+        "title": "马克思主义中国化时代化新的飞跃",
+        "key": true,
+        "questions": [
+          {
+            "id": "t1q1",
+            "number": "1.1",
+            "title": "怎样理解习近平新时代中国特色社会主义思想是“两个结合”的重大成果？",
+            "pages": "4-5",
+            "key": false,
+            "answers": [
+              "习近平新时代中国特色社会主义思想是马克思主义基本原理同中国具体实际相结合、同中华优秀传统文化相结合的重大成果，是坚持“两个结合”的光辉典范。",
+              "“两个结合”是我们党在探索中国特色社会主义道路中得出的规律性认识，是我们取得成功的最大法宝。",
+              "“两个结合”让中国特色社会主义道路有了更加宏阔深远的历史纵深，拓展了中国特色社会主义道路的文化根基，开辟了广阔的理论和实践创新空间。",
+              "习近平新时代中国特色社会主义思想坚持把马克思主义基本原理同中国具体实际相结合，用马克思主义之“矢”去射新时代中国之“的”。",
+              "习近平新时代中国特色社会主义思想坚持把马克思主义基本原理同中华优秀传统文化相结合，不断夯实马克思主义中国化时代化的历史基础和群众基础。"
+            ]
+          },
+          {
+            "id": "t1q2",
+            "number": "1.2",
+            "title": "怎样理解习近平新时代中国特色社会主义思想的历史地位？",
+            "pages": "9-10",
+            "key": false,
+            "answers": [
+              "习近平新时代中国特色社会主义思想是当代中国马克思主义、二十一世纪马克思主义，是中华文化和中国精神的时代精华，实现了马克思主义中国化时代化新的飞跃。",
+              "习近平新时代中国特色社会主义思想继承和发展马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想、科学发展观，是马克思主义在当代中国发展的最新理论成果，开辟了马克思主义中国化时代化新境界。",
+              "习近平新时代中国特色社会主义思想，把马克思主义基本原理同中国具体实际相结合、同中华优秀传统文化相结合，使马克思主义这个魂脉和中华优秀传统文化这个根脉内在贯通、相互成就，是中华民族的文化主体性最有力的体现，是中华文化和中国精神的时代精华。",
+              "习近平新时代中国特色社会主义思想，是全党全国各族人民为实现中华民族伟大复兴而奋斗的行动指南，是新时代党和国家事业发展的根本遵循。",
+              "这一思想是全面建成社会主义现代化强国、以中国式现代化全面推进中华民族伟大复兴的科学指引，是我们应对各种风险挑战、战胜一切艰难险阻的根本指针，是全党全国各族人民团结奋斗、勇毅前行创造新的历史伟业的精神旗帜。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t2",
+        "number": 2,
+        "title": "新时代坚持和发展中国特色社会主义",
+        "key": false,
+        "questions": [
+          {
+            "id": "t2q1",
+            "number": "2.1",
+            "title": "如何理解中国特色社会主义是科学社会主义的“新版本”？",
+            "pages": "18-19",
+            "key": true,
+            "answers": [
+              "中国特色社会主义是科学社会主义理论逻辑和中国社会发展历史逻辑的辩证统一。",
+              "习近平指出：“中国特色社会主义，既坚持了科学社会主义基本原则，又根据时代条件赋予其鲜明的中国特色。”",
+              "中国特色社会主义之所以是社会主义，而不是其他什么主义，就是因为我们始终坚持科学社会主义基本原则，并根据新的时代条件赋予其鲜明的中国特色。",
+              "中国特色社会主义写出了科学社会主义的“新版本”。",
+              "当代中国的伟大社会变革，不是简单延续我国历史文化的母版，不是简单套用马克思主义经典作家设想的模板，不是其他国家社会主义实践的再版，也不是国外现代化发展的翻版。",
+              "社会主义并没有定于一尊、一成不变的套路，只有把科学社会主义基本原则同我国具体实际、历史文化传统、时代要求紧密结合起来，在实践中不断探索总结，才能更好地坚持和发展中国特色社会主义。"
+            ]
+          },
+          {
+            "id": "t2q2",
+            "number": "2.2",
+            "title": "怎样认识我国发展新的历史方位？",
+            "pages": "22-24",
+            "key": true,
+            "answers": [
+              "中国特色社会主义进入新时代，是长期以来特别是党的十八大以来我们党领导人民不懈奋斗的必然结果，是我们党在科学把握形势和实践发展变化基础上作出的重大判断。",
+              "新时代是我国发展新的历史方位，标志着中国特色社会主义事业进入了新的发展阶段。",
+              "中国特色社会主义新时代，是承前启后、继往开来、在新的历史条件下继续夺取中国特色社会主义伟大胜利的时代，是决胜全面建成小康社会、进而全面建设社会主义现代化强国的时代，是全国各族人民团结奋斗、不断创造美好生活、逐步实现全体人民共同富裕的时代，是全体中华儿女勠力同心、奋力实现中华民族伟大复兴中国梦的时代，是我国不断为人类作出更大贡献的时代。",
+              "中国特色社会主义进入新时代，意味着近代以来久经磨难的中华民族迎来了从站起来、富起来到强起来的伟大飞跃，迎来了实现中华民族伟大复兴的光明前景。",
+              "我国社会主要矛盾的变化反映了我国社会主义初级阶段不断变化的新特点，是我们党作出中国特色社会主义进入新时代重大判断的基本依据。",
+              "党的十八大后，党面临的主要任务是，实现第一个百年奋斗目标，开启实现第二个百年奋斗目标新征程，朝着实现中华民族伟大复兴的宏伟目标继续前进。"
+            ]
+          },
+          {
+            "id": "t2q3",
+            "number": "2.3",
+            "title": "如何把握统筹推进“五位一体”总体布局和协调推进“四个全面”战略布局的重要意义？",
+            "pages": "30-32",
+            "key": false,
+            "answers": [
+              "中国特色社会主义事业是全面发展、全面进步的事业。",
+              "“五位一体”总体布局和“四个全面”战略布局相互促进、统筹联动，从全局上确立了新时代坚持和发展中国特色社会主义的战略规划和部署。",
+              "“五位一体”各方面相互联系、相互促进、不可分割，共同构筑起中国特色社会主义事业的全局。",
+              "“四个全面”战略布局，是新的时代条件下坚持和发展中国特色社会主义、推进改革开放和社会主义现代化建设的战略抉择。",
+              "“四个全面”战略布局既有战略目标又有战略举措，每个“全面”之间具有紧密的内在逻辑，是一个整体战略部署的有序展开。",
+              "新征程上，统筹推进“五位一体”总体布局，协调推进“四个全面”战略布局，必须紧紧扭住全面建设社会主义现代化国家这个战略目标不动摇，紧紧扭住全面深化改革、全面依法治国、全面从严治党三个战略举措不放松，在推动经济发展的基础上，建设社会主义市场经济、民主政治、先进文化、和谐社会、生态文明，协同推进人民富裕、国家强盛、中国美丽。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t3",
+        "number": 3,
+        "title": "中国式现代化",
+        "key": true,
+        "questions": [
+          {
+            "id": "t3q1",
+            "number": "3.1",
+            "title": "怎样理解中国式现代化的中国特色和本质要求？",
+            "pages": "44-47",
+            "key": false,
+            "answers": [
+              "中国式现代化，是中国共产党领导的社会主义现代化，既有各国现代化的共同特征，更有基于自己国情的中国特色。",
+              "党的二十大集中概括了中国式现代化五个方面的中国特色，深刻揭示了中国式现代化的科学内涵，这是理论概括，也是实践要求。",
+              "中国式现代化是人口规模巨大的现代化。",
+              "中国式现代化是全体人民共同富裕的现代化。",
+              "中国式现代化是物质文明和精神文明相协调的现代化。",
+              "中国式现代化是人与自然和谐共生的现代化。",
+              "中国式现代化是走和平发展道路的现代化。",
+              "中国式现代化的本质要求是：坚持中国共产党领导，坚持中国特色社会主义，实现高质量发展，发展全过程人民民主，丰富人民精神世界，实现全体人民共同富裕，促进人与自然和谐共生，推动构建人类命运共同体，创造人类文明新形态。"
+            ]
+          },
+          {
+            "id": "t3q2",
+            "number": "3.2",
+            "title": "为什么说中国式现代化创造了人类文明新形态？",
+            "pages": "48-49",
+            "key": false,
+            "answers": [
+              "中国式现代化，深深植根于中华优秀传统文化，体现科学社会主义的先进本质，借鉴吸收一切人类优秀文明成果，代表人类文明进步的发展方向，是一种全新的人类文明形态。",
+              "中国式现代化提供了一种全新的现代化模式。",
+              "中国式现代化，打破了“现代化=西方化”的迷思，展现了不同于西方现代化的新图景。",
+              "中国式现代化是对西方式现代化理论和实践的重大超越。",
+              "中国式现代化为广大发展中国家提供了全新选择。",
+              "中国式现代化坚持从本国实际出发，独立自主制定实现现代化的路线方针政策和战略，坚持依靠本国力量、依靠广大人民群众的辛勤劳动来实现现代化，同时积极学习借鉴一切人类优秀文明成果，尽可能利用一切外部有利条件，始终把国家和民族发展进步的命运牢牢掌握在自己手中。"
+            ]
+          },
+          {
+            "id": "t3q3",
+            "number": "3.3",
+            "title": "如何理解教育、科技、人才是全面建设社会主义现代化国家的基础性、战略性支撑？",
+            "pages": "136-139",
+            "key": false,
+            "answers": [
+              "现代化强国，必定是教育强国、科技强国、人才强国。",
+              "坚持教育发展、科技创新、人才培养良性循环，坚持科教兴国战略、人才强国战略、创新驱动发展战略有效联动，坚持教育强国、科技强国、人才强国一体推进，就能为全面推进中国式现代化开辟发展新领域新赛道、塑造发展新动能新优势，为全面建成社会主义现代化强国奠定更为坚实的基础。",
+              "在全面建设社会主义现代化国家进程中，必须坚持教育、科技、人才的基础性、战略性地位，一体推进教育强国、科技强国、人才强国建设，把我国建设成为教育发达、科技进步、人才济济的现代化国家。",
+              "教育、科技、人才协同发力，为全面建成小康社会、实现第一个百年奋斗目标作出了历史性贡献，为迈上全面建设社会主义现代化国家新征程、实现第二个百年奋斗目标奠定了坚实基础。",
+              "实施科教兴国战略、人才强国战略、创新驱动发展战略，是增强综合国力、满足人民群众美好生活需要的必然要求，是建设教育强国、科技强国、人才强国的重大举措，对于全面建设社会主义现代化国家具有重要战略意义。",
+              "推进教育、科技、人才事业发展，要紧紧围绕全面建设社会主义现代化国家战略需求，尊重教育、科技、人才事业发展客观规律，坚持教育优先发展、科技自立自强、人才引领驱动。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t4",
+        "number": 4,
+        "title": "坚持党的全面领导和全面从严治党",
+        "key": false,
+        "questions": [
+          {
+            "id": "t4q1",
+            "number": "4.1",
+            "title": "怎样理解中国最大的国情就是中国共产党的领导？",
+            "pages": "57-59",
+            "key": false,
+            "answers": [
+              "中国特色社会主义有很多特点和特征，其中最本质的特征是中国共产党领导。",
+              "中国共产党是中国特色社会主义事业的坚强领导核心。",
+              "没有中国共产党，就没有新中国，就没有中国特色社会主义。",
+              "习近平指出：“一定要认清，中国最大的国情就是中国共产党的领导。什么是中国特色？这就是中国特色。”",
+              "历史和现实都证明，中国人民和中华民族之所以能够扭转近代以后的历史命运、取得今天的伟大成就，最根本的是有中国共产党的坚强领导。",
+              "中国共产党领导关系中国特色社会主义的性质、方向和命运。",
+              "中国共产党领导是实现中华民族伟大复兴的根本保证。"
+            ]
+          },
+          {
+            "id": "t4q2",
+            "number": "4.2",
+            "title": "为什么必须全面从严治党？",
+            "pages": "337-341",
+            "key": true,
+            "answers": [
+              "全面建设社会主义现代化国家、全面推进中华民族伟大复兴，关键在党，关键在全面从严治党。",
+              "全面从严治党是党永葆生机活力、走好新的赶考之路的必由之路，是新时代党的建设的鲜明主题。",
+              "加强党的自身建设是新形势下推进伟大事业、进行伟大斗争、实现伟大梦想的必然要求。",
+              "面对这样的国内外形势，完成这样光荣伟大的任务，必须把党建设得更加坚强有力，使党在世界形势深刻变化的历史进程中始终走在时代前列，在应对国内外各种风险和考验的历史进程中始终成为全国人民的主心骨，在坚持和发展中国特色社会主义的历史进程中始终成为坚强领导核心。",
+              "如果管党不力、治党不严，人民群众反映强烈的党内突出问题得不到解决，那我们党迟早会失去执政资格，不可避免被历史淘汰。",
+              "全面从严治党，核心是加强党的领导，基础在全面，关键在严，要害在治。"
+            ]
+          },
+          {
+            "id": "t4q3",
+            "number": "4.3",
+            "title": "如何理解以伟大自我革命引领伟大社会革命？",
+            "pages": "356-357、360-361",
+            "key": true,
+            "answers": [
+              "新征程上，必须时刻保持解决大党独有难题的清醒和坚定，以伟大自我革命引领伟大社会革命，以伟大社会革命促进伟大自我革命，确保党及其领导的伟大事业永葆生机、永续发展。",
+              "全面从严治党是新时代党的自我革命的伟大实践，开辟了百年大党自我革命的新境界。",
+              "勇于自我革命，是中国共产党区别于其他政党的显著标志，也是我们党最大的优势、最鲜明的品格。",
+              "习近平鲜明提出：“要以伟大自我革命引领伟大社会革命，以伟大社会革命促进伟大自我革命，确保党在新时代坚持和发展中国特色社会主义的历史进程中始终成为坚强领导核心。”",
+              "伟大社会革命锻造和成就伟大的党，伟大自我革命保障和推动伟大的事业，这是党100多年来把握历史发展规律、不断从胜利走向新的胜利的宝贵经验。",
+              "我们一定要站在中国特色社会主义事业长远发展、党长期执政的高度，把全面从严治党作为长期战略、永恒课题，把党的伟大自我革命进行到底，以彻底的自我革命把中国特色社会主义伟大事业不断推向前进。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t5",
+        "number": 5,
+        "title": "推动高质量发展和全面深化改革开放",
+        "key": false,
+        "questions": [
+          {
+            "id": "t5q1",
+            "number": "5.1",
+            "title": "如何理解以新发展理念引领高质量发展？",
+            "pages": "112-113、115-117",
+            "key": true,
+            "answers": [
+              "高质量发展是新时代我国经济社会发展的鲜明主题，是全面建设社会主义现代化国家的首要任务。",
+              "新时代新阶段的发展必须贯彻新发展理念，必须是高质量发展。",
+              "新发展理念是实现高质量发展的指导原则，贯彻新发展理念是关系我国发展全局的一场深刻变革。",
+              "发展理念是发展行动的先导，是管全局、管根本、管方向、管长远的东西，是发展思路、发展方式、发展着力点的集中体现。",
+              "新发展理念是一个系统的理论体系，回答了关于发展的目的、动力、方式、路径等一系列理论和实践问题，阐明了我们党关于发展的政治立场、价值导向、发展模式、发展道路等重大政治问题，深化了我们党对中国特色社会主义经济发展规律的认识，开拓了中国特色社会主义政治经济学新境界。",
+              "高质量发展是全面建设社会主义现代化国家的首要任务，是遵循经济规律发展的必然要求。",
+              "推动高质量发展，必须以新发展理念为引领，深入推进发展方式、发展动力、发展领域、发展质量变革，实现更高质量、更有效率、更加公平、更可持续、更为安全的发展。",
+              "高质量发展，是能够很好满足人民日益增长的美好生活需要的发展，是体现新发展理念的发展，是创新成为第一动力、协调成为内生特点、绿色成为普遍形态、开放成为必由之路、共享成为根本目的的发展。"
+            ]
+          },
+          {
+            "id": "t5q2",
+            "number": "5.2",
+            "title": "如何加快构建新发展格局？",
+            "pages": "125-129",
+            "key": false,
+            "answers": [
+              "构建以国内大循环为主体、国内国际双循环相互促进的新发展格局，是根据我国发展阶段、发展环境、条件变化，特别是基于我国比较优势变化，审时度势作出的重大决策，是推动高质量发展的战略基点，是关系我国发展全局的重大战略任务。",
+              "构建新发展格局是把握未来发展主动权的先手棋，不是被迫之举和权宜之计。",
+              "构建新发展格局是开放的国内国际双循环，不是封闭的国内单循环。",
+              "构建新发展格局是以全国统一大市场基础上的国内大循环为主体，不是各地都搞自我小循环。",
+              "构建新发展格局必须具备强大的国内经济循环体系和稳固的基本盘，保持国内经济持续健康发展，巩固和发展我国经济的强大竞争力。",
+              "构建新发展格局必须保证经济循环的畅通无阻，实现生产、分配、流通、消费各环节有机衔接。",
+              "全面建成新发展格局任重道远，必须坚持问题导向和系统观念，着力破除制约加快构建新发展格局的主要矛盾和问题，不断扬优势、补短板、强弱项。",
+              "构建新发展格局最本质的特征是实现高水平的自立自强。"
+            ]
+          },
+          {
+            "id": "t5q3",
+            "number": "5.3",
+            "title": "如何理解全面深化改革的正确方向？",
+            "pages": "95-96、98",
+            "key": true,
+            "answers": [
+              "全面深化改革开放改什么、怎么改，这是一个带有根本性的问题。",
+              "习近平强调：“我们的改革开放是有方向、有立场、有原则的。”",
+              "要保持战略定力，牢牢把握全面深化改革开放的正确方向，确保改革不改向、变革不变色。",
+              "必须坚持和改善党的全面领导、坚持和完善中国特色社会主义制度。",
+              "改革开放是对社会主义生产关系和上层建筑的调整，使之适应生产力和经济基础发展的新要求，是社会主义制度的自我完善和发展，而不是改弦易张。",
+              "全面深化改革开放既不走封闭僵化的老路，也不走改旗易帜的邪路，该改的、能改的就坚决改，不该改的、不能改的坚决不改。",
+              "改什么、怎么改，必须以是否有利于坚持和改善党的全面领导、坚持和完善中国特色社会主义制度为根本标准，在这个问题上必须始终保持清醒、坚定。",
+              "全面深化改革总目标是：完善和发展中国特色社会主义制度、推进国家治理体系和治理能力现代化。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t6",
+        "number": 6,
+        "title": "发展全过程人民民主",
+        "key": true,
+        "questions": [
+          {
+            "id": "t6q1",
+            "number": "6.1",
+            "title": "为什么我国不能搬来一座政治制度上的“飞来峰”？",
+            "pages": "163-164",
+            "key": false,
+            "answers": [
+              "中国特色社会主义政治发展道路，是近代以来中国人民长期奋斗历史逻辑、理论逻辑、实践逻辑的必然结果，是坚持党的本质属性、践行党的根本宗旨的必然要求。",
+              "事实充分证明，中国社会主义民主政治具有强大生命力，中国特色社会主义政治发展道路是符合中国国情、保证人民当家作主的正确道路。",
+              "走中国特色社会主义政治发展道路，必须坚持党的领导、人民当家作主、依法治国有机统一。",
+              "走中国特色社会主义政治发展道路，必须始终保持政治定力。",
+              "世界上不存在完全相同的政治制度，也不存在适用于一切国家的政治制度模式。",
+              "不能用单一的标尺衡量世界丰富多彩的政治制度、用单调的眼光审视人类五彩缤纷的政治文明，也不能割断历史、想象突然就搬来一座政治制度上的“飞来峰”。"
+            ]
+          },
+          {
+            "id": "t6q2",
+            "number": "6.2",
+            "title": "怎样理解全过程人民民主是最广泛、最真实、最管用的民主？",
+            "pages": "164-166、168-169",
+            "key": false,
+            "answers": [
+              "全过程人民民主，是中国共产党团结带领人民追求民主、发展民主、实现民主的伟大创造，是党不断推进中国民主理论创新、制度创新、实践创新的经验结晶。",
+              "全过程人民民主是社会主义民主政治的本质属性，是最广泛、最真实、最管用的民主。",
+              "全过程人民民主的提出、实践和发展，鲜明展示了我们党始终高举人民民主旗帜、实现人民当家作主的坚定立场，深刻彰显了我国人民民主的鲜明特色和显著优势，实现了过程民主和成果民主、程序民主和实质民主、直接民主和间接民主、人民民主和国家意志相统一。",
+              "全过程人民民主，既有完整的制度程序，也有完整的参与实践，把民主选举、民主协商、民主决策、民主管理、民主监督贯通起来，涵盖经济、政治、文化、社会、生态文明等各个方面。",
+              "全过程人民民主既能确保人民充分享有各方面权利，又能有效促进国家治理高效和社会和谐稳定，维护和保障人民群众的根本利益，是最广泛、最真实、最管用的民主。",
+              "全过程人民民主是全体人民共同持续参与，各个民族共同平等享有，不同地域、不同领域、不同层级、不同群体均实现全面覆盖的民主体系，是最广泛的民主。",
+              "全过程人民民主是真真切切落实到国家政治生活和社会生活各方面、为全体人民真真切切感知和认同的民主体系，是最真实的民主。",
+              "全过程人民民主具有显著的实践优越性，是最管用的民主。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t7",
+        "number": 7,
+        "title": "建设社会主义文化强国",
+        "key": false,
+        "questions": [
+          {
+            "id": "t7q1",
+            "number": "7.1",
+            "title": "如何理解意识形态工作是为国家立心、为民族立魂的工作？",
+            "pages": "206-208、210-211",
+            "key": false,
+            "answers": [
+              "意识形态关乎旗帜、关乎道路、关乎国家政治安全，决定文化前进方向和发展道路。",
+              "习近平强调：“意识形态工作是为国家立心、为民族立魂的工作。”",
+              "建设社会主义文化强国，推动社会主义文化繁荣兴盛，必须坚持马克思主义在意识形态领域指导地位的根本制度，大力加强马克思主义理论建设，塑造主流舆论新格局，建设具有强大凝聚力和引领力的社会主义意识形态。",
+              "坚持马克思主义在意识形态领域指导地位的根本制度，是坚持和巩固我国社会主义制度、保证我国文化建设正确方向的必然要求。",
+              "马克思主义是社会主义意识形态的旗帜和灵魂，如果背离或放弃马克思主义就会迷失方向、失去灵魂。",
+              "新时代新征程，坚持马克思主义在意识形态领域指导地位的根本制度，必须牢牢掌握党对意识形态工作领导权，坚持以立为本、立破并举，提高政治自觉，把意识形态阵地建设和管理工作摆在重要位置，全面落实意识形态工作责任制，压紧压实做好意识形态工作的政治责任。",
+              "新闻舆论工作处在意识形态斗争前沿，是治国理政、定国安邦的大事。",
+              "互联网是意识形态工作的主阵地、主战场、最前沿，管好用好互联网是新形势下做好新闻舆论工作的关键。"
+            ]
+          },
+          {
+            "id": "t7q2",
+            "number": "7.2",
+            "title": "如何理解中华文明的突出特性？",
+            "pages": "217-218",
+            "key": true,
+            "answers": [
+              "中华优秀传统文化有很多重要元素，共同塑造出中华文明连续性、创新性、统一性、包容性、和平性的突出特性。",
+              "中华文明是世界上唯一绵延不断且以国家形态发展至今的伟大文明，连续性从根本上决定了中华民族必然走自己的路。",
+              "中华文明强调苟日新日日新又日新、革故鼎新、与时俱进的思想，创新性从根本上决定了中华民族守正不守旧、尊古不复古的进取精神，决定了中华民族不惧新挑战、勇于接受新事物的无畏品格。",
+              "中华文明在长期历史演进中形成多元一体的格局，统一性从根本上决定了中华民族各民族文化融为一体、即使遭遇重大挫折也牢固凝聚。",
+              "中华文明是由多元文化汇聚成的共同文化，具有无与伦比的包容性和吸纳力，包容性从根本上决定了中华民族交往交流交融的历史取向。",
+              "中华文明历来崇尚“以和邦国”“和而不同”“以和为贵”，中华民族的血液中没有侵略他人、称王称霸的基因，和平性从根本上决定了中国始终是世界和平的建设者、全球发展的贡献者、国际秩序的维护者。"
+            ]
+          },
+          {
+            "id": "t7q3",
+            "number": "7.3",
+            "title": "如何推动中华优秀传统文化创造性转化、创新性发展？",
+            "pages": "217-219",
+            "key": true,
+            "answers": [
+              "不忘本来才能开辟未来，善于继承才能更好创新。",
+              "中华优秀传统文化是中华文明的智慧结晶和精华所在，是中华民族的根和魂。",
+              "要坚持把马克思主义基本原理同中华优秀传统文化相结合，推动中华优秀传统文化创造性转化、创新性发展，让中华文明展现出永久魅力和时代风采。",
+              "中国共产党既是中国先进文化的积极引领者和践行者，又是中华优秀传统文化的忠实传承者和弘扬者。",
+              "要坚持马克思主义的立场观点方法，坚持古为今用、推陈出新，有鉴别地加以对待，有扬弃地予以继承。",
+              "创造性转化，就是要按照时代特点和要求，对那些至今仍有借鉴价值的内涵和陈旧的表现形式加以改造，赋予其新的时代内涵和现代表达形式，激活其生命力。",
+              "创新性发展，就是要按照时代的新进步新进展，对中华优秀传统文化的内涵加以补充、拓展、完善，增强其影响力和感召力。",
+              "要通过创造性转化和创新性发展，使中华民族最基本的文化基因同当代中国相适应、同现代社会相协调、同现实文化相融通，把跨越时空、超越国界、富有永恒魅力、具有当代价值的文化精神弘扬起来。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t8",
+        "number": 8,
+        "title": "以保障和改善民生为重点加强社会建设",
+        "key": true,
+        "questions": [
+          {
+            "id": "t8q1",
+            "number": "8.1",
+            "title": "如何理解让人民生活幸福是“国之大者”？",
+            "pages": "224-226、229",
+            "key": false,
+            "answers": [
+              "全面建设社会主义现代化国家，出发点和落脚点是让人民生活越过越好。",
+              "习近平指出，以人民为中心是我们党的根本执政理念，让人民生活幸福是“国之大者”。",
+              "要把增进民生福祉作为发展的根本目的，扎实推进各项民生事业，使改革发展成果更多更公平惠及全体人民。",
+              "民生事关人民的生存生活生计，事关民心所向、民情所系、民意所指，决定党的事业成败和国家命运兴衰。",
+              "增进民生福祉是坚持立党为公、执政为民的本质要求。",
+              "中国式现代化是造福人民的现代化，要求把不断增进民生福祉放在更加突出的位置。",
+              "必须始终坚持把实现人民对美好生活的向往作为现代化建设的出发点和落脚点，不断增进民生福祉，努力使人民生活更加幸福美好。",
+              "解决人民群众最关心最直接最现实的利益问题，是保障和改善民生的重中之重。"
+            ]
+          },
+          {
+            "id": "t8q2",
+            "number": "8.2",
+            "title": "为什么在推进社会治理现代化过程中要坚持共建共治共享？",
+            "pages": "235-237",
+            "key": false,
+            "answers": [
+              "社会治理是国家治理的重要领域，推进社会治理现代化是推进国家治理体系和治理能力现代化的重要内容。",
+              "要不断创新社会治理的理念思路、体制机制和方法手段，打造共建共治共享的社会治理新格局，坚定不移走中国特色社会主义社会治理之路。",
+              "加强和创新社会治理，就是要在党的领导下，以政府为主导，以社会多元主体参与为基础，以维护人民群众根本利益为核心，通过合作、对话、协商、沟通等方式，依法对社会事务、社会组织和社会生活进行引导和规范，协调社会利益，化解社会矛盾，促进社会公平，推动社会稳定有序发展。",
+              "党的十九大进一步提出打造共建共治共享的社会治理格局，党的十九届四中全会提出坚持和完善共建共治共享的社会治理制度，体现了我们党对社会运行和社会治理规律认识的不断深化。",
+              "理念是完善社会治理体系的先导，必须坚持共建共治共享的社会治理理念。",
+              "坚持共建共治共享，保障全体人民参与社会建设、社会治理的权利，维护全体人民享有社会治理成果的权益，是完善社会治理必须始终遵循的重要理念。",
+              "共建是共同参与社会建设，要求突出制度和体系建设的基础性、战略性地位，是社会治理的基础；共治是共同参与社会治理，要求树立大社会观、大治理观，打造全民参与的开放治理体系，是社会治理的关键；共享是共同享有社会治理成果，要求社会治理的成效更多更公平惠及全体人民，是社会治理的目标。",
+              "要坚持问题导向，把专项治理和系统治理、依法治理、综合治理、源头治理结合起来，建设人人有责、人人尽责、人人享有的社会治理共同体，确保社会治理过程人民参与、成效人民评判、成果人民共享。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t9",
+        "number": 9,
+        "title": "建设社会主义生态文明",
+        "key": false,
+        "questions": [
+          {
+            "id": "t9q1",
+            "number": "9.1",
+            "title": "如何理解“生态兴则文明兴”？",
+            "pages": "241-243",
+            "key": true,
+            "answers": [
+              "生态环境是人类生存最为基础的条件，生态文明建设是关系中华民族永续发展的根本大计。",
+              "大自然是人类赖以生存发展的基本条件，尊重自然、顺应自然、保护自然是全面建设社会主义现代化国家的内在要求。",
+              "自然是生命之母，人与自然是生命共同体。",
+              "保护自然就是保护人类，建设生态文明就是造福人类。",
+              "生态环境变化直接影响文明的兴衰演替。",
+              "习近平指出：“生态兴则文明兴，生态衰则文明衰。”",
+              "历史表明，人类文明的发展离不开良好生态环境这个根本基础。",
+              "生态文明是人类文明发展的历史趋势。"
+            ]
+          },
+          {
+            "id": "t9q2",
+            "number": "9.2",
+            "title": "如何理解“绿水青山就是金山银山”？",
+            "pages": "244-245",
+            "key": true,
+            "answers": [
+              "生态环境问题归根到底是经济发展方式和生活方式问题。",
+              "绿水青山就是金山银山，这是重要的发展理念，也是推进现代化建设的重大原则。",
+              "这一理念，阐明了经济发展与生态环境保护之间的关系，揭示了保护生态环境就是保护生产力、改善生态环境就是发展生产力的道理，指明了实现发展和保护协同共生的新路径。",
+              "从根本上讲，二者是辩证统一、相辅相成的关系。",
+              "发展经济不能对资源和生态环境竭泽而渔，生态环境保护也不是舍弃经济发展而缘木求鱼，而是要坚持在发展中保护、在保护中发展。",
+              "绿水青山既是自然财富、生态财富，又是社会财富、经济财富。",
+              "坚持生态优先、绿色发展，把生态环境优势转化为生态农业、生态工业、生态旅游等生态经济优势，绿水青山就变成了金山银山。",
+              "保护生态，生态就会回馈你。"
+            ]
+          },
+          {
+            "id": "t9q3",
+            "number": "9.3",
+            "title": "中国为全球环境治理作出了哪些重要贡献？",
+            "pages": "253-258",
+            "key": false,
+            "answers": [
+              "建设绿色家园是人类的共同梦想，也是各国人民的共同期盼。",
+              "中国致力于推动共建地球生命共同体，积极参与全球环境治理，是全球生态文明建设的重要参与者、贡献者、引领者。",
+              "地球是全人类赖以生存的唯一家园，珍爱和呵护地球是人类的唯一选择。",
+              "生态环境问题是全人类共同面临的问题，保持良好生态环境是各国人民的共同心愿和共同责任。",
+              "建设人与自然和谐共生的地球家园，要顺应世界各国人民对美好生态环境的需要，以绿色转型为驱动，坚持多边主义，推动全球环境治理体系更加公平合理，携手共建清洁美丽世界。",
+              "中国作为世界上最大的发展中国家，深度参与全球气候治理，同世界各国共同推进全球生物多样性治理，积极共建绿色“一带一路”，承担大国责任，展现大国担当。",
+              "中国提前完成2020年应对气候变化和设立自然保护区相关目标，人工林面积居全球第一，是对全球臭氧层保护贡献最大的国家。",
+              "中国成功承办联合国《生物多样性公约》第十五次缔约方大会，推动国际社会达成“昆明--蒙特利尔全球生物多样性框架”等一揽子具有里程碑意义的成果，为全球生物多样性治理确定了目标、明确了途径。",
+              "通过建设更紧密的绿色发展伙伴关系，完善“一带一路”绿色发展国际联盟，把支持联合国2030年可持续发展议程融入共建“一带一路”，同有关国家一道实施“一带一路”应对气候变化南南合作计划，统筹推进经济增长、社会发展、环境保护，让各国都从中受益，实现共同发展。"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "t10",
+        "number": 10,
+        "title": "推动构建人类命运共同体",
+        "key": false,
+        "questions": [
+          {
+            "id": "t10q1",
+            "number": "10.1",
+            "title": "为什么说当今世界百年未有之大变局加速演进？",
+            "pages": "316-317",
+            "key": false,
+            "answers": [
+              "当今世界正经历百年未有之大变局，如何在变局中抓住机遇、保持定力，是中国外交面临的重大历史课题。",
+              "国际力量对比深刻变化。",
+              "新兴市场国家和发展中国家群体性崛起，自身实力、自主发展能力、国际影响力不断增强，正在改变全球政治经济版图。",
+              "新一轮科技革命和产业变革深入发展。",
+              "国际体系和国际秩序深度调整。",
+              "推动全球治理体系朝着更加公正合理方向发展的呼声越来越高，国际关系民主化不可阻挡。",
+              "当前，世界之变、时代之变、历史之变正以前所未有的方式展开，世界百年未有之大变局加速演进，世界进入新的动荡变革期。",
+              "世纪疫情影响深远，局部冲突硝烟又起，冷战思维和集团政治回潮，单边主义、保护主义抬头，经济全球化遭遇逆流，世界经济复苏步履维艰，和平赤字、发展赤字、安全赤字、治理赤字有增无减，公共卫生、恐怖主义、气候变化、网络安全等非传统安全威胁持续蔓延，人类社会面临前所未有的挑战。"
+            ]
+          },
+          {
+            "id": "t10q2",
+            "number": "10.2",
+            "title": "如何理解构建人类命运共同体是世界各国人民前途所在？",
+            "pages": "328-330、336",
+            "key": false,
+            "answers": [
+              "推动构建人类命运共同体，是当代中国共产党人回答和解决关乎人类前途命运的时代之问的中国方案，是应对人类共同挑战、建设更加繁荣美好世界的人间正道，也是新时代对外工作的总目标。",
+              "人类只有一个地球，各国共处一个世界。",
+              "世界各国要顺应时代发展潮流，作出正确选择，齐心协力应对挑战，开展全球性协作，构建人类命运共同体。",
+              "当今世界，经济全球化深入发展，无论近邻还是远交，无论大国还是小国，无论发达国家还是发展中国家，正日益形成利益交融、安危与共的利益共同体和命运共同体。",
+              "没有哪个国家能够独自应对人类面临的各种挑战，也没有哪个国家能够退回到自我封闭的孤岛。",
+              "人类命运共同体，顾名思义，就是每个民族、每个国家的前途命运都紧紧联系在一起，应该风雨同舟、荣辱与共，努力把我们生于斯、长于斯的这个星球建成一个和睦的大家庭，把世界各国人民对美好生活的向往变成现实。",
+              "构建人类命运共同体，就是要携手世界各国人民共同建设持久和平、普遍安全、共同繁荣、开放包容、清洁美丽的世界。",
+              "构建人类命运共同体理念顺应了历史潮流，回应了时代要求，凝聚了各国共识，为人类社会实现共同发展、持续繁荣、长治久安绘制了蓝图，对中国的和平发展、世界的繁荣进步都具有重大而深远的意义。",
+              "推动构建人类命运共同体，是当代中国共产党人回答和解决关乎人类前途命运的时代之问的中国方案，是应对人类共同挑战、建设更加繁荣美好世界的人间正道。"
+            ]
+          }
+        ]
+      }
+    ];
+    const STORE_KEY = "xigai-recite-state-v1";
+    const flatQuestions = DATA.flatMap(topic => topic.questions.map(q => ({ ...q, topicTitle: topic.title, topicNumber: topic.number, topicKey: topic.key })));
+    let state = loadState();
+    let selectedId = state.lastSelected || flatQuestions[0]?.id;
+    let filter = "all";
+    let query = "";
+    let revealed = 0;
+
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(STORE_KEY)) || { grades: {}, notes: {} }; }
+      catch { return { grades: {}, notes: {} }; }
+    }
+    function saveState() { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+    function gradeLabel(g) { return g === "known" ? "会了" : g === "fuzzy" ? "模糊" : g === "unknown" ? "不会" : "未标"; }
+    function statusClass(g) { return g || "none"; }
+    function toast(text) {
+      const el = $("#toast");
+      el.textContent = text;
+      el.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove("show"), 1400);
+    }
+    function filteredQuestions() {
+      const q = query.trim().toLowerCase();
+      return flatQuestions.filter(item => {
+        const g = state.grades[item.id];
+        if (filter === "key" && !(item.key || item.topicKey)) return false;
+        if (filter === "weak" && !(g === "unknown" || g === "fuzzy")) return false;
+        if (filter === "unknown" && g !== "unknown") return false;
+        if (q) {
+          const hay = [item.title, item.topicTitle, item.number, item.pages, ...item.answers].join(" ").toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+    function renderStats() {
+      const total = flatQuestions.length;
+      const known = flatQuestions.filter(q => state.grades[q.id] === "known").length;
+      const fuzzy = flatQuestions.filter(q => state.grades[q.id] === "fuzzy").length;
+      const unknown = flatQuestions.filter(q => state.grades[q.id] === "unknown").length;
+      const pct = total ? Math.round(known / total * 100) : 0;
+      $("#statKnown").textContent = known;
+      $("#statFuzzy").textContent = fuzzy;
+      $("#statUnknown").textContent = unknown;
+      $("#progressText").textContent = `${known}/${total}`;
+      $("#progressPct").textContent = `${pct}%`;
+      $("#progressFill").style.width = `${pct}%`;
+    }
+    function renderSidebar() {
+      const allowed = new Set(filteredQuestions().map(q => q.id));
+      const list = $("#topicList");
+      list.innerHTML = "";
+      DATA.forEach(topic => {
+        const qs = topic.questions.filter(q => allowed.has(q.id));
+        if (!qs.length) return;
+        const topicEl = document.createElement("section");
+        topicEl.className = "topic";
+        const title = document.createElement("div");
+        title.className = "topic-title";
+        title.innerHTML = `<span>${topic.number}. ${escapeHtml(topic.title)} ${topic.key ? '<span class="key-tag">重点</span>' : ''}</span><small>${qs.length}题</small>`;
+        topicEl.appendChild(title);
+        qs.forEach(q => {
+          const grade = state.grades[q.id];
+          const btn = document.createElement("button");
+          btn.className = `question-link ${q.id === selectedId ? "active" : ""}`;
+          btn.type = "button";
+          btn.innerHTML = `<span class="q-num">${escapeHtml(q.number)}</span><span class="q-title">${escapeHtml(q.title)} ${(q.key || topic.key) ? '<span class="key-tag">重点</span>' : ''}</span><span class="status-pill ${statusClass(grade)}">${gradeLabel(grade)}</span>`;
+          btn.addEventListener("click", () => selectQuestion(q.id));
+          topicEl.appendChild(btn);
+        });
+        list.appendChild(topicEl);
+      });
+      if (!list.children.length) {
+        list.innerHTML = `<div class="empty-state" style="margin:0;padding:16px"><h2 style="font-size:18px">没有匹配题目</h2><p>换个关键词或筛选条件。</p></div>`;
+      }
+    }
+    function selectQuestion(id) {
+      selectedId = id;
+      revealed = 0;
+      state.lastSelected = id;
+      saveState();
+      render();
+      if (window.matchMedia("(max-width: 900px)").matches) document.querySelector(".main").scrollIntoView({ block: "start" });
+    }
+    function currentQuestion() { return flatQuestions.find(q => q.id === selectedId) || flatQuestions[0]; }
+    function renderMain() {
+      const q = currentQuestion();
+      const main = $("#studyCard");
+      if (!q) {
+        main.innerHTML = `<div class="empty-state"><h2>暂无题目</h2><p>没有从提纲中读取到题目。</p></div>`;
+        return;
+      }
+      const grade = state.grades[q.id];
+      const note = state.notes[q.id] || "";
+      main.innerHTML = `
+    <div class="eyebrow">专题${toChineseNumber(q.topicNumber)} · ${escapeHtml(q.topicTitle)} ${(q.key || q.topicKey) ? '<span class="key-tag">重点</span>' : ''}</div>
+    <h2 class="question-heading"><span style="color:var(--clay)">${escapeHtml(q.number)}</span>&nbsp; ${escapeHtml(q.title)}</h2>
+    <div class="meta-row">
+      <span class="source-chip">教材出处：第 ${escapeHtml(q.pages)} 页</span>
+      <span class="status-pill ${statusClass(grade)}">${gradeLabel(grade)}</span>
+      <span class="source-chip">${q.answers.length} 条原句</span>
+    </div>
+    <section class="recall-box">
+      <div class="recall-head"><span>默写区</span><button type="button" class="icon-btn" id="clearNoteBtn">清空</button></div>
+      <textarea id="noteArea" placeholder="先在这里默写答案，再展开原文对照。">${escapeHtml(note)}</textarea>
+    </section>
+    <section class="answer-panel">
+      <div class="answer-toolbar">
+        <span class="answer-count">已显示 ${Math.min(revealed, q.answers.length)} / ${q.answers.length}</span>
+        <div class="answer-actions">
+          <button type="button" class="icon-btn primary" id="nextBtn">显示下一条</button>
+          <button type="button" class="icon-btn" id="showAllBtn">全部显示</button>
+          <button type="button" class="icon-btn" id="hideAllBtn">全部隐藏</button>
+        </div>
+      </div>
+      <ol class="answers">
+        ${q.answers.map((ans, i) => i < revealed ? `<li><div class="answer-text">${escapeHtml(ans)}</div></li>` : `<li class="hidden-answer"><div class="answer-text"><button type="button" data-reveal="${i}">显示第 ${i + 1} 条原句</button></div></li>`).join("")}
+      </ol>
+    </section>
+    <section class="grade-card">
+      <div class="eyebrow">熟练度</div>
+      <div class="grade-row">
+        <button type="button" class="grade-btn known ${grade === 'known' ? 'active' : ''}" data-grade="known">会了</button>
+        <button type="button" class="grade-btn fuzzy ${grade === 'fuzzy' ? 'active' : ''}" data-grade="fuzzy">模糊</button>
+        <button type="button" class="grade-btn unknown ${grade === 'unknown' ? 'active' : ''}" data-grade="unknown">不会</button>
+      </div>
+    </section>
+  `;
+      $("#noteArea").addEventListener("input", e => { state.notes[q.id] = e.target.value; saveState(); });
+      $("#clearNoteBtn").addEventListener("click", () => { state.notes[q.id] = ""; saveState(); renderMain(); toast("默写区已清空"); });
+      $("#nextBtn").addEventListener("click", () => { revealed = Math.min(q.answers.length, revealed + 1); renderMain(); });
+      $("#showAllBtn").addEventListener("click", () => { revealed = q.answers.length; renderMain(); });
+      $("#hideAllBtn").addEventListener("click", () => { revealed = 0; renderMain(); });
+      $$('[data-reveal]').forEach(btn => btn.addEventListener("click", e => { revealed = Math.max(revealed, Number(e.currentTarget.dataset.reveal) + 1); renderMain(); }));
+      $$('[data-grade]').forEach(btn => btn.addEventListener("click", e => {
+        state.grades[q.id] = e.currentTarget.dataset.grade;
+        saveState();
+        render();
+        toast(`已标记：${gradeLabel(state.grades[q.id])}`);
+      }));
+    }
+    function randomPick(mode) {
+      let pool = flatQuestions;
+      if (mode === "key") pool = flatQuestions.filter(q => q.key || q.topicKey);
+      if (mode === "weak") pool = flatQuestions.filter(q => ["unknown", "fuzzy"].includes(state.grades[q.id]));
+      if (!pool.length) { toast("当前没有可抽题目"); return; }
+      const q = pool[Math.floor(Math.random() * pool.length)];
+      selectQuestion(q.id);
+      toast("已随机抽题");
+    }
+    function resetProgress() {
+      if (!confirm("确定清空熟练度和默写记录吗？")) return;
+      state = { grades: {}, notes: {}, lastSelected: selectedId };
+      saveState();
+      render();
+      toast("进度已清空");
+    }
+    function render() { renderStats(); renderSidebar(); renderMain(); }
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[ch]));
+    }
+    function toChineseNumber(n) {
+      return ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"][n] || n;
+    }
+    function init() {
+      $("#searchInput").addEventListener("input", e => { query = e.target.value; renderSidebar(); });
+      $$('[data-filter]').forEach(btn => btn.addEventListener("click", e => {
+        filter = e.currentTarget.dataset.filter;
+        $$('[data-filter]').forEach(b => b.classList.toggle("active", b.dataset.filter === filter));
+        renderSidebar();
+      }));
+      $("#randomAll").addEventListener("click", () => randomPick("all"));
+      $("#randomKey").addEventListener("click", () => randomPick("key"));
+      $("#randomWeak").addEventListener("click", () => randomPick("weak"));
+      $("#printBtn").addEventListener("click", () => window.print());
+      $("#resetBtn").addEventListener("click", resetProgress);
+      render();
+    }
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+
+</html>
