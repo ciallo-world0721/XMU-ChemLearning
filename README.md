@@ -1,5 +1,7 @@
 # XMU-ChemLearning
 
+![img](https://img.shields.io/github/repo-size/alkali210/XMU-ChemLearning?style=for-the-badge)
+
 整理了在 xmu 化院的学习资料，如果有侵权内容请联系我删除
 
 希望对你有所帮助，也欢迎提交 PR 补充资料
